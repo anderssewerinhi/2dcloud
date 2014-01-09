@@ -45,7 +45,7 @@ public class HelloWorld extends PFrame {
 		topLayer.addChild(c);
 
         final PCamera c2 = new PCamera();
-        c2.setBounds(30, 230, 200, 200);
+        c2.setBounds(80, 230, 200, 200);
         c2.scaleView(1.2);
         c2.addLayer(l);
         
