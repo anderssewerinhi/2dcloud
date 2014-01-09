@@ -5,6 +5,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>2d Tagcloud</name>
   <description>A pseudo-3d tagcloud implemented in 2D toolkit Piccolo</description>
+  <packaging>jar</packaging>
   
   <dependencies>
     <dependency>
@@ -27,5 +28,25 @@
     </dependency>
             
   </dependencies>
+  
+  <build>
+<plugins>
+<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>2.4</version>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <mainClass>demo.GraphTest</mainClass>
+                    </manifest>
+                </archive>
+                <descriptorRefs>
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+            </configuration>
+        </plugin>
+        </plugins>
+</build>
   
 </project>
