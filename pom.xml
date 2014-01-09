@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>humaninference</groupId>
+  <artifactId>2dcloud</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>2d Tagcloud</name>
+  <description>A pseudo-3d tagcloud implemented in 2D toolkit Piccolo</description>
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    
+     <dependency>
+      <groupId>org.piccolo2d</groupId>
+      <artifactId>piccolo2d-core</artifactId>
+      <version>1.3.1</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.piccolo2d</groupId>
+      <artifactId>piccolo2d-extras</artifactId>
+      <version>1.3.1</version>
+    </dependency>
+            
+  </dependencies>
+  
+</project>
