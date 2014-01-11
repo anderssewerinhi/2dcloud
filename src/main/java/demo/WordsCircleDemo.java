@@ -5,15 +5,16 @@ import java.awt.Font;
 
 import javax.swing.SwingUtilities;
 
-import edu.umd.cs.piccolo.PCamera;
-import edu.umd.cs.piccolo.PCanvas;
-import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolox.PFrame;
-import edu.umd.cs.piccolox.handles.PBoundsHandle;
 
 public class WordsCircleDemo extends PFrame{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private String names[] = {"Ankit","Bohra","Xyz","Claudia", "Anders","Kasper"};
 	
