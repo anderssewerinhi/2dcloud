@@ -10,7 +10,7 @@ import edu.umd.cs.piccolo.PCanvas;
 import edu.umd.cs.piccolo.util.PBounds;
 import edu.umd.cs.piccolox.PFrame;
 
-public class ImageClient extends PFrame implements Client {
+public class ImageClient extends PFrame implements Client, Animation.Observer {
 
     /**
      * 
@@ -44,7 +44,7 @@ public class ImageClient extends PFrame implements Client {
 	}
 
 	public void performAnimation(final Animation animation) {
-		animation.perform(world);
+		animation.perform(world, this);
 	}
 
 	public void setViewport(double xTopLeft, double yTopLeft) {
@@ -53,5 +53,9 @@ public class ImageClient extends PFrame implements Client {
 		bounds.x = xTopLeft;
 		bounds.y = yTopLeft;
 		camera.setViewBounds(bounds); 
+	}
+
+	public void onAnimationFinished() {
+		master.animationIsFinished();
 	}
 }

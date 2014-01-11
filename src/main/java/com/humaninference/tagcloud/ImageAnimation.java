@@ -1,5 +1,7 @@
 package com.humaninference.tagcloud;
 
+import edu.umd.cs.piccolo.activities.PActivity;
+import edu.umd.cs.piccolo.activities.PActivity.PActivityDelegate;
 import edu.umd.cs.piccolo.nodes.PImage;
 
 public class ImageAnimation implements Animation {
@@ -17,9 +19,23 @@ public class ImageAnimation implements Animation {
 	}
 	
 
-	public void perform(final World target) {
+	public void perform(final World target, final Observer obs) {
 		final PImage img = target.getImage(imgIdx);
-		img.animateToPositionScaleRotation(targetX, targetY, 1.0, 0.0, duration);
+		final PActivityDelegate del = new PActivityDelegate() {
+			
+			public void activityStepped(PActivity arg0) {
+			}
+			
+			public void activityStarted(PActivity arg0) {
+			}
+			
+			public void activityFinished(PActivity arg0) {
+				obs.onAnimationFinished();
+			}
+		};
+		final PActivity act = img.animateToPositionScaleRotation(targetX, targetY, 1.0, 0.0, duration);
+		act.setDelegate(del);
+		
 	}
 
 	public long duration() {

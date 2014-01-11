@@ -2,7 +2,11 @@ package com.humaninference.tagcloud;
 
 public interface Animation {
 
-	void perform(final World target);
+	public interface Observer {
+		void onAnimationFinished();
+	}
+	
+	void perform(final World target, Observer obs);
 	
 	long duration();
 }

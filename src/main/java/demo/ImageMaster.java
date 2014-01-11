@@ -31,37 +31,30 @@ public class ImageMaster implements Master {
 	
 	public synchronized void clientIsReady() {
 		if (++numClientsReady >= NUM_CLIENTS) {
+			numClientsReady = 0;
 			final Client c1 = clients.get(1);
 			c1.setViewport(100.0, 0);
 			
-			startRandomMovements();
+			startAnAnimation();
 		}
 	}
 
-	public void animationIsFinished() {
-		// TODO Auto-generated method stub
-
+	public synchronized void animationIsFinished() {
+		if (++numClientsReady >= NUM_CLIENTS) {
+			numClientsReady = 0;
+			startAnAnimation();
+		}
 	}
 	
-	private void startRandomMovements() {
+	private synchronized void startAnAnimation() {
 		final Random rnd = new Random();
-		final TimerTask task = new TimerTask() {
-
-			@Override
-			public void run() {
-				final double newX = 200.0 * rnd.nextDouble();
-				final double newY = 200.0 * rnd.nextDouble();
-				final long duration = rnd.nextInt(500);
-				final Animation imgAnim = new ImageAnimation(0, newX, newY, duration);
-				for (final Client c : clients) {
-					c.performAnimation(imgAnim);
-				}
-			}
-			
-		};
-		
-		final Timer timer = new Timer();
-		timer.scheduleAtFixedRate(task, 0, 1000);
+		final double newX = 200.0 * rnd.nextDouble();
+		final double newY = 200.0 * rnd.nextDouble();
+		final long duration = rnd.nextInt(500);
+		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration);
+		for (final Client c : clients) {
+			c.performAnimation(imgAnim);
+		}
 	}
 	
 	public final static void main(final String... args) {
