@@ -52,6 +52,6 @@ public class ImageClient extends PFrame implements Client {
 		PBounds bounds = camera.getViewBounds();
 		bounds.x = xTopLeft;
 		bounds.y = yTopLeft;
-		camera.setViewBounds(bounds);
+		camera.setViewBounds(bounds); 
 	}
 }
