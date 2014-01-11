@@ -64,7 +64,6 @@ public class WordsCircleDemo extends PFrame{
 		
 		SwingUtilities.invokeLater(new Runnable(){
 			
-			@Override
 			public void run(){
 				new WordsCircleDemo().setVisible(true);
 			}
