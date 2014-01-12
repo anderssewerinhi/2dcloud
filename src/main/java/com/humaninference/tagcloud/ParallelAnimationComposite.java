@@ -9,10 +9,13 @@ import java.util.List;
  *
  * A simple composite that executes a list of animations in parallel
  */
-public class ParallelAnimationComposite implements Animation, Animation.Observer {
-	
-	private long duration = 0;
-	
+public class ParallelAnimationComposite extends TaggedAnimation implements Animation.Observer {
+		
+	public ParallelAnimationComposite(final int tag) {
+		super(tag);
+	}
+
+
 	private final List<Animation> animations = new LinkedList<Animation>();
 	
 	private int numDone = 0;
@@ -20,8 +23,7 @@ public class ParallelAnimationComposite implements Animation, Animation.Observer
 	private Observer obs = null;
 	
 	public void addAnimation(final Animation animation) {
-		duration = Math.max(duration, animation.duration());
-		
+		animations.add(animation);
 	}
 	public synchronized void perform(final World target, final Observer obs) {
 		numDone = 0;
@@ -30,13 +32,10 @@ public class ParallelAnimationComposite implements Animation, Animation.Observer
 		}
 	}
 
-	public long duration() {
-		return duration;
-	}
 
-	public synchronized void onAnimationFinished() {
+	public synchronized void onAnimationFinished(final int tag) {
 		if (++numDone >= animations.size()) {
-			obs.onAnimationFinished();
+			obs.onAnimationFinished(tag()); // NB! We pass on the tag for the composite!
 		}
 	}
 

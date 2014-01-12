@@ -24,7 +24,8 @@ public interface Master {
 	 * All clients notify the master when the current animation is done. This way we 
 	 * can try to combat clock drift by having the clients synch up every once in a
 	 * while.
+	 * @param tag The tag of the animation that finished
 	 */
-	void animationIsFinished();
+	void animationIsFinished(final int tag);
 
 }

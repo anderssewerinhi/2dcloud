@@ -39,7 +39,7 @@ public class ImageMaster implements Master {
 		}
 	}
 
-	public synchronized void animationIsFinished() {
+	public synchronized void animationIsFinished(final int tag) {
 		if (++numClientsReady >= NUM_CLIENTS) {
 			numClientsReady = 0;
 			startAnAnimation();
@@ -51,7 +51,7 @@ public class ImageMaster implements Master {
 		final double newX = 200.0 * rnd.nextDouble();
 		final double newY = 200.0 * rnd.nextDouble();
 		final long duration = rnd.nextInt(500);
-		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration);
+		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration, 0);
 		for (final Client c : clients) {
 			c.performAnimation(imgAnim);
 		}

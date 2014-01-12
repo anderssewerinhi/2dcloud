@@ -55,7 +55,7 @@ public class ImageClient extends PFrame implements Client, Animation.Observer {
 		camera.setViewBounds(bounds); 
 	}
 
-	public void onAnimationFinished() {
-		master.animationIsFinished();
+	public void onAnimationFinished(final int tag) {
+		master.animationIsFinished(tag);
 	}
 }

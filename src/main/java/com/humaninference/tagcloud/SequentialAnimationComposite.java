@@ -9,14 +9,16 @@ import java.util.List;
  *
  * A simple composite that executes a list of animations in sequence
  */
-public class SequentialAnimationComposite implements Animation, Animation.Observer {
-	
-	private long duration = 0;
-	
+public class SequentialAnimationComposite extends TaggedAnimation implements Animation.Observer {
+		
+	public SequentialAnimationComposite(int tag) {
+		super(tag);
+	}
+
 	private final List<Animation> animations = new LinkedList<Animation>();
 		
 	public void addAnimation(final Animation animation) {
-		duration += animation.duration();
+		animations.add(animation);
 	}
 	
 	private static class ChainingObserver implements Observer {
@@ -35,9 +37,9 @@ public class SequentialAnimationComposite implements Animation, Animation.Observ
 			this.target = target;
 		}
 		
-		public void onAnimationFinished() {
+		public void onAnimationFinished(final int tag) {
 			if (idxofThisAnimation == animations.size() - 1) {
-				finalObserver.onAnimationFinished();
+				finalObserver.onAnimationFinished(tag);
 			} else {
 				final Observer nextObserver = new ChainingObserver(finalObserver, idxofThisAnimation + 1, animations, target);
 				animations.get(idxofThisAnimation + 1).perform(target, nextObserver);
@@ -47,19 +49,16 @@ public class SequentialAnimationComposite implements Animation, Animation.Observ
 	
 	public synchronized void perform(final World target, final Observer obs) {
 		if (animations.size() == 0) {
-			obs.onAnimationFinished();
+			obs.onAnimationFinished(tag());
 		} else {
 			final Observer nextObserver = new ChainingObserver(obs, 0, animations, target);
 			animations.get(0).perform(target, nextObserver);
 		}
 	}
 
-	public long duration() {
-		return duration;
-	}
-
-	public synchronized void onAnimationFinished() {
+	public synchronized void onAnimationFinished(int tag) {
 		throw new RuntimeException("This should never happen!");
 	}
+
 
 }
