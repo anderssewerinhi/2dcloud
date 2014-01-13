@@ -50,7 +50,7 @@ public class ImageMaster implements Master {
 		final Random rnd = new Random();
 		final double newX = 200.0 * rnd.nextDouble();
 		final double newY = 200.0 * rnd.nextDouble();
-		final long duration = rnd.nextInt(500);
+		final long duration = rnd.nextInt(500) + 1; // No animations with duration 0
 		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration, 0);
 		for (final Client c : clients) {
 			c.performAnimation(imgAnim);

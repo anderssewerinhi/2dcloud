@@ -34,10 +34,11 @@ public class ImageAnimation extends TaggedAnimation {
 				obs.onAnimationFinished(tag());
 			}
 		};
-		final PActivity act = img.animateToPositionScaleRotation(targetX, targetY, 1.0, 0.0, duration);
+		final PActivity act = 
+				img.animateToPositionScaleRotation(targetX, targetY, 1.0, 0.0, duration);
 		act.setDelegate(del);
-		
 	}
+
 
 	public long duration() {
 		return duration;
