@@ -6,6 +6,7 @@ import edu.umd.cs.piccolo.nodes.PImage;
 
 public class ImageAnimation extends TaggedAnimation {
 	
+	private static final long serialVersionUID = 1L;
 	private final double targetX;
 	private final double targetY;
 	private final long duration;

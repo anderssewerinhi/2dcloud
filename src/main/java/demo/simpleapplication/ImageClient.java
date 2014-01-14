@@ -39,10 +39,6 @@ public class ImageClient extends PFrame implements Client, Animation.Observer {
     	master.clientIsReady();
     }
 
-	public void setWorld(World world) {
-		throw new RuntimeException("Not implemented");
-	}
-
 	public void performAnimation(final Animation animation) {
 		animation.perform(world, this);
 	}
