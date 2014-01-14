@@ -1,5 +1,7 @@
 package com.humaninference.tagcloud;
 
+import java.rmi.Remote;
+
 /**
  * 
  * @author andersprivat
@@ -12,7 +14,7 @@ package com.humaninference.tagcloud;
  *   - The clients will all need to have told the master that they are ready before
  *     animation starts.
  */
-public interface Master {
+public interface Master extends Remote {
 	
 	/**
 	 * No reference needed - the master knows, and only needs to count the number of

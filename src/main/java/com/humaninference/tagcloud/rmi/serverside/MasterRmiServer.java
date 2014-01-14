@@ -21,7 +21,7 @@ public abstract class MasterRmiServer {
 	protected abstract Master makeMaster();
 	
 	public void startServer() throws RemoteException, AlreadyBoundException {
-		final RemoteMaster impl = new MasterRmiAdaptor(makeMaster());
+		final Master impl = new MasterRmiAdaptor(makeMaster());
 		final Registry registry = LocateRegistry.createRegistry(Constants.RMI_PORT_MASTER);
 		registry.bind(Constants.RMI_MASTER_NAME, impl);
 		System.out.println("Start is started");

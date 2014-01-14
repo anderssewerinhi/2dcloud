@@ -1,5 +1,7 @@
 package com.humaninference.tagcloud;
 
+import java.rmi.Remote;
+
 /**
  * 
  * @author andersprivat
@@ -10,7 +12,7 @@ package com.humaninference.tagcloud;
  * 
  * 
  */
-public interface Client {
+public interface Client extends Remote {
 	
 	/**
 	 * Perform this animation, then notify the Master that the animation is finished.
