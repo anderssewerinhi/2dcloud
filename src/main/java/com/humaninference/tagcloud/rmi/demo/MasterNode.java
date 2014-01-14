@@ -32,7 +32,7 @@ public class MasterNode implements Master {
 	
 	private final String clientLocations[];
 	
-	private final static int NUM_CLIENTS = 2;
+	private final static int NUM_CLIENTS = 1; // Was 2
 	
 	private int numClientsReady = 0;
 	
@@ -58,9 +58,10 @@ public class MasterNode implements Master {
 			// Great! We are good to go!
 			
 			numClientsReady = 0;
+			/*
 			final Client c1 = clients.get(1);
 			c1.setViewport(100.0, 0);
-			
+			*/
 			startAnAnimation();
 		}
 	}
@@ -86,7 +87,7 @@ public class MasterNode implements Master {
 	public final static void main(final String... args) throws RemoteException, AlreadyBoundException {
 		
 		// startMasterNode(args);
-		startMasterNode("192.168.1.101", "192.168.1.102");
+		startMasterNode("192.168.1.101"); // One client, on the Mac
 	}
 
 	private static void startMasterNode(final String... clientLocations)
@@ -102,9 +103,6 @@ public class MasterNode implements Master {
 		server.startServer();
 	}
 	
-	public final static void runOnWinLaptop() throws RemoteException, AlreadyBoundException {
-		main("192.168.1.101", "192.168.1.102");
-	}
 
 
 }

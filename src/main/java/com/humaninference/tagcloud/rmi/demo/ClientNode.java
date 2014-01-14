@@ -39,7 +39,7 @@ public class ClientNode implements Client {
 
 	public static final void main(final String... args) throws RemoteException, NotBoundException, AlreadyBoundException {
 		
-		startClientNode(args[0]);
+		startClientNode("192.168.1.102"); // Master is on the Window slaptop
 		
 		
 	}
