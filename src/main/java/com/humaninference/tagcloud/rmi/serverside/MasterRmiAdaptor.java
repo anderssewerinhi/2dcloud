@@ -14,7 +14,7 @@ import com.humaninference.tagcloud.Master;
  * This allows us to test a Master implementation locally without the whole RMI setup.
  * 
  */
-public class MasterRmiAdaptor extends UnicastRemoteObject implements Master {
+public class MasterRmiAdaptor extends UnicastRemoteObject implements RemoteMaster {
 	
 	private static final long serialVersionUID = 1L;
 	

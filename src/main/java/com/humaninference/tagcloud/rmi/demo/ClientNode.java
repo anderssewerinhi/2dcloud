@@ -20,7 +20,9 @@ public class ClientNode implements Client {
 	
 	public ClientNode(final String masterAddress) throws RemoteException, NotBoundException {
 		remoteMaster = new MasterRmiClient(masterAddress);
+		System.out.println("Got a master reference");
 		final ImageClient client = new ImageClient();
+		System.out.println("Created wrapped image client");
 		client.setMaster(remoteMaster);
 		wrapped = client;
 	}
