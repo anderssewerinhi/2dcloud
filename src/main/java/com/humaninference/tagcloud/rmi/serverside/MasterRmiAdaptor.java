@@ -1,4 +1,4 @@
-package com.humaninference.tagcloud.rmi;
+package com.humaninference.tagcloud.rmi.serverside;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
