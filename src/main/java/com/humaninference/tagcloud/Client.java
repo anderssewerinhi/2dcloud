@@ -13,13 +13,6 @@ package com.humaninference.tagcloud;
 public interface Client {
 	
 	/**
-	 * Allows the master to set a shared world for the clients to animate.
-	 * 
-	 * @param world The world to animate.
-	 */
-	void setWorld(final World world);
-	
-	/**
 	 * Perform this animation, then notify the Master that the animation is finished.
 	 *  
 	 * @param animation

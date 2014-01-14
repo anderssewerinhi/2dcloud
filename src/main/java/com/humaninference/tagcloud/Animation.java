@@ -1,5 +1,7 @@
 package com.humaninference.tagcloud;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author andersprivat
@@ -11,7 +13,7 @@ package com.humaninference.tagcloud;
  * 
  * Duration() may 
  */
-public interface Animation {
+public interface Animation extends Serializable {
 
 	public interface Observer {
 		void onAnimationFinished(final int tag);
