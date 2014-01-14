@@ -38,8 +38,6 @@ public class MasterNode extends UnicastRemoteObject implements Master {
 	
 	private final String clientLocations[];
 	
-	private final static int NUM_CLIENTS = 1; // Was 2
-	
 	private int numClientsReady = 0;
 	
 	public MasterNode(final String... clientLocations) throws RemoteException {
@@ -48,12 +46,18 @@ public class MasterNode extends UnicastRemoteObject implements Master {
 	}
 	
 	public synchronized void clientIsReady() throws RemoteException  {
-		if (++numClientsReady >= NUM_CLIENTS) {
+		System.out.println("Got the message that a client is ready (had " + numClientsReady + " ready clients before)");
+
+		if (++numClientsReady >= clientLocations.length) {
+			System.out.println("Creating the remote client references now");
+			System.out.println("Locations for clients are: " + clientLocations);
 			// OK, all the clients have a reference to us, and have checked in.
 			// Now we can create references to them using the well-known addresses.
 			for (final String address : clientLocations) {
 				try {
+					System.out.println("For " + address + "...");
 					final Client remoteClient = new ClientRmiClient(address);
+					System.out.println("Done creating remote client for " + address);
 					clients.add(remoteClient);
 				} catch (RemoteException e) {
 					throw new RuntimeException("Can't RMI to client on " + address, e);
@@ -69,12 +73,14 @@ public class MasterNode extends UnicastRemoteObject implements Master {
 			final Client c1 = clients.get(1);
 			c1.setViewport(100.0, 0);
 			*/
+			System.out.println("Will start the first animation now");
 			startAnAnimation();
+			System.out.println("First animation started");
 		}
 	}
 
 	public synchronized void animationIsFinished(final int tag) throws RemoteException {
-		if (++numClientsReady >= NUM_CLIENTS) {
+		if (++numClientsReady >= clientLocations.length) {
 			numClientsReady = 0;
 			startAnAnimation();
 		}
@@ -86,14 +92,23 @@ public class MasterNode extends UnicastRemoteObject implements Master {
 		final double newY = 200.0 * rnd.nextDouble();
 		final long duration = rnd.nextInt(500) + 1; // No animations with duration 0
 		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration, 0);
+		System.out.println("Animation ready - about to send to " + clients.size() + " clients");
 		for (final Client c : clients) {
+			System.out.println("Sending...");
 			c.performAnimation(imgAnim);
+			System.out.println("Sent");
 		}
+		System.out.println("Done sending animation");
 	}
 	
-	public static void main(final String... clientLocations)
+	public static void main(final String... args)
 			throws RemoteException, AlreadyBoundException {
-		final MasterNode node = new MasterNode(clientLocations);
+		final MasterNode node;
+		if (args.length ==0) {
+			node = new MasterNode("localhost");
+		} else {
+			node = new MasterNode(args);
+		}
 		final MasterRmiServer server = new MasterRmiServer(node);
 		server.startServer();
 	}

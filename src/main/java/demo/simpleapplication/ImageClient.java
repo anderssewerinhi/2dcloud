@@ -13,22 +13,26 @@ import edu.umd.cs.piccolo.util.PBounds;
 import edu.umd.cs.piccolox.PFrame;
 
 public class ImageClient extends PFrame implements Client, Animation.Observer {
+	
+	public interface Observer {
+		void imageClientIsReady();
+	}
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
 
     private World world;
     
     private Master master;
     
-    public ImageClient() {
-        this(null);
+    private final Observer obs;
+    
+    public ImageClient(Observer obs) {
+        this(null, obs);
     }
 
-    public ImageClient(final PCanvas aCanvas) {
+    public ImageClient(final PCanvas aCanvas, final Observer obs) {
         super("Image", false, aCanvas);
+        this.obs = obs;
     }
     
     public void setMaster(final Master master) {
@@ -38,11 +42,7 @@ public class ImageClient extends PFrame implements Client, Animation.Observer {
     public void initialize() {
     	world = new ImageWorld();
     	getCanvas().getLayer().addChild(world.getLayer());
-    	try {
-			master.clientIsReady();
-		} catch (RemoteException e) {
-			throw new RuntimeException(e);
-		}
+		obs.imageClientIsReady();
     }
 
 	public void performAnimation(final Animation animation) throws RemoteException {

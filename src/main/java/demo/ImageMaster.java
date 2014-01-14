@@ -4,8 +4,6 @@ import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
@@ -14,7 +12,7 @@ import com.humaninference.tagcloud.Master;
 
 import demo.simpleapplication.ImageClient;
 
-public class ImageMaster implements Master {
+public class ImageMaster implements Master, ImageClient.Observer {
 
 	private final List<Client> clients = new LinkedList<Client>();
 	
@@ -24,9 +22,17 @@ public class ImageMaster implements Master {
 	
 	public ImageMaster() {
 		for (int i = 0; i < NUM_CLIENTS; ++i) {
-			final ImageClient imageClient = new ImageClient();
+			final ImageClient imageClient = new ImageClient(this);
 			imageClient.setMaster(this);
 			clients.add(imageClient);
+		}
+	}
+	
+	public void imageClientIsReady() {
+		try {
+			this.clientIsReady();
+		} catch (RemoteException e) {
+			throw new RuntimeException(e);
 		}
 	}
 	

@@ -13,7 +13,7 @@ import com.humaninference.tagcloud.rmi.serverside.ClientRmiServer;
 
 import demo.simpleapplication.ImageClient;
 
-public class ClientNode  extends UnicastRemoteObject implements Client {
+public class ClientNode  extends UnicastRemoteObject implements Client, ImageClient.Observer {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -21,21 +21,26 @@ public class ClientNode  extends UnicastRemoteObject implements Client {
 	
 	private final Master remoteMaster;
 	
+	protected boolean serverIsReady = false; 
+	
 	public ClientNode(final String masterAddress) throws RemoteException, NotBoundException {
 		super();
 		remoteMaster = new MasterRmiClient(masterAddress);
 		System.out.println("Got a master reference");
-		final ImageClient client = new ImageClient();
+		final ImageClient client = new ImageClient(this);
 		System.out.println("Created wrapped image client");
 		client.setMaster(remoteMaster);
 		wrapped = client;
 	}
 	
 	private void tellMasterClientIsReady() throws RemoteException {
+		System.out.println("Telling master that this client is ready");
 		remoteMaster.clientIsReady(); 
+		System.out.println("Master should now know that this client is ready");
 	}
 	
 	public void performAnimation(Animation animation) throws RemoteException {
+		System.out.println("Got an animation request");
 		wrapped.performAnimation(animation);
 	}
 
@@ -45,7 +50,11 @@ public class ClientNode  extends UnicastRemoteObject implements Client {
 
 	public static final void main(final String... args) throws RemoteException, NotBoundException, AlreadyBoundException {
 		
-		startClientNode("localhost"); // Master is on the Windows laptop
+		if (args.length == 0) {
+			startClientNode("localhost"); // Master is on the Windows laptop
+		} else {
+			startClientNode(args[0]);
+		}
 		
 		
 	}
@@ -59,7 +68,21 @@ public class ClientNode  extends UnicastRemoteObject implements Client {
 		
 		server.startServer(); // Now the remote master can find us...
 		
-		client.tellMasterClientIsReady(); // ..so tell remote master to go ahead
+		client.serverIsReady = true;
+	}
+
+	@Override
+	public void imageClientIsReady() {
+		if (!serverIsReady) {
+			throw new RuntimeException("Race condition");
+		}
+		// ..so tell remote master to go ahead
+		try {
+			tellMasterClientIsReady();
+		} catch (RemoteException e) {
+			throw new RuntimeException(e);
+		} 
+		
 	}
 
 }
