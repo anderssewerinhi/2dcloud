@@ -15,12 +15,17 @@ import com.humaninference.tagcloud.rmi.Constants;
  * This  class starts an instance of a Client implementation, and exposes it
  * on the well-known port, with the well-known name.
  */
-public abstract class ClientRmiServer {
+public class ClientRmiServer {
+	
+	private final Client implementation;
+	
+	public ClientRmiServer(final Client implementation) {
+		this.implementation = implementation;
+	}
 
-	protected abstract Client makeClient();
 	
 	public void startServer() throws RemoteException, AlreadyBoundException {
-		final Client impl = new ClientRmiAdaptor(makeClient());
+		final Client impl = new ClientRmiAdaptor(implementation);
 		final Registry registry = LocateRegistry.createRegistry(Constants.RMI_PORT_CLIENT);
 		registry.bind(Constants.RMI_CLIENT_NAME, impl);
 		System.out.println("Start is started");

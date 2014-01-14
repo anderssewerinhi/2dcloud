@@ -16,15 +16,18 @@ import com.humaninference.tagcloud.rmi.Constants;
  * on the well-known port, with the well-known name.
  * 
  */
-public abstract class MasterRmiServer {
+public class MasterRmiServer {
 
-	protected abstract Master makeMaster();
+	private Master implementation;
+	
+	public MasterRmiServer(final Master implementation) {
+		this.implementation = implementation;
+	}
 	
 	public void startServer() throws RemoteException, AlreadyBoundException {
-		final Master impl = new MasterRmiAdaptor(makeMaster());
 		final Registry registry = LocateRegistry.createRegistry(Constants.RMI_PORT_MASTER);
-		registry.bind(Constants.RMI_MASTER_NAME, impl);
-		System.out.println("Start is started");
+		registry.bind(Constants.RMI_MASTER_NAME, implementation);
+		System.out.println("Master is started");
 	}
 	
 

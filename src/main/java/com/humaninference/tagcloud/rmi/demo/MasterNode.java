@@ -93,13 +93,7 @@ public class MasterNode implements Master {
 	private static void startMasterNode(final String... clientLocations)
 			throws RemoteException, AlreadyBoundException {
 		final MasterNode node = new MasterNode(clientLocations);
-		final MasterRmiServer server = new MasterRmiServer() {
-			
-			@Override
-			protected Master makeMaster() {
-				return node;
-			}
-		};
+		final MasterRmiServer server = new MasterRmiServer(node);
 		server.startServer();
 	}
 	

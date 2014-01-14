@@ -51,13 +51,7 @@ public class ClientNode implements Client {
 		// Create a client node that can be exposed with RMI for the master to find
 		final ClientNode client = new ClientNode(masterLocation);
 		
-		final ClientRmiServer server = new ClientRmiServer() {
-			
-			@Override
-			protected Client makeClient() {
-				return client;
-			}
-		};
+		final ClientRmiServer server = new ClientRmiServer(client);
 		
 		server.startServer(); // Now the remote master can find us...
 		
