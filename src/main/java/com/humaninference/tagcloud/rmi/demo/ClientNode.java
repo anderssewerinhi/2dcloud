@@ -21,7 +21,9 @@ public class ClientNode  extends UnicastRemoteObject implements Client, ImageCli
 	
 	private final Master remoteMaster;
 	
-	protected boolean serverIsReady = false; 
+	private boolean serverIsReady = false; 
+	
+	private boolean imageClientIsReady = false;
 	
 	public ClientNode(final String masterAddress) throws RemoteException, NotBoundException {
 		super();
@@ -68,21 +70,31 @@ public class ClientNode  extends UnicastRemoteObject implements Client, ImageCli
 		
 		server.startServer(); // Now the remote master can find us...
 		
-		client.serverIsReady = true;
+		client.serverIsReady();
 	}
 
-	@Override
-	public void imageClientIsReady() {
-		if (!serverIsReady) {
-			throw new RuntimeException("Race condition");
+	protected synchronized void serverIsReady() {
+		serverIsReady = true;
+		if (imageClientIsReady) {
+			// ..so tell remote master to go ahead
+			try {
+				tellMasterClientIsReady();
+			} catch (RemoteException e) {
+				throw new RuntimeException(e);
+			} 
 		}
-		// ..so tell remote master to go ahead
-		try {
-			tellMasterClientIsReady();
-		} catch (RemoteException e) {
-			throw new RuntimeException(e);
-		} 
 		
+	}
+	public synchronized void imageClientIsReady() {
+		imageClientIsReady = true;
+		if (serverIsReady) {
+			// ..so tell remote master to go ahead
+			try {
+				tellMasterClientIsReady();
+			} catch (RemoteException e) {
+				throw new RuntimeException(e);
+			} 
+		}		
 	}
 
 }
