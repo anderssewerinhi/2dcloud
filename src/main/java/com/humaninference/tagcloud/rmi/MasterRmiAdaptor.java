@@ -11,6 +11,8 @@ import com.humaninference.tagcloud.Master;
  *
  * An RMI facade for a Master running on the master node.
  * 
+ * This allows us to test a Master implementation locally without the whole RMI setup.
+ * 
  */
 public class MasterRmiAdaptor extends UnicastRemoteObject implements Master {
 	

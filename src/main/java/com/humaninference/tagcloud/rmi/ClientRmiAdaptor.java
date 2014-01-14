@@ -12,6 +12,8 @@ import com.humaninference.tagcloud.Client;
  * 
  * Wraps a Client object in an unicasting RMI thingamajig.
  * 
+ * This allows us to test a Client implementation locally without the whole RMI setup.
+ * 
  */
 public class ClientRmiAdaptor extends UnicastRemoteObject implements Client {
 
