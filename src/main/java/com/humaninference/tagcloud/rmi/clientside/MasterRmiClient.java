@@ -18,11 +18,11 @@ public class MasterRmiClient implements Master {
 		remote = (Master) registry.lookup(Constants.RMI_MASTER_NAME);
 	}
 
-	public void clientIsReady() {
+	public void clientIsReady() throws RemoteException {
 		remote.clientIsReady();
 	}
 
-	public void animationIsFinished(int tag) {
+	public void animationIsFinished(int tag) throws RemoteException {
 		remote.animationIsFinished(tag);
 	}
 

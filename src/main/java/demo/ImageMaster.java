@@ -1,5 +1,6 @@
 package demo;
 
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -29,7 +30,7 @@ public class ImageMaster implements Master {
 		}
 	}
 	
-	public synchronized void clientIsReady() {
+	public synchronized void clientIsReady() throws RemoteException  {
 		if (++numClientsReady >= NUM_CLIENTS) {
 			numClientsReady = 0;
 			final Client c1 = clients.get(1);
@@ -39,14 +40,14 @@ public class ImageMaster implements Master {
 		}
 	}
 
-	public synchronized void animationIsFinished(final int tag) {
+	public synchronized void animationIsFinished(final int tag) throws RemoteException  {
 		if (++numClientsReady >= NUM_CLIENTS) {
 			numClientsReady = 0;
 			startAnAnimation();
 		}
 	}
 	
-	private synchronized void startAnAnimation() {
+	private synchronized void startAnAnimation() throws RemoteException {
 		final Random rnd = new Random();
 		final double newX = 200.0 * rnd.nextDouble();
 		final double newY = 200.0 * rnd.nextDouble();

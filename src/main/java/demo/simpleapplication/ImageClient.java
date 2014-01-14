@@ -1,5 +1,7 @@
 package demo.simpleapplication;
 
+import java.rmi.RemoteException;
+
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
@@ -36,10 +38,14 @@ public class ImageClient extends PFrame implements Client, Animation.Observer {
     public void initialize() {
     	world = new ImageWorld();
     	getCanvas().getLayer().addChild(world.getLayer());
-    	master.clientIsReady();
+    	try {
+			master.clientIsReady();
+		} catch (RemoteException e) {
+			throw new RuntimeException(e);
+		}
     }
 
-	public void performAnimation(final Animation animation) {
+	public void performAnimation(final Animation animation) throws RemoteException {
 		animation.perform(world, this);
 	}
 
@@ -52,6 +58,11 @@ public class ImageClient extends PFrame implements Client, Animation.Observer {
 	}
 
 	public void onAnimationFinished(final int tag) {
-		master.animationIsFinished(tag);
+		try {
+			master.animationIsFinished(tag);
+		} catch (RemoteException e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 }

@@ -3,6 +3,7 @@ package com.humaninference.tagcloud.rmi.demo;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
@@ -12,13 +13,16 @@ import com.humaninference.tagcloud.rmi.serverside.ClientRmiServer;
 
 import demo.simpleapplication.ImageClient;
 
-public class ClientNode implements Client {
+public class ClientNode  extends UnicastRemoteObject implements Client {
 	
+	private static final long serialVersionUID = 1L;
+
 	private final Client wrapped;
 	
 	private final Master remoteMaster;
 	
 	public ClientNode(final String masterAddress) throws RemoteException, NotBoundException {
+		super();
 		remoteMaster = new MasterRmiClient(masterAddress);
 		System.out.println("Got a master reference");
 		final ImageClient client = new ImageClient();
@@ -27,21 +31,21 @@ public class ClientNode implements Client {
 		wrapped = client;
 	}
 	
-	private void tellMasterCLientIsReady() {
+	private void tellMasterClientIsReady() throws RemoteException {
 		remoteMaster.clientIsReady(); 
 	}
 	
-	public void performAnimation(Animation animation) {
+	public void performAnimation(Animation animation) throws RemoteException {
 		wrapped.performAnimation(animation);
 	}
 
-	public void setViewport(double xTopLeft, double yTopLeft) {
+	public void setViewport(double xTopLeft, double yTopLeft) throws RemoteException {
 		wrapped.setViewport(xTopLeft, yTopLeft);
 	}
 
 	public static final void main(final String... args) throws RemoteException, NotBoundException, AlreadyBoundException {
 		
-		startClientNode("192.168.1.102"); // Master is on the Window slaptop
+		startClientNode("localhost"); // Master is on the Windows laptop
 		
 		
 	}
@@ -55,7 +59,7 @@ public class ClientNode implements Client {
 		
 		server.startServer(); // Now the remote master can find us...
 		
-		client.tellMasterCLientIsReady(); // ..so tell remote master to go ahead
+		client.tellMasterClientIsReady(); // ..so tell remote master to go ahead
 	}
 
 }

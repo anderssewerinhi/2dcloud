@@ -19,11 +19,11 @@ public class ClientRmiClient implements Client {
 		remote = (Client) registry.lookup(Constants.RMI_CLIENT_NAME);
 	}
 
-	public void performAnimation(Animation animation) {
+	public void performAnimation(Animation animation) throws RemoteException {
 		remote.performAnimation(animation);
 	}
 
-	public void setViewport(double xTopLeft, double yTopLeft) {
+	public void setViewport(double xTopLeft, double yTopLeft) throws RemoteException {
 		remote.setViewport(xTopLeft, yTopLeft);
 	}
 

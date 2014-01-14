@@ -1,6 +1,9 @@
 package com.humaninference.tagcloud;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+
 
 /**
  * 
@@ -20,7 +23,7 @@ public interface Master extends Remote {
 	 * No reference needed - the master knows, and only needs to count the number of
 	 * ready clients.
 	 */
-	void clientIsReady();
+	void clientIsReady() throws RemoteException ;
 	
 	/**
 	 * All clients notify the master when the current animation is done. This way we 
@@ -28,6 +31,6 @@ public interface Master extends Remote {
 	 * while.
 	 * @param tag The tag of the animation that finished
 	 */
-	void animationIsFinished(final int tag);
+	void animationIsFinished(final int tag) throws RemoteException;
 
 }

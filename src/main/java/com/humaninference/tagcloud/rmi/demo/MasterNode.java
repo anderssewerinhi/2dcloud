@@ -3,6 +3,9 @@ package com.humaninference.tagcloud.rmi.demo;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -11,6 +14,7 @@ import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.ImageAnimation;
 import com.humaninference.tagcloud.Master;
+import com.humaninference.tagcloud.rmi.Constants;
 import com.humaninference.tagcloud.rmi.clientside.ClientRmiClient;
 import com.humaninference.tagcloud.rmi.serverside.MasterRmiServer;
 
@@ -26,8 +30,10 @@ import com.humaninference.tagcloud.rmi.serverside.MasterRmiServer;
  * to them and starts animation.
  * 
  */
-public class MasterNode implements Master {
+public class MasterNode extends UnicastRemoteObject implements Master {
 	
+	private static final long serialVersionUID = 1L;
+
 	private final List<Client> clients = new LinkedList<Client>();
 	
 	private final String clientLocations[];
@@ -36,11 +42,12 @@ public class MasterNode implements Master {
 	
 	private int numClientsReady = 0;
 	
-	public MasterNode(final String... clientLocations) {
+	public MasterNode(final String... clientLocations) throws RemoteException {
+		super();
 		this.clientLocations = clientLocations;
 	}
 	
-	public synchronized void clientIsReady() {
+	public synchronized void clientIsReady() throws RemoteException  {
 		if (++numClientsReady >= NUM_CLIENTS) {
 			// OK, all the clients have a reference to us, and have checked in.
 			// Now we can create references to them using the well-known addresses.
@@ -66,14 +73,14 @@ public class MasterNode implements Master {
 		}
 	}
 
-	public synchronized void animationIsFinished(final int tag) {
+	public synchronized void animationIsFinished(final int tag) throws RemoteException {
 		if (++numClientsReady >= NUM_CLIENTS) {
 			numClientsReady = 0;
 			startAnAnimation();
 		}
 	}
 	
-	private synchronized void startAnAnimation() {
+	private synchronized void startAnAnimation() throws RemoteException {
 		final Random rnd = new Random();
 		final double newX = 200.0 * rnd.nextDouble();
 		final double newY = 200.0 * rnd.nextDouble();
@@ -84,13 +91,7 @@ public class MasterNode implements Master {
 		}
 	}
 	
-	public final static void main(final String... args) throws RemoteException, AlreadyBoundException {
-		
-		// startMasterNode(args);
-		startMasterNode("192.168.1.101"); // One client, on the Mac
-	}
-
-	private static void startMasterNode(final String... clientLocations)
+	public static void main(final String... clientLocations)
 			throws RemoteException, AlreadyBoundException {
 		final MasterNode node = new MasterNode(clientLocations);
 		final MasterRmiServer server = new MasterRmiServer(node);

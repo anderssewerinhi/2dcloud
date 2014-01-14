@@ -26,11 +26,11 @@ public class ClientRmiAdaptor extends UnicastRemoteObject implements Client {
 
 	private static final long serialVersionUID = 1L;
 
-	public void performAnimation(final Animation animation) {
+	public void performAnimation(final Animation animation) throws RemoteException {
 		wrapped.performAnimation(animation);
 	}
 
-	public void setViewport(double xTopLeft, double yTopLeft) {
+	public void setViewport(double xTopLeft, double yTopLeft) throws RemoteException {
 		wrapped.setViewport(xTopLeft, yTopLeft);
 	}
 
