@@ -20,6 +20,9 @@ public class ImageAnimation extends TaggedAnimation {
 		this.targetX = targetX;
 		this.targetY = targetY;
 		this.duration = duration;
+		if (duration == 0) {
+			throw new RuntimeException("Duration must be > 0");
+		}
 	}
 	
 
