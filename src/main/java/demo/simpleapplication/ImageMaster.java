@@ -1,4 +1,4 @@
-package demo;
+package demo.simpleapplication;
 
 import java.rmi.RemoteException;
 import java.util.LinkedList;
@@ -9,10 +9,9 @@ import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.ImageAnimation;
 import com.humaninference.tagcloud.Master;
+import com.humaninference.tagcloud.PFrameClient;
 
-import demo.simpleapplication.ImageClient;
-
-public class ImageMaster implements Master, ImageClient.Observer {
+public class ImageMaster implements Master, PFrameClient.Observer {
 
 	private final List<Client> clients = new LinkedList<Client>();
 	
@@ -22,13 +21,14 @@ public class ImageMaster implements Master, ImageClient.Observer {
 	
 	public ImageMaster() {
 		for (int i = 0; i < NUM_CLIENTS; ++i) {
-			final ImageClient imageClient = new ImageClient(this);
+			final PFrameClient imageClient = new PFrameClient("Image Client", this);
+			imageClient.setWorld(new ImageWorld());
 			imageClient.setMaster(this);
 			clients.add(imageClient);
 		}
 	}
 	
-	public void imageClientIsReady() {
+	public void pframeClientIsReady() {
 		try {
 			this.clientIsReady();
 		} catch (RemoteException e) {

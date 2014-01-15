@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class SequentialAnimationComposite extends TaggedAnimation implements Animation.Observer {
 		
+	private static final long serialVersionUID = 1L;
+
 	public SequentialAnimationComposite(int tag) {
 		super(tag);
 	}

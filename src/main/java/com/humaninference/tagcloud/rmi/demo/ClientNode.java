@@ -8,12 +8,13 @@ import java.rmi.server.UnicastRemoteObject;
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
+import com.humaninference.tagcloud.PFrameClient;
 import com.humaninference.tagcloud.rmi.clientside.MasterRmiClient;
 import com.humaninference.tagcloud.rmi.serverside.ClientRmiServer;
 
-import demo.simpleapplication.ImageClient;
+import demo.simpleapplication.ImageWorld;
 
-public class ClientNode  extends UnicastRemoteObject implements Client, ImageClient.Observer {
+public class ClientNode  extends UnicastRemoteObject implements Client, PFrameClient.Observer {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -25,11 +26,14 @@ public class ClientNode  extends UnicastRemoteObject implements Client, ImageCli
 	
 	private boolean imageClientIsReady = false;
 	
+	int animationIdx = 0;
+	
 	public ClientNode(final String masterAddress) throws RemoteException, NotBoundException {
 		super();
 		remoteMaster = new MasterRmiClient(masterAddress);
 		System.out.println("Got a master reference");
-		final ImageClient client = new ImageClient(this);
+		final PFrameClient client = new PFrameClient("Image client", this);
+		client.setWorld(new ImageWorld());
 		System.out.println("Created wrapped image client");
 		client.setMaster(remoteMaster);
 		wrapped = client;
@@ -42,7 +46,7 @@ public class ClientNode  extends UnicastRemoteObject implements Client, ImageCli
 	}
 	
 	public void performAnimation(Animation animation) throws RemoteException {
-		System.out.println("Got an animation request");
+		System.out.println(String.format("Got an animation request (#%d)", ++animationIdx));
 		wrapped.performAnimation(animation);
 	}
 
@@ -85,7 +89,7 @@ public class ClientNode  extends UnicastRemoteObject implements Client, ImageCli
 		}
 		
 	}
-	public synchronized void imageClientIsReady() {
+	public synchronized void pframeClientIsReady() {
 		imageClientIsReady = true;
 		if (serverIsReady) {
 			// ..so tell remote master to go ahead

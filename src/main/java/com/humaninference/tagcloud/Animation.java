@@ -9,7 +9,10 @@ import java.io.Serializable;
  * An interface for an animation. 
  * 
  * Note tag() method - this allows the recipient of callback onAnimationFInished to 
- * coordinate several threads of animations if so desired.
+ * coordinate several threads of animations if so desired. 
+ * 
+ * A typical use case would be to have each tag value correspond to a layer in the
+ * world.
  * 
  * Duration() may 
  */

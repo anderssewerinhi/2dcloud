@@ -3,8 +3,6 @@ package com.humaninference.tagcloud.rmi.demo;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +12,6 @@ import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.ImageAnimation;
 import com.humaninference.tagcloud.Master;
-import com.humaninference.tagcloud.rmi.Constants;
 import com.humaninference.tagcloud.rmi.clientside.ClientRmiClient;
 import com.humaninference.tagcloud.rmi.serverside.MasterRmiServer;
 

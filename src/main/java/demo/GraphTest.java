@@ -20,6 +20,8 @@ import edu.umd.cs.piccolox.handles.PBoundsHandle;
 
 public class GraphTest extends  PFrame {
 
+	private static final long serialVersionUID = 1L;
+
 	public GraphTest() {
 		this(null);
 	}

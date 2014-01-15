@@ -22,6 +22,8 @@ public interface Master extends Remote {
 	/**
 	 * No reference needed - the master knows, and only needs to count the number of
 	 * ready clients.
+	 * 
+	 * @throws RemoteException The "usual" RMI reasons.
 	 */
 	void clientIsReady() throws RemoteException ;
 	
@@ -29,7 +31,9 @@ public interface Master extends Remote {
 	 * All clients notify the master when the current animation is done. This way we 
 	 * can try to combat clock drift by having the clients synch up every once in a
 	 * while.
+	 * 
 	 * @param tag The tag of the animation that finished
+	 * @throws RemoteException The "usual" RMI reasons.
 	 */
 	void animationIsFinished(final int tag) throws RemoteException;
 
