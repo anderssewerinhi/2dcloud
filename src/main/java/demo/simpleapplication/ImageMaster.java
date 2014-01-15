@@ -21,9 +21,8 @@ public class ImageMaster implements Master, PFrameClient.Observer {
 	
 	public ImageMaster() {
 		for (int i = 0; i < NUM_CLIENTS; ++i) {
-			final PFrameClient imageClient = new PFrameClient("Image Client", this);
-			imageClient.setWorld(new ImageWorld());
-			imageClient.setMaster(this);
+			final PFrameClient imageClient = 
+					new PFrameClient("Image Client", this, new ImageWorld(), this);
 			clients.add(imageClient);
 		}
 	}

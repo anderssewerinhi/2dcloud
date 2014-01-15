@@ -32,10 +32,8 @@ public class ClientNode  extends UnicastRemoteObject implements Client, PFrameCl
 		super();
 		remoteMaster = new MasterRmiClient(masterAddress);
 		System.out.println("Got a master reference");
-		final PFrameClient client = new PFrameClient("Image client", this);
-		client.setWorld(new ImageWorld());
+		final PFrameClient client = new PFrameClient("Image client", this, new ImageWorld(), remoteMaster);
 		System.out.println("Created wrapped image client");
-		client.setMaster(remoteMaster);
 		wrapped = client;
 	}
 	

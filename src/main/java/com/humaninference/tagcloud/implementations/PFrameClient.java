@@ -12,9 +12,34 @@ import edu.umd.cs.piccolo.PCanvas;
 import edu.umd.cs.piccolo.util.PBounds;
 import edu.umd.cs.piccolox.PFrame;
 
+/**
+ * 
+ * @author andersprivat
+ * 
+ * A base class for rendering animations on a PFrame client.
+ * 
+ * This class takes care of constructing the PFrame, connecting the canvas
+ * to the layer(s) in the World, and coordinating the program flow.
+ * 
+ * Note the Observer: A PFrame takes a while to get ready, and can't handle
+ * any requests until initialize() is in progress, and the world has been 
+ * hooked up to the canvas. 
+ *
+ */
 public class PFrameClient extends PFrame implements Client, Animation.Observer {
 	
+	/**
+	 * 
+	 * @author andersprivat
+	 * 
+	 * Do NOT start using an instance of this class, until you have received the
+	 * pframeClientIsReady() event! 
+	 */
 	public interface Observer {
+		
+		/**
+		 * Client can accept requests for animation once you have received this event.
+		 */
 		void pframeClientIsReady();
 	}
 
@@ -26,24 +51,17 @@ public class PFrameClient extends PFrame implements Client, Animation.Observer {
     
     private final Observer obs;
     
-    public PFrameClient(final String title, Observer obs) {
-        this(title, null, obs);
+    public PFrameClient(final String title, Observer obs, final World world, final Master master) {
+        this(title, null, obs, world, master);
     }
 
-    public PFrameClient(final String title, final PCanvas aCanvas, final Observer obs) {
+    public PFrameClient(final String title, final PCanvas aCanvas, final Observer obs, final World world, final Master master) {
         super(title, false, aCanvas);
+        this.world = world;
+        this.master = master;
         this.obs = obs;
     }
     
-    
-    public void setMaster(final Master master) {
-        this.master = master;
-    }
-    
-    public void setWorld(final World world) {
-    	this.world = world;
-    }
-
     public void initialize() {
     	getCanvas().getLayer().addChild(world.getLayer());
 		obs.pframeClientIsReady();
