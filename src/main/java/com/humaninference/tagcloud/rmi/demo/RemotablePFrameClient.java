@@ -7,12 +7,10 @@ import java.rmi.server.UnicastRemoteObject;
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
+import com.humaninference.tagcloud.World;
 import com.humaninference.tagcloud.implementations.PFrameClient;
-import com.humaninference.tagcloud.rmi.clientside.RemoteInstanceFactory;
 
-import demo.simpleapplication.ImageWorld;
-
-public class ClientNodeBase extends UnicastRemoteObject implements PFrameClient.Observer {
+public class RemotablePFrameClient extends UnicastRemoteObject implements PFrameClient.Observer, Client {
 
 	private static final long serialVersionUID = 1L;
 	protected final Client wrapped;
@@ -21,17 +19,13 @@ public class ClientNodeBase extends UnicastRemoteObject implements PFrameClient.
 	private boolean imageClientIsReady = false;
 	int animationIdx = 0;
 
-	public ClientNodeBase(final String masterAddress, final RemoteInstanceFactory masterFactory) throws RemoteException, NotBoundException {
-		this(masterFactory.makeMaster(masterAddress));
-	}
-
-	public ClientNodeBase(final Master remoteMaster) throws RemoteException, NotBoundException {
+	public RemotablePFrameClient(final Master remoteMaster, final World world) throws RemoteException, NotBoundException {
 		super();
 		this.remoteMaster = remoteMaster;
 		System.out.println("Got a master reference");
 		// Create the wrapped client that will do the actual graphics 
 		// (needs a reference to the master...)...
-		wrapped = new PFrameClient("Image client", this, new ImageWorld(), remoteMaster);
+		wrapped = new PFrameClient("Image client", this, world, remoteMaster);
 		System.out.println("Created wrapped image client");
 
 	}

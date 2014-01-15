@@ -4,22 +4,15 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
 import com.humaninference.tagcloud.rmi.clientside.RemoteInstanceFactory;
 import com.humaninference.tagcloud.rmi.serverside.ClientRmiServer;
 
+import demo.simpleapplication.ImageWorld;
 
-public class ClientNode  extends ClientNodeBase implements Client {
+
+public class ClientNode {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	public ClientNode(Master master) throws RemoteException, NotBoundException {
-		super(master);
-	}
 
 	public static final void main(final String... args) throws RemoteException, NotBoundException, AlreadyBoundException {
 		
@@ -34,7 +27,7 @@ public class ClientNode  extends ClientNodeBase implements Client {
 		// Create a client node that can be exposed with RMI for the master to find
 		// Needs a reference to the master, so it can tell the master that it's ready to accept animation requests
 		// The client node will create a wrapped pFrame on itself. The coupling is a bit tight - sorry!
-		final ClientNode client = new ClientNode(rmiMaster);
+		final RemotablePFrameClient client = new RemotablePFrameClient(rmiMaster, new ImageWorld());
 		
 		// Expose it over RMI by wrapping it in a ClientRmiServer
 		final ClientRmiServer server = new ClientRmiServer(client);
