@@ -66,10 +66,8 @@ public class MasterNode extends UnicastRemoteObject implements Master {
 			// Great! We are good to go!
 			
 			numClientsReady = 0;
-			/*
-			final Client c1 = clients.get(1);
-			c1.setViewport(100.0, 0);
-			*/
+			System.out.println("Shifting first clients viewport 100 pixels to the right");
+			clients.get(0).setViewport(100.0, 0);
 			System.out.println("Will start the first animation now");
 			startAnAnimation();
 			System.out.println("First animation started");
