@@ -31,22 +31,25 @@ public class SequentialAnimationComposite extends TaggedAnimation implements Ani
 		private final int idxofThisAnimation;
 		private final List<Animation> animations;
 		private final World target;
+		private final int tagOfSequentialAnimation;
 		
 		public ChainingObserver(final Observer finalObserver,
 								final int idxofThisAnimation,
 								final List<Animation> animations,
-								final World target) {
+								final World target,
+								final int tagOfSequentialAnimation) {
 			this.finalObserver = finalObserver;
 			this.idxofThisAnimation = idxofThisAnimation;
 			this.animations = animations;
 			this.target = target;
+			this.tagOfSequentialAnimation = tagOfSequentialAnimation;
 		}
 		
 		public void onAnimationFinished(final int tag) {
 			if (idxofThisAnimation == animations.size() - 1) {
-				finalObserver.onAnimationFinished(tag);
+				finalObserver.onAnimationFinished(tagOfSequentialAnimation);
 			} else {
-				final Observer nextObserver = new ChainingObserver(finalObserver, idxofThisAnimation + 1, animations, target);
+				final Observer nextObserver = new ChainingObserver(finalObserver, idxofThisAnimation + 1, animations, target, tagOfSequentialAnimation);
 				animations.get(idxofThisAnimation + 1).perform(target, nextObserver);
 			}
 		}
@@ -56,7 +59,7 @@ public class SequentialAnimationComposite extends TaggedAnimation implements Ani
 		if (animations.size() == 0) {
 			obs.onAnimationFinished(tag());
 		} else {
-			final Observer nextObserver = new ChainingObserver(obs, 0, animations, target);
+			final Observer nextObserver = new ChainingObserver(obs, 0, animations, target, tag());
 			animations.get(0).perform(target, nextObserver);
 		}
 	}

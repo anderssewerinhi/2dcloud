@@ -1,77 +1,13 @@
 package com.humaninference.tagcloud.implementations;
 
-import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.World;
 
-import edu.umd.cs.piccolo.PLayer;
-import edu.umd.cs.piccolo.nodes.PImage;
-import edu.umd.cs.piccolo.nodes.PPath;
-import edu.umd.cs.piccolo.nodes.PText;
 import junit.framework.TestCase;
 
 public class TestParallelAnimationComposite extends TestCase {
 	
 	public void testCanCreate() {
 		new ParallelAnimationComposite(42);
-	}
-	
-	private class TestAnimation extends TaggedAnimation {
-		
-		public TestAnimation(int tag) {
-			super(tag);
-		}
-
-		private static final long serialVersionUID = 1L;
-		
-		public int numExecutions = 0; 
-		
-		public World lastWorld = null;
-
-		@Override
-		public void perform(World target, Observer obs) {
-			lastWorld = target;
-			++numExecutions;
-			obs.onAnimationFinished(tag());
-		}
-
-	}
-	
-	private class TestObserver implements Animation.Observer {
-
-		@Override
-		public void onAnimationFinished(int tag) {
-			++numExecutions;
-			lastTag = tag;
-		}
-		
-		public int numExecutions = 0; 
-		
-		public int lastTag = -1;
-
-	}
-	
-	private class TestWorld implements World {
-		
-		@Override
-		public PText getTextLabel(int idx) {
-			throw new RuntimeException("Not implemented");
-		}
-
-		@Override
-		public PPath getEdge(int idx) {
-			throw new RuntimeException("Not implemented");
-		}
-
-		@Override
-		public PImage getImage(int idx) {
-			throw new RuntimeException("Not implemented");
-		}
-
-		@Override
-		public PLayer getLayer() {
-			throw new RuntimeException("Not implemented");
-		}
-		
 	}
 	
 	public void testCanExecuteOneAnimation() {
