@@ -1,4 +1,6 @@
-package com.humaninference.tagcloud;
+package com.humaninference.tagcloud.implementations;
+
+import com.humaninference.tagcloud.World;
 
 import edu.umd.cs.piccolo.activities.PActivity;
 import edu.umd.cs.piccolo.activities.PActivity.PActivityDelegate;

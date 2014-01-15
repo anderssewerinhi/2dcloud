@@ -7,9 +7,9 @@ import java.util.Random;
 
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
-import com.humaninference.tagcloud.ImageAnimation;
 import com.humaninference.tagcloud.Master;
-import com.humaninference.tagcloud.PFrameClient;
+import com.humaninference.tagcloud.implementations.ImageAnimation;
+import com.humaninference.tagcloud.implementations.PFrameClient;
 
 public class ImageMaster implements Master, PFrameClient.Observer {
 

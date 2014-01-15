@@ -1,4 +1,6 @@
-package com.humaninference.tagcloud;
+package com.humaninference.tagcloud.implementations;
+
+import com.humaninference.tagcloud.Animation;
 
 /**
  * 

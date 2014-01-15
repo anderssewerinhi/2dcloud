@@ -1,7 +1,10 @@
-package com.humaninference.tagcloud;
+package com.humaninference.tagcloud.implementations;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import com.humaninference.tagcloud.Animation;
+import com.humaninference.tagcloud.World;
 
 /**
  * 

@@ -8,7 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
-import com.humaninference.tagcloud.PFrameClient;
+import com.humaninference.tagcloud.implementations.PFrameClient;
 import com.humaninference.tagcloud.rmi.clientside.MasterRmiClient;
 import com.humaninference.tagcloud.rmi.serverside.ClientRmiServer;
 

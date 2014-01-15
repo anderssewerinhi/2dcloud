@@ -1,6 +1,11 @@
-package com.humaninference.tagcloud;
+package com.humaninference.tagcloud.implementations;
 
 import java.rmi.RemoteException;
+
+import com.humaninference.tagcloud.Animation;
+import com.humaninference.tagcloud.Client;
+import com.humaninference.tagcloud.Master;
+import com.humaninference.tagcloud.World;
 
 import edu.umd.cs.piccolo.PCamera;
 import edu.umd.cs.piccolo.PCanvas;

@@ -2,6 +2,8 @@ package com.humaninference.tagcloud;
 
 import java.util.Random;
 
+import com.humaninference.tagcloud.implementations.TaggedAnimation;
+
 import junit.framework.TestCase;
 
 public class TestTaggedAnimation extends TestCase {
