@@ -3,100 +3,47 @@ package com.humaninference.tagcloud.rmi.demo;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
-import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
-import com.humaninference.tagcloud.implementations.PFrameClient;
-import com.humaninference.tagcloud.rmi.clientside.MakeRemoteInstance;
+import com.humaninference.tagcloud.rmi.clientside.RemoteInstanceFactory;
 import com.humaninference.tagcloud.rmi.serverside.ClientRmiServer;
 
-import demo.simpleapplication.ImageWorld;
 
-public class ClientNode  extends UnicastRemoteObject implements Client, PFrameClient.Observer {
+public class ClientNode  extends ClientNodeBase implements Client {
 	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
-	private final Client wrapped;
-	
-	private final Master remoteMaster;
-	
-	private boolean serverIsReady = false; 
-	
-	private boolean imageClientIsReady = false;
-	
-	int animationIdx = 0;
-	
-	public ClientNode(final String masterAddress) throws RemoteException, NotBoundException {
-		super();
-		remoteMaster = MakeRemoteInstance.makeMaster(masterAddress);
-		System.out.println("Got a master reference");
-		final PFrameClient client = new PFrameClient("Image client", this, new ImageWorld(), remoteMaster);
-		System.out.println("Created wrapped image client");
-		wrapped = client;
-	}
-	
-	private void tellMasterClientIsReady() throws RemoteException {
-		System.out.println("Telling master that this client is ready");
-		remoteMaster.clientIsReady(); 
-		System.out.println("Master should now know that this client is ready");
-	}
-	
-	public void performAnimation(Animation animation) throws RemoteException {
-		System.out.println(String.format("Got an animation request (#%d)", ++animationIdx));
-		wrapped.performAnimation(animation);
-	}
-
-	public void setViewport(double xTopLeft, double yTopLeft) throws RemoteException {
-		wrapped.setViewport(xTopLeft, yTopLeft);
+	public ClientNode(Master master) throws RemoteException, NotBoundException {
+		super(master);
 	}
 
 	public static final void main(final String... args) throws RemoteException, NotBoundException, AlreadyBoundException {
 		
-		if (args.length == 0) {
-			startClientNode("localhost"); // Master is on the Windows laptop
-		} else {
-			startClientNode(args[0]);
+		if (args.length < 1) {
+			throw new RuntimeException(
+					"You need to supply the IP address of the master as an argument");
 		}
 		
+		// The remote Master who will kick off the animations
+		final Master rmiMaster = RemoteInstanceFactory.RMI_FACTORY.makeMaster(args[0]);
 		
-	}
-
-	private static void startClientNode(final String masterLocation)
-			throws RemoteException, NotBoundException, AlreadyBoundException {
 		// Create a client node that can be exposed with RMI for the master to find
-		final ClientNode client = new ClientNode(masterLocation);
+		// Needs a reference to the master, so it can tell the master that it's ready to accept animation requests
+		// The client node will create a wrapped pFrame on itself. The coupling is a bit tight - sorry!
+		final ClientNode client = new ClientNode(rmiMaster);
 		
+		// Expose it over RMI by wrapping it in a ClientRmiServer
 		final ClientRmiServer server = new ClientRmiServer(client);
 		
-		server.startServer(); // Now the remote master can find us...
+		// ...then tell the RMI wrapper for my client to start up the RMI bits...
+		server.startServer(); 
 		
+		// Now the remote master can find us...
 		client.serverIsReady();
-	}
-
-	protected synchronized void serverIsReady() {
-		serverIsReady = true;
-		if (imageClientIsReady) {
-			// ..so tell remote master to go ahead
-			try {
-				tellMasterClientIsReady();
-			} catch (RemoteException e) {
-				throw new RuntimeException(e);
-			} 
-		}
-		
-	}
-	public synchronized void pframeClientIsReady() {
-		imageClientIsReady = true;
-		if (serverIsReady) {
-			// ..so tell remote master to go ahead
-			try {
-				tellMasterClientIsReady();
-			} catch (RemoteException e) {
-				throw new RuntimeException(e);
-			} 
-		}		
 	}
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
-import com.humaninference.tagcloud.rmi.clientside.MakeRemoteInstance;
+import com.humaninference.tagcloud.rmi.clientside.RemoteInstanceFactory;
 
 public abstract class MasterNodeBase extends UnicastRemoteObject {
 
@@ -20,10 +20,13 @@ public abstract class MasterNodeBase extends UnicastRemoteObject {
 
 	protected final String clientLocations[];
 	private int numClientsReady = 0;
+	
+	private final RemoteInstanceFactory clientFactory;
 
-	public MasterNodeBase(String clientLocations[] ) throws RemoteException {
+	public MasterNodeBase(String clientLocations[], final RemoteInstanceFactory clientFactory ) throws RemoteException {
 		super();
 		this.clientLocations = clientLocations;
+		this.clientFactory = clientFactory;
 	}
 
 
@@ -38,7 +41,7 @@ public abstract class MasterNodeBase extends UnicastRemoteObject {
 			for (final String address : clientLocations) {
 				try {
 					System.out.println("For " + address + "...");
-					final Client remoteClient = MakeRemoteInstance.makeClient(address);
+					final Client remoteClient = clientFactory.makeClient(address);
 					System.out.println("Done creating remote client for " + address);
 					clients.add(remoteClient);
 				} catch (RemoteException e) {

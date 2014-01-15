@@ -9,6 +9,7 @@ import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
 import com.humaninference.tagcloud.implementations.ImageAnimation;
+import com.humaninference.tagcloud.rmi.clientside.RemoteInstanceFactory;
 import com.humaninference.tagcloud.rmi.serverside.MasterRmiServer;
 
 /**
@@ -28,7 +29,7 @@ public class MasterNode extends MasterNodeBase implements Master {
 	private static final long serialVersionUID = 1L;
 
 	public MasterNode(final String... clientLocations) throws RemoteException {
-		super(clientLocations);
+		super(clientLocations, RemoteInstanceFactory.RMI_FACTORY);
 	}
 	
 	@Override

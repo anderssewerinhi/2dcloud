@@ -6,15 +6,18 @@ import com.humaninference.tagcloud.WorldFactory;
 
 public class WorldOfWords implements WorldFactory {
 
-    public void addWord(final String word) {
+    @SuppressWarnings("unused")
+	public void addWord(final String word) {
 		throw new RuntimeException("Not implemented");
     }
     
-    public void addConnection(final String fromWord, final String toWord) {
+    @SuppressWarnings("unused")
+	public void addConnection(final String fromWord, final String toWord) {
 		throw new RuntimeException("Not implemented");
     }
     
-    public Animation popWord(final String word) {
+    @SuppressWarnings("unused")
+	public Animation popWord(final String word) {
 		throw new RuntimeException("Not implemented");
     }
     
