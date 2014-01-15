@@ -1,8 +1,9 @@
-package com.humaninference.tagcloud.implementations;
+package com.humaninference.tagcloud.unittest.helpers;
 
 import com.humaninference.tagcloud.World;
+import com.humaninference.tagcloud.implementations.TaggedAnimation;
 
-class TestAnimation extends TaggedAnimation {
+public class TestAnimation extends TaggedAnimation {
 	
 	public TestAnimation(int tag) {
 		super(tag);

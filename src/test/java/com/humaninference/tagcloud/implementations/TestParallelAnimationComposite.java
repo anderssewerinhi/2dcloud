@@ -1,6 +1,9 @@
 package com.humaninference.tagcloud.implementations;
 
 import com.humaninference.tagcloud.World;
+import com.humaninference.tagcloud.unittest.helpers.TestAnimation;
+import com.humaninference.tagcloud.unittest.helpers.TestObserver;
+import com.humaninference.tagcloud.unittest.helpers.TestWorld;
 
 import junit.framework.TestCase;
 

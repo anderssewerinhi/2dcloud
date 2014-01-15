@@ -1,8 +1,8 @@
-package com.humaninference.tagcloud.implementations;
+package com.humaninference.tagcloud.unittest.helpers;
 
 import com.humaninference.tagcloud.Animation;
 
-class TestObserver implements Animation.Observer {
+public class TestObserver implements Animation.Observer {
 
 	@Override
 	public void onAnimationFinished(int tag) {

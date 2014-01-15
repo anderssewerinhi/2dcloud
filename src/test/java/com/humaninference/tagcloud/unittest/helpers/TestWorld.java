@@ -1,4 +1,4 @@
-package com.humaninference.tagcloud.implementations;
+package com.humaninference.tagcloud.unittest.helpers;
 
 import com.humaninference.tagcloud.World;
 
@@ -7,7 +7,7 @@ import edu.umd.cs.piccolo.nodes.PImage;
 import edu.umd.cs.piccolo.nodes.PPath;
 import edu.umd.cs.piccolo.nodes.PText;
 
-class TestWorld implements World {
+public class TestWorld implements World {
 	
 	@Override
 	public PText getTextLabel(int idx) {
