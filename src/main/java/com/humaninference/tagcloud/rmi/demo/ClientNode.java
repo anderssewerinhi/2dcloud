@@ -9,7 +9,7 @@ import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
 import com.humaninference.tagcloud.implementations.PFrameClient;
-import com.humaninference.tagcloud.rmi.clientside.MasterRmiClient;
+import com.humaninference.tagcloud.rmi.clientside.MakeRemoteInstance;
 import com.humaninference.tagcloud.rmi.serverside.ClientRmiServer;
 
 import demo.simpleapplication.ImageWorld;
@@ -30,7 +30,7 @@ public class ClientNode  extends UnicastRemoteObject implements Client, PFrameCl
 	
 	public ClientNode(final String masterAddress) throws RemoteException, NotBoundException {
 		super();
-		remoteMaster = new MasterRmiClient(masterAddress);
+		remoteMaster = MakeRemoteInstance.makeMaster(masterAddress);
 		System.out.println("Got a master reference");
 		final PFrameClient client = new PFrameClient("Image client", this, new ImageWorld(), remoteMaster);
 		System.out.println("Created wrapped image client");

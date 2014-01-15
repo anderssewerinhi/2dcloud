@@ -12,7 +12,7 @@ import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
 import com.humaninference.tagcloud.implementations.ImageAnimation;
-import com.humaninference.tagcloud.rmi.clientside.ClientRmiClient;
+import com.humaninference.tagcloud.rmi.clientside.MakeRemoteInstance;
 import com.humaninference.tagcloud.rmi.serverside.MasterRmiServer;
 
 /**
@@ -53,7 +53,7 @@ public class MasterNode extends UnicastRemoteObject implements Master {
 			for (final String address : clientLocations) {
 				try {
 					System.out.println("For " + address + "...");
-					final Client remoteClient = new ClientRmiClient(address);
+					final Client remoteClient = MakeRemoteInstance.makeClient(address);
 					System.out.println("Done creating remote client for " + address);
 					clients.add(remoteClient);
 				} catch (RemoteException e) {
