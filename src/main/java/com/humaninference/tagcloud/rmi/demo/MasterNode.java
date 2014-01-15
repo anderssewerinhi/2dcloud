@@ -1,10 +1,7 @@
 package com.humaninference.tagcloud.rmi.demo;
 
 import java.rmi.AlreadyBoundException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -12,7 +9,6 @@ import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
 import com.humaninference.tagcloud.implementations.ImageAnimation;
-import com.humaninference.tagcloud.rmi.clientside.MakeRemoteInstance;
 import com.humaninference.tagcloud.rmi.serverside.MasterRmiServer;
 
 /**
@@ -27,75 +23,30 @@ import com.humaninference.tagcloud.rmi.serverside.MasterRmiServer;
  * to them and starts animation.
  * 
  */
-public class MasterNode extends UnicastRemoteObject implements Master {
+public class MasterNode extends MasterNodeBase implements Master {
 	
 	private static final long serialVersionUID = 1L;
 
-	private final List<Client> clients = new LinkedList<Client>();
-	
-	private final String clientLocations[];
-	
-	private int numClientsReady = 0;
-	
 	public MasterNode(final String... clientLocations) throws RemoteException {
-		super();
-		this.clientLocations = clientLocations;
+		super(clientLocations);
 	}
 	
-	public synchronized void clientIsReady() throws RemoteException  {
-		System.out.println("Got the message that a client is ready (had " + numClientsReady + " ready clients before)");
-
-		if (++numClientsReady >= clientLocations.length) {
-			System.out.println("Creating the remote client references now");
-			System.out.println("Locations for clients are: " + clientLocations);
-			// OK, all the clients have a reference to us, and have checked in.
-			// Now we can create references to them using the well-known addresses.
-			for (final String address : clientLocations) {
-				try {
-					System.out.println("For " + address + "...");
-					final Client remoteClient = MakeRemoteInstance.makeClient(address);
-					System.out.println("Done creating remote client for " + address);
-					clients.add(remoteClient);
-				} catch (RemoteException e) {
-					throw new RuntimeException("Can't RMI to client on " + address, e);
-				} catch (NotBoundException e) {
-					throw new RuntimeException("Can't RMI to client on " + address, e);
-				}
-			}
-			
-			// Great! We are good to go!
-			
-			numClientsReady = 0;
-			System.out.println("Shifting first clients viewport 100 pixels to the right");
-			clients.get(0).setViewport(100.0, 0);
-			System.out.println("Will start the first animation now");
-			startAnAnimation();
-			System.out.println("First animation started");
-		}
-	}
-
-	public synchronized void animationIsFinished(final int tag) throws RemoteException {
-		if (++numClientsReady >= clientLocations.length) {
-			numClientsReady = 0;
-			startAnAnimation();
-		}
-	}
-	
-	private synchronized void startAnAnimation() throws RemoteException {
+	@Override
+	protected Animation makeNextAnimation(final int tag) {
 		final Random rnd = new Random();
 		final double newX = 200.0 * rnd.nextDouble();
 		final double newY = 200.0 * rnd.nextDouble();
 		final long duration = rnd.nextInt(500) + 1; // No animations with duration 0
 		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration, 0);
-		System.out.println("Animation ready - about to send to " + clients.size() + " clients");
-		for (final Client c : clients) {
-			System.out.println("Sending...");
-			c.performAnimation(imgAnim);
-			System.out.println("Sent");
-		}
-		System.out.println("Done sending animation");
+		return imgAnim;
 	}
-	
+
+	@Override
+	protected void setViewports(List<Client> clients) throws RemoteException {
+		System.out.println("Shifting first clients viewport 100 pixels to the right");
+		clients.get(0).setViewport(100.0, 0);
+	}
+
 	public static void main(final String... args)
 			throws RemoteException, AlreadyBoundException {
 		final MasterNode node;
@@ -107,6 +58,7 @@ public class MasterNode extends UnicastRemoteObject implements Master {
 		final MasterRmiServer server = new MasterRmiServer(node);
 		server.startServer();
 	}
+
 	
 
 
