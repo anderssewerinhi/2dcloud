@@ -32,6 +32,7 @@ public class ParallelAnimationComposite extends TaggedAnimation implements Anima
 	}
 	public synchronized void perform(final World target, final Observer obs) {
 		numDone = 0;
+		this.obs = obs;
 		for (final Animation animation : animations) {
 			animation.perform(target, this);
 		}

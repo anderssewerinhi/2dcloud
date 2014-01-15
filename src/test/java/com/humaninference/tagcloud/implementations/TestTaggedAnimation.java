@@ -1,7 +1,10 @@
-package com.humaninference.tagcloud;
+package com.humaninference.tagcloud.implementations;
 
 import java.util.Random;
 
+import com.humaninference.tagcloud.Animation;
+import com.humaninference.tagcloud.World;
+import com.humaninference.tagcloud.Animation.Observer;
 import com.humaninference.tagcloud.implementations.TaggedAnimation;
 
 import junit.framework.TestCase;
