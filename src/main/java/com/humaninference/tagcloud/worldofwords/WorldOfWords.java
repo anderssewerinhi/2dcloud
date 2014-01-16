@@ -4,6 +4,7 @@ import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.World;
 import com.humaninference.tagcloud.WorldFactory;
 import com.humaninference.tagcloud.worldofwords.implementations.MakeInitialConfiguration;
+import com.humaninference.tagcloud.worldofwords.implementations.PopAndUnpopWordAnimationMaker;
 import com.humaninference.tagcloud.worldofwords.implementations.PositionFactory;
 import com.humaninference.tagcloud.worldofwords.implementations.WorldFromConfiguration;
 
@@ -44,6 +45,8 @@ public class WorldOfWords implements WorldFactory {
     @SuppressWarnings("unused")
 	public Animation popWord(final String word) {
     	
+    	return PopAndUnpopWordAnimationMaker.makeAnimation(word, initialConfiguration, width, height);
+    	
     	// New positions as follows:
     	
     	// New position for "Word" is center of word cloud, zoomed to BIG
@@ -63,7 +66,6 @@ public class WorldOfWords implements WorldFactory {
     	
     	// Generate animations to move cloud randomly (a small change for all words?) + edges. 
     	// Gather in parallel composite, add to sequential composite 
-		throw new RuntimeException("Not implemented");
     }
     
 	@Override
