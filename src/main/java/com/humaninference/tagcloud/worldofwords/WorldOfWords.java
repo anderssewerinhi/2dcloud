@@ -83,7 +83,7 @@ public class WorldOfWords implements WorldFactory {
 		// Now we can do interesting things!
 		
 		initialConfiguration = mic.makeConfiguration();
-		
+	
 		return WorldFromConfiguration.makeWorld(width, height, initialConfiguration);
 		
 	}
