@@ -1,6 +1,5 @@
 package com.humaninference.tagcloud.worldofwords.implementations;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -23,6 +22,8 @@ public class MakeInitialConfiguration implements ConfigurationFactory {
 	
 	private final Map<String, Integer> wordToId = new HashMap<String, Integer>();
 	
+	private final List<String> idToWord = new LinkedList<String>();
+	
 	private final Map<Integer, Set<Integer>> connections = new HashMap<Integer, Set<Integer>>();
 	
 	private final List<Configuration.Position> wordIdToPosition= 
@@ -38,6 +39,7 @@ public class MakeInitialConfiguration implements ConfigurationFactory {
 		}
 		++wordCount;
 		wordToId.put(word, wordCount);
+		idToWord.add(word);
 		// All words will have at least one connection... we expect
 		// TODO: Assert no empty set for this id!!
 		
@@ -111,6 +113,11 @@ public class MakeInitialConfiguration implements ConfigurationFactory {
 			@Override
 			public Line getLine(int relation) {
 				return linesAsList.get(relation);
+			}
+
+			@Override
+			public String getWord(int word) {
+				return idToWord.get(word);
 			}
 			
 		};

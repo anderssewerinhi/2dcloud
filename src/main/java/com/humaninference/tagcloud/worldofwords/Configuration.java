@@ -25,7 +25,9 @@ public interface Configuration {
 	
 	Set<Integer> getRelatedWords(int word);
 
-	Position getPosition(final int word); 
+	Position getPosition(final int word);
+	
+	String getWord(final int word);
 	
 	int getLineCount();
 	

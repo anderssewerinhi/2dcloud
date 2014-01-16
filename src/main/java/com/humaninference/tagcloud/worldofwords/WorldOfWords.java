@@ -3,6 +3,9 @@ package com.humaninference.tagcloud.worldofwords;
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.World;
 import com.humaninference.tagcloud.WorldFactory;
+import com.humaninference.tagcloud.worldofwords.implementations.MakeInitialConfiguration;
+import com.humaninference.tagcloud.worldofwords.implementations.PositionFactory;
+import com.humaninference.tagcloud.worldofwords.implementations.WorldFromConfiguration;
 
 /**
  * 
@@ -13,23 +16,29 @@ import com.humaninference.tagcloud.WorldFactory;
  *
  */
 public class WorldOfWords implements WorldFactory {
+	
+	private final MakeInitialConfiguration mic;
+	
+	private Configuration initialConfiguration = null;
+
+	private final double width;
+
+	private final double height;
+	
+	public WorldOfWords(final PositionFactory pf, final double width, final double height) {
+		mic = new MakeInitialConfiguration(pf);
+		this.width = width;
+		this.height = height;
+	}
 
     @SuppressWarnings("unused")
 	public void addWord(final String word) {
-    	
-    	// Assign word an index, and store it
-    	
-		throw new RuntimeException("Not implemented");
+    	mic.addWord(word);
     }
     
     @SuppressWarnings("unused")
 	public void addConnection(final String fromWord, final String toWord) {
-    	
-    	// Assign connection an index, and add to two maps of int (from/to and to/from)
-    	// The index is useful for easy duplication detection when we do 
-    	// the animations later
-    	
-		throw new RuntimeException("Not implemented");
+    	mic.addConnection(fromWord, toWord);
     }
     
     @SuppressWarnings("unused")
@@ -59,6 +68,7 @@ public class WorldOfWords implements WorldFactory {
     
 	@Override
 	public World makeWorld() {
+		
 		// Process: Place the words randomly on a sphere
 		// Placement: See accepted answer at http://stackoverflow.com/questions/8839086/how-to-randomize-points-on-a-sphere-surface-evenly
 		
@@ -73,8 +83,10 @@ public class WorldOfWords implements WorldFactory {
 		
 		// Now we can do interesting things!
 		
+		initialConfiguration = mic.makeConfiguration();
 		
-		throw new RuntimeException("Not implemented");
+		return WorldFromConfiguration.makeWorld(width, height, initialConfiguration);
+		
 	}
 
 }
