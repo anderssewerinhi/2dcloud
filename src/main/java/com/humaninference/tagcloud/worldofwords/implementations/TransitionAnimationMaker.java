@@ -1,8 +1,10 @@
-package com.humaninference.tagcloud.worldofwords;
+package com.humaninference.tagcloud.worldofwords.implementations;
 
 import com.humaninference.tagcloud.Animation;
+import com.humaninference.tagcloud.implementations.ParallelAnimationComposite;
+import com.humaninference.tagcloud.worldofwords.Configuration;
 
-public interface TransitionAnimationMaker {
+public class TransitionAnimationMaker {
 
 	/**
 	 * The scaling factors width / height are required, as the positions in Configuration
@@ -20,9 +22,21 @@ public interface TransitionAnimationMaker {
 	 * @param to The state we end in (positions of the lavels etc.)
 	 * @return
 	 */
-	Animation animateTransition(
+	 public static Animation animateTransition(
 			final double width,
 			final double height,
-			final Configuration from, final Configuration to);
+			final Configuration from, 
+			final Configuration to) {
+		 final ParallelAnimationComposite pac = new ParallelAnimationComposite(42);
+		 final double xOffset = width / 2.0;
+		 final double yOffset = height / 2.0;
+		 
+		 // First animate moving the words
+		 for (int i = 0; i < to.getWordCount(); ++i) {
+			 final 
+		 }
+		 
+		return null;
+	}
 	
 }
