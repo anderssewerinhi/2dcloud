@@ -33,7 +33,7 @@ public class TransitionAnimationMaker {
 		 
 		 // First animate moving the words
 		 for (int i = 0; i < to.getWordCount(); ++i) {
-			 final 
+//			 final 
 		 }
 		 
 		return null;
