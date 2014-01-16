@@ -21,6 +21,7 @@ public class PopAndUnpopWordAnimationMaker {
 			final Configuration initialConfiguration, final double width, final double height) {
 		
 		// TODO: Do NOT fake the animation
+		// return makePopAnimation(word, <...>);
 		
 		final Random rnd = new Random();
 		final double newX = 200.0 * rnd.nextDouble();
