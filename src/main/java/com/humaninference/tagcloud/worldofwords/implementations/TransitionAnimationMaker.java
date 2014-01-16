@@ -1,8 +1,12 @@
 package com.humaninference.tagcloud.worldofwords.implementations;
 
 import com.humaninference.tagcloud.Animation;
+import com.humaninference.tagcloud.implementations.LineAnimation;
 import com.humaninference.tagcloud.implementations.ParallelAnimationComposite;
+import com.humaninference.tagcloud.implementations.TextAnimation;
 import com.humaninference.tagcloud.worldofwords.Configuration;
+import com.humaninference.tagcloud.worldofwords.Configuration.Line;
+import com.humaninference.tagcloud.worldofwords.Configuration.Position;
 
 public class TransitionAnimationMaker {
 
@@ -33,10 +37,31 @@ public class TransitionAnimationMaker {
 		 
 		 // First animate moving the words
 		 for (int i = 0; i < to.getWordCount(); ++i) {
-//			 final 
+			 final Position p = to.getPosition(i); 
+			 final double targetX = p.x() * width + xOffset;
+			 final double targetY = p.y() * height + yOffset;
+			 final double targetZoom = p.z() + 0.5; // No text too small to read
+			 final TextAnimation ta = 
+					 new TextAnimation(i, targetX, targetY, targetZoom, 1000, 42);
+			 pac.addAnimation(ta);
 		 }
 		 
-		return null;
+		 // Then animate the lines moving
+		 for (int i = 0; i < to.getLineCount(); ++i) {
+			 final Line l =  to.getLine(i);
+			 final Position leftP = to.getPosition(l.fromWord()); 
+			 final double toLeftX = leftP.x() * width + xOffset;
+			 final double toLeftY = leftP.y() * height + yOffset;
+			 final Position rightP = to.getPosition(l.fromWord()); 
+			 final double toRightX = rightP.x() * width + xOffset;
+			 final double toRightY = rightP.y() * height + yOffset;
+
+			 final LineAnimation la = 
+					 new LineAnimation(42, toLeftX, toLeftY, toRightX, toRightY);
+			 pac.addAnimation(la);
+		 }
+		 
+		return pac;
 	}
 	
 }
