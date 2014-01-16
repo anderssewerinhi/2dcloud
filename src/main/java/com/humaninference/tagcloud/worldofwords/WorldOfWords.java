@@ -4,6 +4,14 @@ import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.World;
 import com.humaninference.tagcloud.WorldFactory;
 
+/**
+ * 
+ * @author andersprivat
+ * 
+ * This will be a facade for a composed group of implementations of the various
+ * interfaces.
+ *
+ */
 public class WorldOfWords implements WorldFactory {
 
     @SuppressWarnings("unused")

@@ -1,6 +1,6 @@
 package com.humaninference.tagcloud.worldofwords;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * 
@@ -16,23 +16,20 @@ public interface Configuration {
 	}
 	
 	interface Line {
-		Position fromPosition();
-		Position toPosition();
+		int fromWord();
+		int toWord();
 	}
 	
-	interface Relation {
-		
-	}
 	
-	List<Integer> getWords();
+	int getWordCount();
 	
-	List<Integer> getRelatedWords(int word);
-	
-	List<Relation> getRelations(); 
-	
+	Set<Integer> getRelatedWords(int word);
+
 	Position getPosition(final int word); 
 	
-	Line getLine(final Relation relation);
+	int getLineCount();
+	
+	Line getLine(final int line);
 	
 	
 
