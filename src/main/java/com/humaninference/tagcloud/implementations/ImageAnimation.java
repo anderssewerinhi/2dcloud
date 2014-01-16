@@ -2,53 +2,17 @@ package com.humaninference.tagcloud.implementations;
 
 import com.humaninference.tagcloud.World;
 
-import edu.umd.cs.piccolo.activities.PActivity;
-import edu.umd.cs.piccolo.activities.PActivity.PActivityDelegate;
-import edu.umd.cs.piccolo.nodes.PImage;
+import edu.umd.cs.piccolo.PNode;
 
-public class ImageAnimation extends TaggedAnimation {
-	
-	private static final long serialVersionUID = 1L;
-	private final double targetX;
-	private final double targetY;
-	private final long duration;
-	private final int imgIdx;
-	
-	public ImageAnimation(final int imgIdx, final double targetX, final double targetY, final long duration, final int tag) {
-		super(tag);
-		this.imgIdx = imgIdx;
-		this.targetX = targetX;
-		this.targetY = targetY;
-		this.duration = duration;
-		if (duration == 0) {
-			throw new RuntimeException("Duration must be > 0");
-		}
-	}
-	
+public class ImageAnimation extends ThreeDimensionalAnimation {
 
-	public void perform(final World target, final Observer obs) {
-		final PImage img = target.getImage(imgIdx);
-		final PActivityDelegate del = new PActivityDelegate() {
-			
-			public void activityStepped(PActivity arg0) {
-			}
-			
-			public void activityStarted(PActivity arg0) {
-			}
-			
-			public void activityFinished(PActivity arg0) {
-				obs.onAnimationFinished(tag());
-			}
-		};
-		final PActivity act = 
-				img.animateToPositionScaleRotation(targetX, targetY, 1.0, 0.0, duration);
-		act.setDelegate(del);
+	public ImageAnimation(int nodeIdx, double targetX, double targetY, long duration, int tag) {
+		super(nodeIdx, targetX, targetY, 1.0, duration, tag);
 	}
 
-
-	public long duration() {
-		return duration;
+	@Override
+	protected PNode getNode(World target) {
+		return target.getImage(nodeIdx);
 	}
-
-
+	
 }
