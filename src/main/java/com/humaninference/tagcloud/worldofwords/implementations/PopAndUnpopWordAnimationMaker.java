@@ -1,15 +1,25 @@
 package com.humaninference.tagcloud.worldofwords.implementations;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.World;
 import com.humaninference.tagcloud.implementations.ImageAnimation;
+import com.humaninference.tagcloud.implementations.SequentialAnimationComposite;
+import com.humaninference.tagcloud.implementations.TaggedAnimation;
 import com.humaninference.tagcloud.worldofwords.Configuration;
+import com.humaninference.tagcloud.worldofwords.TransitionAnimationMaker;
 
 public class PopAndUnpopWordAnimationMaker {
 
-	public static Animation makeAnimation(final String word,
+	private final static int POP_ANIMATION_TAG = 667;
+	
+	private final static TransitionAnimationMaker transitionMaker = null; 
+	
+	@SuppressWarnings("unused")
+	public static Animation makeAnimation(final String word, 
 			final Configuration initialConfiguration, final double width, final double height) {
 		
 		// TODO: Do NOT fake the animation
@@ -22,28 +32,53 @@ public class PopAndUnpopWordAnimationMaker {
 		return imgAnim;
 
 	}
+	
+	@SuppressWarnings("unused")
+	private static Animation makePopAnimation(final String word,
+			final Configuration initialConfiguration, final double width, final double height) {
+		final SequentialAnimationComposite res = new SequentialAnimationComposite(POP_ANIMATION_TAG);
 		
-	private static Animation DO_NOTHING = new Animation() {
+		final Configuration wordIsPopped = zoomWordAndRelatedWords(initialConfiguration) ;
 		
-		private static final int TAG = -42;
-
-		@Override
-		public void perform(World target, Observer obs) {
-			obs.onAnimationFinished(TAG);
-			
-		}
-
-		@Override
-		public int tag() {
-			return 42;
-		}
+		final Animation popAnimaiton = transitionMaker.animateTransition(width, height, initialConfiguration, wordIsPopped);
 		
-	};
+		final Animation unpopAnimaiton = transitionMaker.animateTransition(width, height, wordIsPopped, initialConfiguration);
+		
+		res.addAnimation(popAnimaiton);
+		res.addAnimation(pauseForInterval(1000));
+		res.addAnimation(unpopAnimaiton);
+		return res;
+	}
 	
 	private static Configuration zoomWordAndRelatedWords(final Configuration initial) {
 		// Make a new configuration that reflects this state - find the
 		// word and zoom it. Find the related words and zoom them too.
 		return initial;
+	}
+	
+	private static Animation pauseForInterval(final long millis) {
+		return new TaggedAnimation(42) {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void perform(World target, final Observer obs) {
+				final Timer t = new Timer();
+				
+				final TimerTask callObs = new TimerTask() {
+
+					@Override
+					public void run() {
+						obs.onAnimationFinished(tag());
+						
+					}
+					
+				};
+				
+				t.schedule(callObs, millis);
+			}
+			
+		};
 	}
 	
 

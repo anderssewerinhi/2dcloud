@@ -10,8 +10,6 @@ import com.humaninference.tagcloud.rmi.baseforrunnables.RemotablePFrameClient;
 import com.humaninference.tagcloud.rmi.clientside.RemoteInstanceFactory;
 import com.humaninference.tagcloud.rmi.serverside.ClientRmiServer;
 
-import demo.simpleapplication.ImageWorld;
-
 
 public class ClientNode {
 	

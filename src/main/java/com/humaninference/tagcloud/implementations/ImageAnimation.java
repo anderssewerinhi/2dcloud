@@ -6,6 +6,8 @@ import edu.umd.cs.piccolo.PNode;
 
 public class ImageAnimation extends ThreeDimensionalAnimation {
 
+	private static final long serialVersionUID = 1L;
+
 	public ImageAnimation(int nodeIdx, double targetX, double targetY, long duration, int tag) {
 		super(nodeIdx, targetX, targetY, 1.0, duration, tag);
 	}

@@ -32,17 +32,14 @@ public class WorldOfWords implements WorldFactory {
 		this.height = height;
 	}
 
-    @SuppressWarnings("unused")
 	public void addWord(final String word) {
     	mic.addWord(word);
     }
     
-    @SuppressWarnings("unused")
 	public void addConnection(final String fromWord, final String toWord) {
     	mic.addConnection(fromWord, toWord);
     }
     
-    @SuppressWarnings("unused")
 	public Animation popWord(final String word) {
     	
     	return PopAndUnpopWordAnimationMaker.makeAnimation(word, initialConfiguration, width, height);

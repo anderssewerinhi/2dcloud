@@ -1,7 +1,6 @@
 package com.humaninference.tagcloud.worldofwords;
 
 import com.humaninference.tagcloud.Animation;
-import com.humaninference.tagcloud.World;
 
 public interface TransitionAnimationMaker {
 
@@ -17,7 +16,6 @@ public interface TransitionAnimationMaker {
 	 * 
 	 * @param width Width of area to render to
 	 * @param height Height of area to render to
-	 * @param actors The world to render to
 	 * @param from The state we start in (positions of the labels etc.)
 	 * @param to The state we end in (positions of the lavels etc.)
 	 * @return
@@ -25,6 +23,6 @@ public interface TransitionAnimationMaker {
 	Animation animateTransition(
 			final double width,
 			final double height,
-			final World actors, final Configuration from, final Configuration to);
+			final Configuration from, final Configuration to);
 	
 }

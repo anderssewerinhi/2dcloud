@@ -1,6 +1,5 @@
 package com.humaninference.tagcloud.worldofwords.implementations;
 
-import java.util.Random;
 
 import com.humaninference.tagcloud.worldofwords.Configuration;
 import com.humaninference.tagcloud.worldofwords.TransitionConfigurationMaker;
