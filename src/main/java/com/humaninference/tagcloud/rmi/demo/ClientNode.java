@@ -5,6 +5,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import com.humaninference.tagcloud.Master;
+import com.humaninference.tagcloud.rmi.baseforrunnables.RemotablePFrameClient;
 import com.humaninference.tagcloud.rmi.clientside.RemoteInstanceFactory;
 import com.humaninference.tagcloud.rmi.serverside.ClientRmiServer;
 

@@ -9,6 +9,7 @@ import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
 import com.humaninference.tagcloud.implementations.ImageAnimation;
+import com.humaninference.tagcloud.rmi.baseforrunnables.MasterNodeBase;
 import com.humaninference.tagcloud.rmi.clientside.RemoteInstanceFactory;
 import com.humaninference.tagcloud.rmi.serverside.MasterRmiServer;
 

@@ -1,4 +1,4 @@
-package com.humaninference.tagcloud.rmi.demo;
+package com.humaninference.tagcloud.rmi.baseforrunnables;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

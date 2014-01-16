@@ -1,4 +1,4 @@
-package com.humaninference.tagcloud.rmi.demo;
+package com.humaninference.tagcloud.rmi.baseforrunnables;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -45,7 +45,7 @@ public class RemotablePFrameClient extends UnicastRemoteObject implements PFrame
 		wrapped.setViewport(xTopLeft, yTopLeft);
 	}
 
-	protected synchronized void serverIsReady() {
+	public synchronized void serverIsReady() {
 		serverIsReady = true;
 		if (imageClientIsReady) {
 			// ..so tell remote master to go ahead
