@@ -1,4 +1,4 @@
-package com.humaninference.tagcloud.implementations.worldofwords;
+package com.humaninference.tagcloud.worldofwords;
 
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.World;
