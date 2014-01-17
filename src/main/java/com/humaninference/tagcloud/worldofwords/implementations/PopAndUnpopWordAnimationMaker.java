@@ -10,6 +10,7 @@ import com.humaninference.tagcloud.World;
 import com.humaninference.tagcloud.implementations.ImageAnimation;
 import com.humaninference.tagcloud.implementations.SequentialAnimationComposite;
 import com.humaninference.tagcloud.implementations.TaggedAnimation;
+import com.humaninference.tagcloud.implementations.TextAnimation;
 import com.humaninference.tagcloud.worldofwords.Configuration;
 
 public class PopAndUnpopWordAnimationMaker {
@@ -17,21 +18,26 @@ public class PopAndUnpopWordAnimationMaker {
 	private final static int POP_ANIMATION_TAG = 667;
 	
 	@SuppressWarnings("unused")
-	public static Animation makeAnimation(final String word, 
+	public static Animation makeAnimation(final int currentNode, 
 			final Configuration initialConfiguration, final double width, final double height) {
 		
-		return makePopAnimation(word, initialConfiguration, width, height);
+		//return makePopAnimation(word, initialConfiguration, width, height);
 		// TODO: Do NOT fake the animation
 		// return makePopAnimation(word, <...>);
 		
-		/*
+		
 		final Random rnd = new Random();
 		final double newX = 200.0 * rnd.nextDouble();
 		final double newY = 200.0 * rnd.nextDouble();
 		final long duration = rnd.nextInt(500) + 1; // No animations with duration 0
 		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration, 0);
-		return imgAnim;
-*/
+		
+		
+		final Animation textAnim = new TextAnimation(currentNode,0, newX, newY, duration, 0); 
+		                         
+		
+		return textAnim;
+
 	}
 	
 	@SuppressWarnings("unused")
@@ -84,7 +90,7 @@ public class PopAndUnpopWordAnimationMaker {
 
 			@Override
 			public double z() {
-				return 2.0;
+				return 4.0;
 			}
 			
 		};

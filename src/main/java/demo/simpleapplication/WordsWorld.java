@@ -5,6 +5,10 @@ import java.awt.Font;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+
+
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.text.Position;
@@ -23,7 +27,11 @@ public class WordsWorld implements World{
 
 	private final PImage img; 
 	
-	private final PText textLabel = new PText();
+	//private final PText textLabel = new PText();
+	
+	private List<PText> textLabelList;
+	
+	
 	
 	public WordsWorld() {
 		
@@ -36,20 +44,21 @@ public class WordsWorld implements World{
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-       
+        //setLocationRelativeTo(null);
         
          layer.addChild(img);
       
-		
+         
+         textLabelList = new ArrayList<PText>();
 		
 	}
 
 public PText getTextLabel(int idx) {
 	//throw new RuntimeException("No labels in this world");
-	if (idx != 0) {
+	if (idx < 0 || idx > textLabelList.size() || textLabelList.isEmpty()  ) {
 		throw new RuntimeException("No labels in this world");
 	}
-	return textLabel;
+	return textLabelList.get(idx);
 }
 
 public PPath getEdge(int idx) {
@@ -68,21 +77,26 @@ public PLayer getLayer() {
 	return layer;
 }
 
-public PText addLabel(String text, double x, double y ){
+public void addLabel(String text, double x, double y, double scale){
 
     PText textLabel; 
     
-    textLabel = new PText(text); 
+    textLabel = new PText(text);
+    
     textLabel.setVisible(true);
-	Font bigger = textLabel.getFont().deriveFont((float) 48.0);
+	Font bigger = textLabel.getFont().deriveFont((float) 24.0);
 	textLabel.setFont(bigger);
 
-   textLabel.setBounds(x, y, 10,10);
- 
+	textLabel.setOffset(x, y);
+	textLabel.setScale(scale);
+	
+    //textLabel.setBounds(x, y, 10,10);
+  
    
 	layer.addChild(textLabel); 
 	
-	return textLabel; 
+	textLabelList.add(textLabel);
+
 	
 }
 
