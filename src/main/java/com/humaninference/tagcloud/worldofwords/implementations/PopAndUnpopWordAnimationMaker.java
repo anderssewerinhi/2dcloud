@@ -1,5 +1,6 @@
 package com.humaninference.tagcloud.worldofwords.implementations;
 
+import java.awt.Color;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -31,16 +32,16 @@ public class PopAndUnpopWordAnimationMaker {
 		final double newX = 200.0 * rnd.nextDouble();
 		final double newY = 200.0 * rnd.nextDouble();
 		final long duration = rnd.nextInt(500) + 1; // No animations with duration 0
-		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration, 0);
+		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration, 0, Color.black);
 		final double halfWidth = width /2.0; 
 			
 		final double halfHeight = height /2.0;
 		 
-		final Animation popTextAnim = new TextAnimation(currentNode,halfWidth, halfHeight, 2.0,1000, 0); 
+		final Animation popTextAnim = new TextAnimation(currentNode,halfWidth, halfHeight, 2.0,1000, 0, Color.red); 
 		 
 		final Position pos = initialConfiguration.getPosition(currentNode);
 			
-	    final Animation unPopTextAnim = new TextAnimation(currentNode,pos.x()* halfWidth +halfWidth, pos.y()*halfHeight  +halfHeight, 1+pos.z(),1000, 0); 
+	    final Animation unPopTextAnim = new TextAnimation(currentNode,pos.x()* halfWidth +halfWidth, pos.y()*halfHeight  +halfHeight, 1+pos.z(),1000, 0, Color.black); 
 		
 		res.addAnimation(popTextAnim);
 		res.addAnimation(pauseForInterval(1000));
@@ -64,10 +65,10 @@ public class PopAndUnpopWordAnimationMaker {
 				zoomWordAndRelatedWords(word, initialConfiguration) ;
 		
 		final Animation popAnimaiton = 
-				TransitionAnimationMaker.animateTransition(width, height, initialConfiguration, wordIsPopped);
+				TransitionAnimationMaker.animateTransition(width, height, Color.black, initialConfiguration, wordIsPopped);
 		
 		final Animation unpopAnimaiton = 
-				TransitionAnimationMaker.animateTransition(width, height, wordIsPopped, initialConfiguration);
+				TransitionAnimationMaker.animateTransition(width, height, Color.black, wordIsPopped, initialConfiguration);
 		
 		res.addAnimation(popAnimaiton);
 		res.addAnimation(pauseForInterval(1000));

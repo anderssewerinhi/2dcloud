@@ -1,5 +1,7 @@
 package com.humaninference.tagcloud.worldofwords.implementations;
 
+import java.awt.Color;
+
 import com.humaninference.tagcloud.World;
 import com.humaninference.tagcloud.worldofwords.Configuration;
 import com.humaninference.tagcloud.worldofwords.Configuration.Position;
@@ -22,7 +24,7 @@ public class WorldFromConfiguration {
 			double halfWidth = width/2.0;
 		    double scale = 1.0 +pos.z();
 		    
-			textWorld.addLabel(configuration.getWord(i), pos.x()* halfWidth+halfWidth, pos.y()*halfHeight +halfHeight, scale);
+			textWorld.addLabel(configuration.getWord(i), pos.x()* halfWidth+halfWidth, pos.y()*halfHeight +halfHeight, scale, Color.black);
 			 
 	    }
 		return textWorld;

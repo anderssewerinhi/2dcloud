@@ -1,5 +1,6 @@
 package demo.simpleapplication;
 
+import java.awt.Color;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
@@ -57,7 +58,7 @@ public class ImageMaster implements Master, PFrameClient.Observer {
 		final double newX = 200.0 * rnd.nextDouble();
 		final double newY = 200.0 * rnd.nextDouble();
 		final long duration = rnd.nextInt(500) + 1; // No animations with duration 0
-		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration, 0);
+		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration, 0, Color.black);
 		for (final Client c : clients) {
 			c.performAnimation(imgAnim);
 		}

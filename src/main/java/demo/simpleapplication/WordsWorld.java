@@ -77,7 +77,7 @@ public PLayer getLayer() {
 	return layer;
 }
 
-public void addLabel(String text, double x, double y, double scale){
+public void addLabel(String text, double x, double y, double scale, Color color){
 
     PText textLabel; 
     
@@ -91,7 +91,8 @@ public void addLabel(String text, double x, double y, double scale){
 	textLabel.setScale(scale);
 	
     //textLabel.setBounds(x, y, 10,10);
-  
+    
+	textLabel.setTextPaint(color);
    
 	layer.addChild(textLabel); 
 	

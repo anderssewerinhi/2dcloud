@@ -1,5 +1,6 @@
 package com.humaninference.tagcloud.rmi.demo;
 
+import java.awt.Color;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -39,7 +40,7 @@ public class MasterNode extends MasterNodeBase implements Master {
 		final double newX = 200.0 * rnd.nextDouble();
 		final double newY = 200.0 * rnd.nextDouble();
 		final long duration = rnd.nextInt(500) + 1; // No animations with duration 0
-		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration, 0);
+		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration, 0, Color.black);
 		return imgAnim;
 	}
 

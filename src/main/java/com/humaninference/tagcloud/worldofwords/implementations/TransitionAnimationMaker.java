@@ -1,5 +1,7 @@
 package com.humaninference.tagcloud.worldofwords.implementations;
 
+import java.awt.Color;
+
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.implementations.LineAnimation;
 import com.humaninference.tagcloud.implementations.ParallelAnimationComposite;
@@ -29,6 +31,7 @@ public class TransitionAnimationMaker {
 	 public static Animation animateTransition (
 			final double width,
 			final double height,
+			final Color color, 
 			final Configuration from, 
 			final Configuration to) {
 		 final ParallelAnimationComposite pac = new ParallelAnimationComposite(42);
@@ -42,7 +45,7 @@ public class TransitionAnimationMaker {
 			 final double targetY = p.y() * yOffset + yOffset;
 			 final double targetZoom = p.z() + 0.5; // No text too small to read
 			 final TextAnimation ta = 
-					 new TextAnimation(i, targetX, targetY, targetZoom, 1000, 42);
+					 new TextAnimation(i, targetX, targetY, targetZoom, 1000, 42, color);
 			 pac.addAnimation(ta);
 		 }
 		 

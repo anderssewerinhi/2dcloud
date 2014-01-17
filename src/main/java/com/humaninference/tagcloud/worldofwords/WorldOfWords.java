@@ -1,5 +1,6 @@
 package com.humaninference.tagcloud.worldofwords;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -57,7 +58,7 @@ public class WorldOfWords implements WorldFactory {
     	final Configuration rotated = 
     			RotateCloudAnimationMaker.makeAnimation(initialConfiguration, 0.75);
     	final Animation rotate = 
-    			TransitionAnimationMaker.animateTransition(width, height, 
+    			TransitionAnimationMaker.animateTransition(width, height,Color.black, 
     					initialConfiguration, rotated);
     	final SequentialAnimationComposite sequence = new SequentialAnimationComposite(999);
     	sequence.addAnimation(pop);
