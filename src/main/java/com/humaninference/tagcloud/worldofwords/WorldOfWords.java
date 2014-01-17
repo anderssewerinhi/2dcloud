@@ -20,7 +20,7 @@ public class WorldOfWords implements WorldFactory {
 	
 	private final MakeInitialConfiguration mic;
 	
-	private Configuration initialConfiguration = null;
+	private final Configuration initialConfiguration;
 
 	private final double width;
 
@@ -30,6 +30,8 @@ public class WorldOfWords implements WorldFactory {
 		mic = new MakeInitialConfiguration(pf);
 		this.width = width;
 		this.height = height;
+		initialConfiguration = mic.makeConfiguration();
+
 	}
 
 	public void addWord(final String word) {
@@ -82,7 +84,6 @@ public class WorldOfWords implements WorldFactory {
 		
 		// Now we can do interesting things!
 		
-		initialConfiguration = mic.makeConfiguration();
 		
 		return WorldFromConfiguration.makeWorld(width, height, initialConfiguration);
 		

@@ -20,28 +20,34 @@ public class PopAndUnpopWordAnimationMaker {
 	public static Animation makeAnimation(final String word, 
 			final Configuration initialConfiguration, final double width, final double height) {
 		
+		return makePopAnimation(word, initialConfiguration, width, height);
 		// TODO: Do NOT fake the animation
 		// return makePopAnimation(word, <...>);
 		
+		/*
 		final Random rnd = new Random();
 		final double newX = 200.0 * rnd.nextDouble();
 		final double newY = 200.0 * rnd.nextDouble();
 		final long duration = rnd.nextInt(500) + 1; // No animations with duration 0
 		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration, 0);
 		return imgAnim;
-
+*/
 	}
 	
 	@SuppressWarnings("unused")
 	private static Animation makePopAnimation(final String word,
 			final Configuration initialConfiguration, final double width, final double height) {
-		final SequentialAnimationComposite res = new SequentialAnimationComposite(POP_ANIMATION_TAG);
+		final SequentialAnimationComposite res = 
+				new SequentialAnimationComposite(POP_ANIMATION_TAG);
 		
-		final Configuration wordIsPopped = zoomWordAndRelatedWords(word, initialConfiguration) ;
+		final Configuration wordIsPopped = 
+				zoomWordAndRelatedWords(word, initialConfiguration) ;
 		
-		final Animation popAnimaiton = TransitionAnimationMaker.animateTransition(width, height, initialConfiguration, wordIsPopped);
+		final Animation popAnimaiton = 
+				TransitionAnimationMaker.animateTransition(width, height, initialConfiguration, wordIsPopped);
 		
-		final Animation unpopAnimaiton = TransitionAnimationMaker.animateTransition(width, height, wordIsPopped, initialConfiguration);
+		final Animation unpopAnimaiton = 
+				TransitionAnimationMaker.animateTransition(width, height, wordIsPopped, initialConfiguration);
 		
 		res.addAnimation(popAnimaiton);
 		res.addAnimation(pauseForInterval(1000));
@@ -128,7 +134,7 @@ public class PopAndUnpopWordAnimationMaker {
 	}
 	
 	private static Animation pauseForInterval(final long millis) {
-		return new TaggedAnimation(42) {
+		return new TaggedAnimation() {
 
 			private static final long serialVersionUID = 1L;
 

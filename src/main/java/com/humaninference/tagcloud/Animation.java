@@ -17,6 +17,13 @@ import java.io.Serializable;
  * Duration() may 
  */
 public interface Animation extends Serializable {
+	
+	/** 
+	 * Set the tag to this if you actually don't care about the tag of your animation.
+	 * 
+	 * This will happen quite often.
+	 */
+	public static final int TAG_IS_NOT_IMPORTANT = -42;
 
 	public interface Observer {
 		void onAnimationFinished(final int tag);

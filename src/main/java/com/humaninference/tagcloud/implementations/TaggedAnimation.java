@@ -16,6 +16,10 @@ public abstract class TaggedAnimation implements Animation {
 	
 	private final int tag;
 	
+	public TaggedAnimation() {
+		this(TAG_IS_NOT_IMPORTANT);
+	}
+	
 	public TaggedAnimation(final int tag) {
 		this.tag = tag;
 	}

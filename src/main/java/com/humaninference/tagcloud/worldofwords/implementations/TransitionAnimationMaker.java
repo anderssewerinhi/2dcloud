@@ -26,7 +26,7 @@ public class TransitionAnimationMaker {
 	 * @param to The state we end in (positions of the lavels etc.)
 	 * @return
 	 */
-	 public static Animation animateTransition(
+	 public static Animation animateTransition (
 			final double width,
 			final double height,
 			final Configuration from, 
