@@ -84,7 +84,6 @@ public class WorldOfWords implements WorldFactory {
 		
 		// Now we can do interesting things!
 		
-		
 		return WorldFromConfiguration.makeWorld(width, height, initialConfiguration);
 		
 	}
