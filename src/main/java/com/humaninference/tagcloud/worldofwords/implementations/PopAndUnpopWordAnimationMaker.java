@@ -22,7 +22,7 @@ public class PopAndUnpopWordAnimationMaker {
 	
 	@SuppressWarnings("unused")
 	public static Animation makeAnimation(final int currentNode, 
-			final Configuration initialConfiguration, final double width, final double height) {
+			final Configuration initialConfiguration, final double width, final double height, Color popInColor, Color popOutColor) {
 		
 		
 		final SequentialAnimationComposite res = 
@@ -37,11 +37,11 @@ public class PopAndUnpopWordAnimationMaker {
 			
 		final double halfHeight = height /2.0;
 		 
-		final Animation popTextAnim = new TextAnimation(currentNode,halfWidth, halfHeight, 2.0,1000, 0, Color.red); 
+		final Animation popTextAnim = new TextAnimation(currentNode,halfWidth, halfHeight, 2.0,1000, 0, popInColor); 
 		 
 		final Position pos = initialConfiguration.getPosition(currentNode);
 			
-	    final Animation unPopTextAnim = new TextAnimation(currentNode,pos.x()* halfWidth +halfWidth, pos.y()*halfHeight  +halfHeight, 1+pos.z(),1000, 0, Color.black); 
+	    final Animation unPopTextAnim = new TextAnimation(currentNode,pos.x()* halfWidth +halfWidth, pos.y()*halfHeight  +halfHeight, 1+pos.z(),1000, 0, popOutColor); 
 		
 		res.addAnimation(popTextAnim);
 		res.addAnimation(pauseForInterval(1000));
@@ -65,10 +65,10 @@ public class PopAndUnpopWordAnimationMaker {
 				zoomWordAndRelatedWords(word, initialConfiguration) ;
 		
 		final Animation popAnimaiton = 
-				TransitionAnimationMaker.animateTransition(width, height, Color.black, initialConfiguration, wordIsPopped);
+				TransitionAnimationMaker.animateTransition(width, height, Color.black,-1, Color.black,  initialConfiguration, wordIsPopped);
 		
 		final Animation unpopAnimaiton = 
-				TransitionAnimationMaker.animateTransition(width, height, Color.black, wordIsPopped, initialConfiguration);
+				TransitionAnimationMaker.animateTransition(width, height, Color.black,-1, Color.black, wordIsPopped, initialConfiguration);
 		
 		res.addAnimation(popAnimaiton);
 		res.addAnimation(pauseForInterval(1000));

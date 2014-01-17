@@ -9,6 +9,7 @@ import java.util.Set;
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.World;
 import com.humaninference.tagcloud.WorldFactory;
+import com.humaninference.tagcloud.implementations.ParallelAnimationComposite;
 import com.humaninference.tagcloud.implementations.SequentialAnimationComposite;
 import com.humaninference.tagcloud.worldofwords.implementations.MakeInitialConfiguration;
 import com.humaninference.tagcloud.worldofwords.implementations.PopAndUnpopWordAnimationMaker;
@@ -53,18 +54,22 @@ public class WorldOfWords implements WorldFactory {
     
 	public Animation popWord(final int currentNode) {
     	
+		final Color popInColor = Color.red; 
+		final Color popOutColor = Color.black; 
+		final Color rotateColor = Color.black;
 		
-    	final Animation pop = PopAndUnpopWordAnimationMaker.makeAnimation(currentNode, initialConfiguration, width, height);
+    	final Animation pop = PopAndUnpopWordAnimationMaker.makeAnimation(currentNode, initialConfiguration, width, height, popInColor, popOutColor);
     	final Configuration rotated = 
     			RotateCloudAnimationMaker.makeAnimation(initialConfiguration, 0.75);
     	final Animation rotate = 
-    			TransitionAnimationMaker.animateTransition(width, height,Color.black, 
+    			TransitionAnimationMaker.animateTransition(width, height,rotateColor,currentNode, popInColor,   
     					initialConfiguration, rotated);
-    	final SequentialAnimationComposite sequence = new SequentialAnimationComposite(999);
-    	sequence.addAnimation(pop);
-    	sequence.addAnimation(rotate);
+    	//final SequentialAnimationComposite sequence = new SequentialAnimationComposite(999);
+    	final ParallelAnimationComposite parallel = new ParallelAnimationComposite(999); 
+    	parallel.addAnimation(pop);
+    	parallel.addAnimation(rotate);
     	initialConfiguration = rotated;
-    	return sequence;
+    	return parallel;
     	
     	// New positions as follows:
     	

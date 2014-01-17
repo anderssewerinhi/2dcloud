@@ -26,12 +26,15 @@ public class TransitionAnimationMaker {
 	 * @param height Height of area to render to
 	 * @param from The state we start in (positions of the labels etc.)
 	 * @param to The state we end in (positions of the lavels etc.)
+	 * @param currentNode 
 	 * @return
 	 */
 	 public static Animation animateTransition (
 			final double width,
 			final double height,
-			final Color color, 
+			final Color rotationColor,
+			final int currentNode, 
+			final Color popInColor,
 			final Configuration from, 
 			final Configuration to) {
 		 final ParallelAnimationComposite pac = new ParallelAnimationComposite(42);
@@ -44,8 +47,16 @@ public class TransitionAnimationMaker {
 			 final double targetX = p.x() * xOffset + xOffset;
 			 final double targetY = p.y() * yOffset + yOffset;
 			 final double targetZoom = p.z() + 0.5; // No text too small to read
-			 final TextAnimation ta = 
-					 new TextAnimation(i, targetX, targetY, targetZoom, 1000, 42, color);
+			 final TextAnimation ta ;
+			 if (i != currentNode ){
+		     
+				 ta = 
+					 new TextAnimation(i, targetX, targetY, targetZoom, 1000, 42, rotationColor);
+			 }
+			 else {
+				 
+				 ta =  new TextAnimation(i, targetX, targetY, targetZoom, 1000, 42, popInColor);
+			 }
 			 pac.addAnimation(ta);
 		 }
 		 
