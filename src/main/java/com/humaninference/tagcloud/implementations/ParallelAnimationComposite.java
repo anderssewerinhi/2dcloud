@@ -40,6 +40,7 @@ public class ParallelAnimationComposite extends TaggedAnimation implements Anima
 
 
 	public synchronized void onAnimationFinished(final int tag) {
+		System.out.println("Done " + numDone + " of " + animations.size());
 		if (++numDone >= animations.size()) {
 			obs.onAnimationFinished(tag()); // NB! We pass on the tag for the composite!
 		}

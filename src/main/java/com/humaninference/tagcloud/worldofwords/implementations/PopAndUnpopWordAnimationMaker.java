@@ -22,9 +22,6 @@ public class PopAndUnpopWordAnimationMaker {
 	public static Animation makeAnimation(final int currentNode, 
 			final Configuration initialConfiguration, final double width, final double height) {
 		
-		//return makePopAnimation(word, initialConfiguration, width, height);
-		// TODO: Do NOT fake the animation
-		// return makePopAnimation(word, <...>);
 		
 		final SequentialAnimationComposite res = 
 				new SequentialAnimationComposite(POP_ANIMATION_TAG);
@@ -39,21 +36,15 @@ public class PopAndUnpopWordAnimationMaker {
 		final double halfHeight = height /2.0;
 		 
 		final Animation popTextAnim = new TextAnimation(currentNode,halfWidth, halfHeight, 2.0,1000, 0); 
-		
 		 
-		 Position pos = initialConfiguration.getPosition(currentNode);
+		final Position pos = initialConfiguration.getPosition(currentNode);
 			
-	   
-			
-	     final Animation unPopTextAnim = new TextAnimation(currentNode,pos.x()* halfWidth +halfWidth, pos.y()*halfHeight  +halfHeight, 1+pos.z(),1000, 0); 
-			
+	    final Animation unPopTextAnim = new TextAnimation(currentNode,pos.x()* halfWidth +halfWidth, pos.y()*halfHeight  +halfHeight, 1+pos.z(),1000, 0); 
 		
 		res.addAnimation(popTextAnim);
 		res.addAnimation(pauseForInterval(1000));
 		res.addAnimation(unPopTextAnim);
 		res.addAnimation(pauseForInterval(1000));
-		
-      
 		
 		return res;
 

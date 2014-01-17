@@ -46,6 +46,7 @@ public class TransitionAnimationMaker {
 			 pac.addAnimation(ta);
 		 }
 		 
+		 /*
 		 // Then animate the lines moving
 		 for (int i = 0; i < to.getLineCount(); ++i) {
 			 final Line l =  to.getLine(i);
@@ -60,7 +61,7 @@ public class TransitionAnimationMaker {
 					 new LineAnimation(42, toLeftX, toLeftY, toRightX, toRightY);
 			 pac.addAnimation(la);
 		 }
-		 
+		 */
 		return pac;
 	}
 	

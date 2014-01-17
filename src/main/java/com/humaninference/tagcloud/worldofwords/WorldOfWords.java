@@ -8,9 +8,12 @@ import java.util.Set;
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.World;
 import com.humaninference.tagcloud.WorldFactory;
+import com.humaninference.tagcloud.implementations.SequentialAnimationComposite;
 import com.humaninference.tagcloud.worldofwords.implementations.MakeInitialConfiguration;
 import com.humaninference.tagcloud.worldofwords.implementations.PopAndUnpopWordAnimationMaker;
 import com.humaninference.tagcloud.worldofwords.implementations.PositionFactory;
+import com.humaninference.tagcloud.worldofwords.implementations.RotateCloudAnimationMaker;
+import com.humaninference.tagcloud.worldofwords.implementations.TransitionAnimationMaker;
 import com.humaninference.tagcloud.worldofwords.implementations.WorldFromConfiguration;
 
 /**
@@ -25,7 +28,7 @@ public class WorldOfWords implements WorldFactory {
 	
 	private final MakeInitialConfiguration mic;
 	
-	private final Configuration initialConfiguration;
+	private Configuration initialConfiguration;
 
 	private final double width;
 
@@ -49,7 +52,18 @@ public class WorldOfWords implements WorldFactory {
     
 	public Animation popWord(final int currentNode) {
     	
-    	return PopAndUnpopWordAnimationMaker.makeAnimation(currentNode, initialConfiguration, width, height);
+		
+    	final Animation pop = PopAndUnpopWordAnimationMaker.makeAnimation(currentNode, initialConfiguration, width, height);
+    	final Configuration rotated = 
+    			RotateCloudAnimationMaker.makeAnimation(initialConfiguration, 0.75);
+    	final Animation rotate = 
+    			TransitionAnimationMaker.animateTransition(width, height, 
+    					initialConfiguration, rotated);
+    	final SequentialAnimationComposite sequence = new SequentialAnimationComposite(999);
+    	sequence.addAnimation(pop);
+    	sequence.addAnimation(rotate);
+    	initialConfiguration = rotated;
+    	return sequence;
     	
     	// New positions as follows:
     	
