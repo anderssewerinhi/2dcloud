@@ -95,7 +95,8 @@ public class WorldOfWords implements WorldFactory {
 
 	public int getNextNode(int curentNode) {
 		
-	 List<Integer> nodePosition = new ArrayList<Integer>(initialConfiguration.getRelatedWords(curentNode));
+	 final Set<Integer> relatedWords = initialConfiguration.getRelatedWords(curentNode);
+	 List<Integer> nodePosition = new ArrayList<Integer>(relatedWords);
 	 
 	 int nextPosition = nodePosition.get(new Random().nextInt(nodePosition.size())); 
 			
