@@ -35,7 +35,10 @@ public abstract class MasterNodeBase extends UnicastRemoteObject {
 	
 		if (++numClientsReady >= clientLocations.length) {
 			System.out.println("Creating the remote client references now");
-			System.out.println("Locations for clients are: " + clientLocations);
+			System.out.println("Locations for clients are: ");
+			for (final String loc : clientLocations) {
+				System.out.println(loc);;
+			}
 			// OK, all the clients have a reference to us, and have checked in.
 			// Now we can create references to them using the well-known addresses.
 			for (final String address : clientLocations) {
