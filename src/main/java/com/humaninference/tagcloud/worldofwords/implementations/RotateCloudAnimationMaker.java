@@ -16,48 +16,10 @@ public class RotateCloudAnimationMaker {
 		for (int i = 0; i < from.getWordCount(); ++i) {
 			rotated.add(rotateAroundEquator(from.getPosition(i), degreesInRadians));
 		}
-		return makeConfigurationWithNewPositions(from, rotated);
+		from.changePositions(rotated);
+		return from;
 	}
 	
-	private static Configuration makeConfigurationWithNewPositions(
-			final Configuration from, final List<Position> rotated) {
-		
-		// TODO: This should REALLY not be a wrapper, but I am in a hurry...
-		return new Configuration() {
-			
-			@Override
-			public int getWordCount() {
-				return from.getWordCount();
-			}
-			
-			@Override
-			public String getWord(int word) {
-				return from.getWord(word);
-			}
-			
-			@Override
-			public Set<Integer> getRelatedWords(int word) {
-				return from.getRelatedWords(word);
-			}
-			
-			@Override
-			public Position getPosition(int word) {
-				return rotated.get(word);
-			}
-			
-			@Override
-			public int getLineCount() {
-				return from.getLineCount();
-			}
-			
-			@Override
-			public Line getLine(int line) {
-				return from.getLine(line);
-			}
-		};
-		
-	}
-
 	private static class SimplePosition implements Position {
 		
 		private final double x, y, z;

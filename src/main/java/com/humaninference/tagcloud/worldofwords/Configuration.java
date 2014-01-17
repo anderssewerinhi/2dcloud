@@ -1,5 +1,6 @@
 package com.humaninference.tagcloud.worldofwords;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,7 +21,8 @@ public interface Configuration {
 		int toWord();
 	}
 	
-	
+	void changePositions(final List<Position> newPositions);
+
 	int getWordCount();
 	
 	Set<Integer> getRelatedWords(int word);

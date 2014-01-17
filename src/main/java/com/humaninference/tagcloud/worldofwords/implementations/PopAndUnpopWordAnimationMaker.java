@@ -1,5 +1,6 @@
 package com.humaninference.tagcloud.worldofwords.implementations;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.Timer;
@@ -146,6 +147,12 @@ public class PopAndUnpopWordAnimationMaker {
 			@Override
 			public Line getLine(int line) {
 				return initial.getLine(line);
+			}
+
+			@Override
+			public void changePositions(List<Position> newPositions) {
+				throw new RuntimeException("Not implemented - will not be needed");
+				
 			}
 			
 		};

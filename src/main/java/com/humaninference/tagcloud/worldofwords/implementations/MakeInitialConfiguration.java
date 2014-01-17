@@ -1,5 +1,6 @@
 package com.humaninference.tagcloud.worldofwords.implementations;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -26,7 +27,7 @@ public class MakeInitialConfiguration implements ConfigurationFactory {
 	
 	private final Map<Integer, Set<Integer>> connections = new HashMap<Integer, Set<Integer>>();
 	
-	private final List<Configuration.Position> wordIdToPosition= 
+	private List<Configuration.Position> wordIdToPosition= 
 			new LinkedList<Configuration.Position>();
 	
 	private final Set<Set<Integer>> lines = new HashSet<Set<Integer>>();
@@ -117,6 +118,12 @@ public class MakeInitialConfiguration implements ConfigurationFactory {
 			@Override
 			public String getWord(int word) {
 				return idToWord.get(word);
+			}
+
+			@Override
+			public void changePositions(List<Position> newPositions) {
+				wordIdToPosition = newPositions;
+				
 			}
 			
 		};
