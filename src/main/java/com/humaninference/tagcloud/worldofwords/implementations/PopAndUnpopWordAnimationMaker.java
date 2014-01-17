@@ -12,6 +12,7 @@ import com.humaninference.tagcloud.implementations.SequentialAnimationComposite;
 import com.humaninference.tagcloud.implementations.TaggedAnimation;
 import com.humaninference.tagcloud.implementations.TextAnimation;
 import com.humaninference.tagcloud.worldofwords.Configuration;
+import com.humaninference.tagcloud.worldofwords.Configuration.Position;
 
 public class PopAndUnpopWordAnimationMaker {
 
@@ -25,20 +26,41 @@ public class PopAndUnpopWordAnimationMaker {
 		// TODO: Do NOT fake the animation
 		// return makePopAnimation(word, <...>);
 		
+		final SequentialAnimationComposite res = 
+				new SequentialAnimationComposite(POP_ANIMATION_TAG);
 		
 		final Random rnd = new Random();
 		final double newX = 200.0 * rnd.nextDouble();
 		final double newY = 200.0 * rnd.nextDouble();
 		final long duration = rnd.nextInt(500) + 1; // No animations with duration 0
 		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration, 0);
+		final double halfWidth = width /2.0; 
+			
+		final double halfHeight = height /2.0;
+		 
+		final Animation popTextAnim = new TextAnimation(currentNode,halfWidth, halfHeight, 2.0,1000, 0); 
 		
+		 
+		 Position pos = initialConfiguration.getPosition(currentNode);
+			
+	   
+			
+	     final Animation unPopTextAnim = new TextAnimation(currentNode,pos.x()* halfWidth +halfWidth, pos.y()*halfHeight  +halfHeight, 1+pos.z(),1000, 0); 
+			
 		
-		final Animation textAnim = new TextAnimation(currentNode,0, newX, newY, duration, 0); 
-		                         
+		res.addAnimation(popTextAnim);
+		res.addAnimation(pauseForInterval(1000));
+		res.addAnimation(unPopTextAnim);
+		res.addAnimation(pauseForInterval(1000));
 		
-		return textAnim;
+      
+		
+		return res;
 
 	}
+	
+	
+	
 	
 	@SuppressWarnings("unused")
 	private static Animation makePopAnimation(final String word,

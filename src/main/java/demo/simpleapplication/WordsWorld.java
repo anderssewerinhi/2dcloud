@@ -46,7 +46,7 @@ public class WordsWorld implements World{
 		}
         //setLocationRelativeTo(null);
         
-         layer.addChild(img);
+        // layer.addChild(img);
       
          
          textLabelList = new ArrayList<PText>();
