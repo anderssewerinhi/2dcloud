@@ -29,7 +29,9 @@ public class MasterNode extends MasterNodeBase implements Master {
 	
 	private static final long serialVersionUID = 1L;
 		
-	private final WorldOfWords worldOfWords;
+	private final WorldOfWords worldOfWords; 
+	
+	private int currentNode = 0; 
 	
 	// We like repoducable randomness while testing
 	private final Random rnd = new Random(667); 
@@ -37,14 +39,16 @@ public class MasterNode extends MasterNodeBase implements Master {
 	public MasterNode(final String... clientLocations) throws RemoteException {
 		super(clientLocations, RemoteInstanceFactory.RMI_FACTORY);
 		worldOfWords = DataForWorld.makeRepoducablyRandomWorld();
+	 
 	}
 	
 	@Override
 	protected Animation makeNextAnimation(final int tag) {
 		// I am gonna cheat and just pick a random word from the list... for now.
-		final int idxOfRandomWord = rnd.nextInt(DataForWorld.WORDS.length);
-		final String wordToPop = DataForWorld.WORDS[idxOfRandomWord];
-		return worldOfWords.popWord(wordToPop);
+		//final int idxOfRandomWord = rnd.nextInt(DataForWorld.WORDS.length);
+		//final String wordToPop = DataForWorld.WORDS[idxOfRandomWord];
+	    currentNode = worldOfWords.getNextNode(currentNode); 
+		return worldOfWords.popWord(currentNode);
 	}
 
 	@Override

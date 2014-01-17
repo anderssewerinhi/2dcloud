@@ -18,7 +18,11 @@ public class WorldFromConfiguration {
 	    for (int i = 0; i < configuration.getWordCount(); ++i) {
 			 final Position p = configuration.getPosition(i);
 			 Position pos = configuration.getPosition(i);  
-			 textWorld.addLabel(configuration.getWord(i), pos.x(), pos.y());
+			 double halfHeight = height/2.0;
+			double halfWidth = width/2.0;
+		    double scale = 1.0 +pos.z();
+		    
+			textWorld.addLabel(configuration.getWord(i), pos.x()* halfWidth+halfWidth, pos.y()*halfHeight +halfHeight, scale);
 			 
 	    }
 		return textWorld;

@@ -1,5 +1,10 @@
 package com.humaninference.tagcloud.worldofwords;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.World;
 import com.humaninference.tagcloud.WorldFactory;
@@ -42,9 +47,9 @@ public class WorldOfWords implements WorldFactory {
     	mic.addConnection(fromWord, toWord);
     }
     
-	public Animation popWord(final String word) {
+	public Animation popWord(final int currentNode) {
     	
-    	return PopAndUnpopWordAnimationMaker.makeAnimation(word, initialConfiguration, width, height);
+    	return PopAndUnpopWordAnimationMaker.makeAnimation(currentNode, initialConfiguration, width, height);
     	
     	// New positions as follows:
     	
@@ -86,6 +91,16 @@ public class WorldOfWords implements WorldFactory {
 		
 		return WorldFromConfiguration.makeWorld(width, height, initialConfiguration);
 		
+	}
+
+	public int getNextNode(int curentNode) {
+		
+	 final Set<Integer> relatedWords = initialConfiguration.getRelatedWords(curentNode);
+	 List<Integer> nodePosition = new ArrayList<Integer>(relatedWords);
+	 
+	 int nextPosition = nodePosition.get(new Random().nextInt(nodePosition.size())); 
+			
+	 return nextPosition;
 	}
 
 }

@@ -37,15 +37,14 @@ public class MakeInitialConfiguration implements ConfigurationFactory {
 		if (wordToId.containsKey(word)) {
 			return; // We shall have no duplicate words
 		}
-		++wordCount;
 		wordToId.put(word, wordCount);
 		idToWord.add(word);
 		// All words will have at least one connection... we expect
 		// TODO: Assert no empty set for this id!!
 		
 		connections.put(wordCount, new HashSet<Integer>());
-		
 		wordIdToPosition.add(pf.newPosition());
+		++wordCount;
     }
     
 	public void addConnection(final String fromWord, final String toWord) {
