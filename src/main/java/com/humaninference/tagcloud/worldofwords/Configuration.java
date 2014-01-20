@@ -21,7 +21,7 @@ public interface Configuration {
 		int toWord();
 	}
 	
-	void changePositions(final List<Position> newPositions);
+	void changePositions(final List<Position> newPositions, final List<Position> newLogoPositions);
 
 	int getWordCount();
 	
@@ -34,7 +34,9 @@ public interface Configuration {
 	int getLineCount();
 	
 	Line getLine(final int line);
+
+	int getImageCount();
 	
-	
+	Position getImagePosition(final int image);
 
 }

@@ -19,6 +19,8 @@ public class ConcreteConfiguration implements Configuration {
 	
 	private List<Configuration.Position> wordIdToPosition;
 	
+	private  List<Configuration.Position> logoIdToPosition;
+
 	private final Set<Set<Integer>> lines;
 	
 	final List<Configuration.Line> linesAsList;
@@ -28,13 +30,16 @@ public class ConcreteConfiguration implements Configuration {
 			final Map<Integer, Set<Integer>> connections,
 			final List<Configuration.Position> wordIdToPosition,
 			final Set<Set<Integer>> lines,
-			final List<Configuration.Line> linesAsList) {
+			final List<Configuration.Line> linesAsList,
+			final List<Configuration.Position> logoIdToPosition
+			) {
 		this.wordToId = wordToId;
 		this.idToWord = idToWord;
 		this.connections = connections;
 		this.wordIdToPosition = wordIdToPosition;
 		this.lines = lines;
 		this.linesAsList = linesAsList;
+		this.logoIdToPosition = logoIdToPosition;
 		
 	}
 
@@ -68,8 +73,21 @@ public class ConcreteConfiguration implements Configuration {
 		return idToWord.get(word);
 	}
 
-	public void changePositions(final List<Position> newPositions) {
+	public void changePositions(final List<Position> newPositions, final List<Position> newLogoPositions) {
 		wordIdToPosition = newPositions;
+		logoIdToPosition = newLogoPositions;
+	}
+
+	@Override
+	public int getImageCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Position getImagePosition(int image) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

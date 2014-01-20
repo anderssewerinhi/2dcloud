@@ -151,9 +151,19 @@ public class PopAndUnpopWordAnimationMaker {
 			}
 
 			@Override
-			public void changePositions(List<Position> newPositions) {
+			public void changePositions(List<Position> newPositions, final List<Position> newLogoPositions) {
 				throw new RuntimeException("Not implemented - will not be needed");
 				
+			}
+
+			@Override
+			public int getImageCount() {
+				return initial.getImageCount();
+			}
+
+			@Override
+			public Position getImagePosition(int image) {
+				return initial.getImagePosition(image);
 			}
 			
 		};

@@ -45,6 +45,8 @@ public class DataForWorld {
 		
 	};
 	
+	private static final int NUM_LOGOS = 10;
+	
 	public static WorldOfWords makeRepoducablyRandomWorld() {
 		final WorldOfWords res = new WorldOfWords(new ClaudiasAmazingRandomPositionFactory(42L), 600.0, 300.0);
 		
@@ -58,6 +60,9 @@ public class DataForWorld {
 			res.addConnection(from, to);
 		}
 		
+		for (int i = 0; i < NUM_LOGOS; ++i) {
+			res.addLogo();
+		}
 		return res;
 	}
 }

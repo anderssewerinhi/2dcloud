@@ -4,7 +4,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import com.humaninference.tagcloud.worldofwords.Configuration;
 import com.humaninference.tagcloud.worldofwords.Configuration.Position;
@@ -16,7 +15,11 @@ public class RotateCloudAnimationMaker {
 		for (int i = 0; i < from.getWordCount(); ++i) {
 			rotated.add(rotateAroundEquator(from.getPosition(i), degreesInRadians));
 		}
-		from.changePositions(rotated);
+		final List<Configuration.Position> rotatedImages = new ArrayList<Configuration.Position>(from.getImageCount());
+		for (int i = 0; i < from.getImageCount(); ++i) {
+			rotatedImages.add(rotateAroundEquator(from.getImagePosition(i), degreesInRadians));
+		}
+		from.changePositions(rotated, rotatedImages);
 		return from;
 	}
 	

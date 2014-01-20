@@ -1,6 +1,5 @@
 package com.humaninference.tagcloud.worldofwords.implementations;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -10,6 +9,7 @@ import java.util.Set;
 
 import com.humaninference.tagcloud.worldofwords.Configuration;
 import com.humaninference.tagcloud.worldofwords.ConfigurationFactory;
+import com.humaninference.tagcloud.worldofwords.Configuration.Position;
 
 public class MakeInitialConfiguration implements ConfigurationFactory {
 	
@@ -21,6 +21,8 @@ public class MakeInitialConfiguration implements ConfigurationFactory {
 	
 	private int wordCount = 0;
 	
+	private int logoCount = 0;
+	
 	private final Map<String, Integer> wordToId = new HashMap<String, Integer>();
 	
 	private final List<String> idToWord = new LinkedList<String>();
@@ -28,6 +30,9 @@ public class MakeInitialConfiguration implements ConfigurationFactory {
 	private final Map<Integer, Set<Integer>> connections = new HashMap<Integer, Set<Integer>>();
 	
 	private List<Configuration.Position> wordIdToPosition= 
+			new LinkedList<Configuration.Position>();
+	
+	private List<Configuration.Position> logoIdToPosition= 
 			new LinkedList<Configuration.Position>();
 	
 	private final Set<Set<Integer>> lines = new HashSet<Set<Integer>>();
@@ -47,6 +52,11 @@ public class MakeInitialConfiguration implements ConfigurationFactory {
 		wordIdToPosition.add(pf.newPosition());
 		++wordCount;
     }
+	
+	public void addLogo() {
+		logoIdToPosition.add(pf.newPosition());
+		++logoCount;
+	}
     
 	public void addConnection(final String fromWord, final String toWord) {
 		final int idxOfFrom = wordToId.get(fromWord);
@@ -121,9 +131,20 @@ public class MakeInitialConfiguration implements ConfigurationFactory {
 			}
 
 			@Override
-			public void changePositions(List<Position> newPositions) {
+			public void changePositions(List<Position> newPositions, final List<Position> newLogoPositions) {
 				wordIdToPosition = newPositions;
+				logoIdToPosition = newLogoPositions;
 				
+			}
+
+			@Override
+			public int getImageCount() {
+				return logoCount;
+			}
+
+			@Override
+			public Position getImagePosition(int image) {
+				return logoIdToPosition.get(image);
 			}
 			
 		};

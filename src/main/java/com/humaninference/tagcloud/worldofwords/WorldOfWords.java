@@ -47,6 +47,11 @@ public class WorldOfWords implements WorldFactory {
 	public void addWord(final String word) {
     	mic.addWord(word);
     }
+	
+	public void addLogo() {
+		mic.addLogo();
+	}
+	
     
 	public void addConnection(final String fromWord, final String toWord) {
     	mic.addConnection(fromWord, toWord);
