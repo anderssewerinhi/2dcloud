@@ -20,26 +20,27 @@ public abstract class ThreeDimensionalAnimation extends TaggedAnimation {
 	protected final double targetZoom;
 	protected final long duration;
 	protected final int nodeIdx;
-	protected final Color color; 
 
-	public ThreeDimensionalAnimation(final int nodeIdx, final double targetX, final double targetY, final double targetZoom, final long duration, final int tag, final Color color) {
+	public ThreeDimensionalAnimation(final int nodeIdx, final double targetX, final double targetY, final double targetZoom, final long duration, final int tag) {
 		super(tag);
 		this.nodeIdx = nodeIdx;
 		this.targetX = targetX;
 		this.targetY = targetY;
 		this.targetZoom = targetZoom;
 		this.duration = duration;
-		this.color = color;  
 		if (duration == 0) {
 			throw new RuntimeException("Duration must be > 0");
 		}
 		}
 
 	public void perform(final World target, final Observer obs) {
-		final PText n = (PText) getNode(target);
+		final PNode n = getNode(target);
+		perform(obs, n);
+	}
+
+	protected void perform(final Observer obs, final PNode n) {
 		final PActivity act = 
 				n.animateToPositionScaleRotation(targetX, targetY, targetZoom, 0.0, duration);
-		n.setTextPaint(color);
 		final PActivityDelegate del = new PActivityDelegate() {
 			
 			public void activityStepped(PActivity arg0) {

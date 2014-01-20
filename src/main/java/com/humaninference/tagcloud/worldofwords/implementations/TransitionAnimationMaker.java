@@ -3,6 +3,7 @@ package com.humaninference.tagcloud.worldofwords.implementations;
 import java.awt.Color;
 
 import com.humaninference.tagcloud.Animation;
+import com.humaninference.tagcloud.implementations.ImageAnimation;
 import com.humaninference.tagcloud.implementations.LineAnimation;
 import com.humaninference.tagcloud.implementations.ParallelAnimationComposite;
 import com.humaninference.tagcloud.implementations.TextAnimation;
@@ -42,6 +43,18 @@ public class TransitionAnimationMaker {
 		 final double yOffset = height / 2.0;
 		 
 		 // First animate moving the words
+		 for (int i = 0; i < to.getImageCount(); ++i) {
+			 final Position p = to.getImagePosition(i); 
+			 final double targetX = p.x() * xOffset + xOffset;
+			 final double targetY = p.y() * yOffset + yOffset;
+			 final double targetZoom = p.z() * 0.1 + 0.1; // No text too small to read
+			 final ImageAnimation  
+				 ta = 
+					 new ImageAnimation(i, targetX, targetY, targetZoom, 1000, 42);
+			 pac.addAnimation(ta);
+		 }
+		 
+		 // Then animate moving the logos
 		 for (int i = 0; i < to.getWordCount(); ++i) {
 			 final Position p = to.getPosition(i); 
 			 final double targetX = p.x() * xOffset + xOffset;
@@ -59,6 +72,7 @@ public class TransitionAnimationMaker {
 			 }
 			 pac.addAnimation(ta);
 		 }
+		 
 		 
 		 /*
 		 // Then animate the lines moving

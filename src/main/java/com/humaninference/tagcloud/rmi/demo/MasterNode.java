@@ -40,7 +40,7 @@ public class MasterNode extends MasterNodeBase implements Master {
 		final double newX = 200.0 * rnd.nextDouble();
 		final double newY = 200.0 * rnd.nextDouble();
 		final long duration = rnd.nextInt(500) + 1; // No animations with duration 0
-		final Animation imgAnim = new ImageAnimation(0, newX, newY, duration, 0, Color.black);
+		final Animation imgAnim = new ImageAnimation(0, newX, newY, 1.0,  duration, 0);
 		return imgAnim;
 	}
 

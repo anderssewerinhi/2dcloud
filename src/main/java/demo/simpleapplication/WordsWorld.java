@@ -62,6 +62,7 @@ public class WordsWorld implements World{
 			img.setOffset(x, y);
 			img.setScale(scale);
 	        layer.addChild(img);
+	        imgList.add(img);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

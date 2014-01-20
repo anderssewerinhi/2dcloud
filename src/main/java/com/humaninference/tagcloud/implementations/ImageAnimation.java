@@ -10,8 +10,8 @@ public class ImageAnimation extends ThreeDimensionalAnimation {
 
 	private static final long serialVersionUID = 1L;
 
-	public ImageAnimation(int nodeIdx, double targetX, double targetY, long duration, int tag, final Color color) {
-		super(nodeIdx, targetX, targetY, 1.0, duration, tag, color);
+	public ImageAnimation(int nodeIdx, double targetX, double targetY, double targetZoom, long duration, int tag) {
+		super(nodeIdx, targetX, targetY, targetZoom, duration, tag);
 	}
 
 	@Override
