@@ -6,14 +6,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
+
 import javax.imageio.ImageIO;
+
 import com.humaninference.tagcloud.World;
+
 import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.nodes.PImage;
 import edu.umd.cs.piccolo.nodes.PPath;
 import edu.umd.cs.piccolo.nodes.PText;
 
 public class WordsWorld implements World{
+
+	private static final String DARK_BACKGROUND_LOGO = "dark-hilogo-transparent-background.PNG";
+//	private static final String LIGHT_BAKGROUND_LOGO = "hilogo-transparent-background.gif";
+	private static final String LOGO_RESOURCE_NAME = DARK_BACKGROUND_LOGO;
 
 	private final PLayer layer = new PLayer();
 
@@ -22,7 +29,7 @@ public class WordsWorld implements World{
 	private final List<PImage> imgList = new LinkedList<PImage>();
 	
 	public WordsWorld() {
-		layer.getCamera(0).setPaint(Color.BLACK);
+//		layer.getCamera(0).setPaint(Color.BLACK);
 	}
 	
 
@@ -56,7 +63,7 @@ public class WordsWorld implements World{
 	}
 
 	public void addLogo(double x, double y, double scale) {
-		addImage("hilogo-transparent-background.gif", x, y, scale);
+		addImage(LOGO_RESOURCE_NAME, x, y, scale);
 	}
 
 	public void addImage(final String resourceName, double x, double y, double scale) {
