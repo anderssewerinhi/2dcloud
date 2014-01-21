@@ -24,6 +24,7 @@ public class ImageMaster implements Master, PFrameClient.Observer {
 		for (int i = 0; i < NUM_CLIENTS; ++i) {
 			final PFrameClient imageClient = 
 					new PFrameClient("Image Client", this, new ImageWorld(), this);
+			imageClient.setFullScreenMode(true);
 			clients.add(imageClient);
 		}
 	}

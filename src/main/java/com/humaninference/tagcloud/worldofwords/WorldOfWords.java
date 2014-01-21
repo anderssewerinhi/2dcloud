@@ -61,8 +61,8 @@ public class WorldOfWords implements WorldFactory {
     	
 						
 		final Color popInColor = Color.red; 
-		final Color popOutColor = Color.black; 
-		final Color rotateColor = Color.black;
+		final Color popOutColor = Color.white; 
+		final Color rotateColor = Color.white;
 	 
     	
 		final SequentialAnimationComposite sequentialAnimations = 

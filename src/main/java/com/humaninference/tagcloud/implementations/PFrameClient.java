@@ -1,5 +1,8 @@
 package com.humaninference.tagcloud.implementations;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferStrategy;
 import java.rmi.RemoteException;
 
 import com.humaninference.tagcloud.Animation;
@@ -56,14 +59,21 @@ public class PFrameClient extends PFrame implements Client, Animation.Observer {
     }
 
     public PFrameClient(final String title, final PCanvas aCanvas, final Observer obs, final World world, final Master master) {
-        super(title, false, aCanvas);
+        super(title, true, aCanvas);
         this.world = world;
         this.master = master;
         this.obs = obs;
     }
     
     public void initialize() {
+    	
+        /* 
+         * Set the background black 
+         */
+        getCanvas().setBackground(Color.black);
     	getCanvas().getLayer().addChild(world.getLayer());
+    
+   
 		obs.pframeClientIsReady();
     }
 
