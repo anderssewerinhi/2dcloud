@@ -21,6 +21,10 @@ public class WordsWorld implements World{
 	
 	private final List<PImage> imgList = new LinkedList<PImage>();
 	
+	public WordsWorld() {
+		layer.getCamera(0).setPaint(Color.BLACK);
+	}
+	
 
 	public PText getTextLabel(int idx) {
 		if (idx < 0 || idx > textLabelList.size() || textLabelList.isEmpty()  ) {
