@@ -52,7 +52,7 @@ public class WordsWorld implements World{
 	}
 
 	public void addLogo(double x, double y, double scale) {
-		addImage("hilogo.gif", x, y, scale);
+		addImage("hilogo-transparent-background.gif", x, y, scale);
 	}
 
 	public void addImage(final String resourceName, double x, double y, double scale) {

@@ -45,7 +45,7 @@ public class DataForWorld {
 		
 	};
 	
-	private static final int NUM_LOGOS = 10;
+	private static final int NUM_LOGOS = 5;
 	
 	public static WorldOfWords makeRepoducablyRandomWorld() {
 		final WorldOfWords res = new WorldOfWords(new ClaudiasAmazingRandomPositionFactory(42L), 600.0, 300.0);

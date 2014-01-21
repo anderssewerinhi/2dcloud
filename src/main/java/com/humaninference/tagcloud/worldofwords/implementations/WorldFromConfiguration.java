@@ -11,6 +11,9 @@ import demo.simpleapplication.WordsWorld;
 
 public class WorldFromConfiguration {
 
+	private static final double MIN_SIZE_LOGO = 0.1;
+	private static final double SCALE_FACTOR_LOGO = 0.3;
+	
 	private static Random myPredictableRandom = new Random(667);
 		
 	public static World makeWorld(final double width, final double height, final Configuration configuration) {
@@ -28,7 +31,7 @@ public class WorldFromConfiguration {
 	    }
 	    for (int i = 0; i < configuration.getImageCount(); ++i) {
 			 final Position pos = configuration.getImagePosition(i);  
-			 double scale = myPredictableRandom.nextDouble() * 0.1 + 0.1;
+			 double scale = myPredictableRandom.nextDouble() * SCALE_FACTOR_LOGO + MIN_SIZE_LOGO;
 			 textWorld.addLogo(pos.x()* halfWidth+halfWidth, pos.y()*halfHeight +halfHeight, scale);
 	    }
 		return textWorld;

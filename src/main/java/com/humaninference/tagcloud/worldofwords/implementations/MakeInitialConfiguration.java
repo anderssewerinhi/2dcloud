@@ -9,7 +9,6 @@ import java.util.Set;
 
 import com.humaninference.tagcloud.worldofwords.Configuration;
 import com.humaninference.tagcloud.worldofwords.ConfigurationFactory;
-import com.humaninference.tagcloud.worldofwords.Configuration.Position;
 
 public class MakeInitialConfiguration implements ConfigurationFactory {
 	
