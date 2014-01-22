@@ -53,8 +53,9 @@ public class MasterNode extends MasterNodeBase implements Master {
 
 	@Override
 	protected void setViewports(List<Client> clients) throws RemoteException {
-		//System.out.println("Shifting first clients viewport 100 pixels to the right");
-		//clients.get(0).setViewport(100.0, 0);
+//		final double totalWidth = numClientsToExpect * BEAMER_WIDTH_PIXELS + (numClientsToExpect - 1) * BEAMER_SPACING_PIXELS;
+//		System.out.println("Shifting first clients viewport 3000 pixels to the right");
+		clients.get(0).setViewport(1920.0 * 2.0, 0);
 	}
 
 	public static void main(final String... args)

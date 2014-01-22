@@ -46,8 +46,19 @@ public class DataForWorld {
 	
 	private static final int NUM_LOGOS = 5;
 	
+	private static final double BEAMER_HEIGHT_PIXELS = 1080.0;
+	
+	private static final double BEAMER_WIDTH_PIXELS = 1920.0;
+	
+	private static final double SPACE_BETWEEN_BEAMERS_IN_RATIO_OF_BEAMER_WIDTH = 0.1;
+	
+	private static final double BEAMER_SPACING_PIXELS = SPACE_BETWEEN_BEAMERS_IN_RATIO_OF_BEAMER_WIDTH * BEAMER_WIDTH_PIXELS;
+	
+    private static final double EXPECTED_NUMBER_OF_CLIENTS = 4.0; 
+    
 	public static WorldOfWords makeRepoducablyRandomWorld() {
-		final WorldOfWords res = new WorldOfWords(new RandomPositionFactory(42L), 600.0, 300.0);
+		final double actualWidth = EXPECTED_NUMBER_OF_CLIENTS * BEAMER_WIDTH_PIXELS + (EXPECTED_NUMBER_OF_CLIENTS - 1) * BEAMER_SPACING_PIXELS;
+		final WorldOfWords res = new WorldOfWords(new RandomPositionFactory(42L), actualWidth, BEAMER_HEIGHT_PIXELS);
 		
 		for (final String word : WORDS) {
 			res.addWord(word);
