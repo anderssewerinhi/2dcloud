@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 public class RunMasterAndSlaveOnLocalhost {
 
 	public static void main(String[] args) throws RemoteException, AlreadyBoundException, NotBoundException {
-		MasterNode.main("localhost");
+		MasterNode.main("1");
 		ClientNode.main("localhost");
 	}
 

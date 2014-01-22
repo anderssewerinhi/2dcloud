@@ -18,22 +18,23 @@ public abstract class MasterNodeBase extends UnicastRemoteObject {
 
 	protected abstract Animation makeNextAnimation(final int tag);
 
-	protected final String clientLocations[];
 	private int numClientsReady = 0;
+	protected final List<String> clientLocations = new LinkedList<String>();
 	
 	private final RemoteInstanceFactory clientFactory;
+	private final int numClientsToExpect;
 
-	public MasterNodeBase(String clientLocations[], final RemoteInstanceFactory clientFactory ) throws RemoteException {
+	public MasterNodeBase(final int numClientsToExpect, final RemoteInstanceFactory clientFactory ) throws RemoteException {
 		super();
-		this.clientLocations = clientLocations;
+		this.numClientsToExpect = numClientsToExpect;
 		this.clientFactory = clientFactory;
 	}
 
 
 	public synchronized void clientIsReady(final String clientAddress) throws RemoteException {
 		System.out.println("Got the message that a client is ready (had " + numClientsReady + " ready clients before)");
-	
-		if (++numClientsReady >= clientLocations.length) {
+		clientLocations.add(clientAddress);
+		if (++numClientsReady >= numClientsToExpect) {
 			System.out.println("Creating the remote client references now");
 			System.out.println("Locations for clients are: ");
 			for (final String loc : clientLocations) {
@@ -68,7 +69,7 @@ public abstract class MasterNodeBase extends UnicastRemoteObject {
 	
 	public synchronized void animationIsFinished(final int tag)
 			throws RemoteException {
-				if (++numClientsReady >= clientLocations.length) {
+				if (++numClientsReady >= numClientsToExpect) {
 					numClientsReady = 0;
 					startAnAnimation(tag);
 				}

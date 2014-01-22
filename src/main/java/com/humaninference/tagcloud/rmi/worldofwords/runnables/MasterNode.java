@@ -36,8 +36,8 @@ public class MasterNode extends MasterNodeBase implements Master {
 	// We like repoducable randomness while testing
 	private final Random rnd = new Random(667); 
 
-	public MasterNode(final String... clientLocations) throws RemoteException {
-		super(clientLocations, RemoteInstanceFactory.RMI_FACTORY);
+	public MasterNode(final int numClientsToExpect) throws RemoteException {
+		super(numClientsToExpect, RemoteInstanceFactory.RMI_FACTORY);
 		worldOfWords = DataForWorld.makeRepoducablyRandomWorld();
 	 
 	}
@@ -61,9 +61,12 @@ public class MasterNode extends MasterNodeBase implements Master {
 			throws RemoteException, AlreadyBoundException {
 		final MasterNode node;
 		if (args.length ==0) {
-			node = new MasterNode("localhost");
+			node = new MasterNode(1);
 		} else {
-			node = new MasterNode(args);
+			if (args.length > 1) {
+				throw new RuntimeException("Too many arguments - only need one, the number of clients to expect");
+			}
+			node = new MasterNode(Integer.parseInt(args[0]));
 		}
 		
 		
