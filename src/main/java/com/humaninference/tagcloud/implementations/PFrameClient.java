@@ -1,8 +1,6 @@
 package com.humaninference.tagcloud.implementations;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.image.BufferStrategy;
 import java.rmi.RemoteException;
 
 import com.humaninference.tagcloud.Animation;
@@ -96,7 +94,7 @@ public class PFrameClient extends PFrame implements Client, Animation.Observer {
 	 * @param tag Identifies an animation, so we can do world manipulations when it
 	 * is done. Such as removing or adding items to the world.
 	 */
-	protected void templateMethodOnAnimationFinished(@SuppressWarnings("unused") final int tag) {
+	protected void templateMethodOnAnimationFinished(final int tag) {
 		// Template method - do nothing.
 		// Note that World is protected, so you can override and manipulate it here.
 	}

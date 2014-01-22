@@ -5,5 +5,6 @@ public interface ClientConfiguration {
 	String getMasterHostname();
 	int getMasterRmiPort();
 	int getOurRmiPort();
+	boolean runAsFullScreen();
 
 }

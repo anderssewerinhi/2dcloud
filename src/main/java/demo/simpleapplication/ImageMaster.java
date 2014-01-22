@@ -1,6 +1,5 @@
 package demo.simpleapplication;
 
-import java.awt.Color;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
