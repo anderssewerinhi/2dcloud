@@ -22,7 +22,7 @@ public abstract class MasterNodeBase extends UnicastRemoteObject {
 	protected final List<String> clientLocations = new LinkedList<String>();
 	
 	private final RemoteInstanceFactory clientFactory;
-	private final int numClientsToExpect;
+	protected final int numClientsToExpect;
 
 	public MasterNodeBase(final int numClientsToExpect, final RemoteInstanceFactory clientFactory ) throws RemoteException {
 		super();
