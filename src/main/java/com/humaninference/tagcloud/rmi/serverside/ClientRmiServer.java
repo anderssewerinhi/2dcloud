@@ -30,8 +30,8 @@ public class ClientRmiServer {
 	
 	public void startServer() throws RemoteException, AlreadyBoundException {
 		final Client impl = new ClientRmiAdaptor(implementation);
-		final Registry registry = LocateRegistry.createRegistry(Constants.RMI_PORT_CLIENT);
-		registry.bind(Constants.RMI_CLIENT_NAME, impl);
+		final Registry registry = LocateRegistry.createRegistry(rmiPort);
+		registry.bind(rmiServiceName, impl);
 		System.out.println("Start is started");
 	}
 	
