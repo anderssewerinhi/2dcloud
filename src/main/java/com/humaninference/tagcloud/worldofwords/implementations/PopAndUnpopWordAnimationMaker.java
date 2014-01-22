@@ -196,16 +196,6 @@ public class PopAndUnpopWordAnimationMaker {
 			}
 
 			@Override
-			public int getLineCount() {
-				return initial.getLineCount();
-			}
-
-			@Override
-			public Line getLine(int line) {
-				return initial.getLine(line);
-			}
-
-			@Override
 			public void changePositions(List<Position> newPositions, final List<Position> newLogoPositions) {
 				throw new RuntimeException("Not implemented - will not be needed");
 				

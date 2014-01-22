@@ -16,11 +16,6 @@ public interface Configuration {
 		double z();
 	}
 	
-	interface Line {
-		int fromWord();
-		int toWord();
-	}
-	
 	void changePositions(final List<Position> newPositions, final List<Position> newLogoPositions);
 
 	int getWordCount();
@@ -31,10 +26,6 @@ public interface Configuration {
 	
 	String getWord(final int word);
 	
-	int getLineCount();
-	
-	Line getLine(final int line);
-
 	int getImageCount();
 	
 	Position getImagePosition(final int image);

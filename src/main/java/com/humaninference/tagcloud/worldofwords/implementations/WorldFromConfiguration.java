@@ -17,9 +17,7 @@ public class WorldFromConfiguration {
 	private static Random myPredictableRandom = new Random(667);
 		
 	public static World makeWorld(final double width, final double height, final Configuration configuration) {
-		
-		//return new ImageWorld(); // Just for testing purposes
-		
+				
 	    final WordsWorld textWorld =  new WordsWorld(); 
 		final double halfHeight = height/2.0;
 		final double halfWidth = width/2.0;

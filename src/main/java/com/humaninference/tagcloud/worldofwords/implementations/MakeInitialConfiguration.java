@@ -12,6 +12,13 @@ import com.humaninference.tagcloud.worldofwords.ConfigurationFactory;
 
 public class MakeInitialConfiguration implements ConfigurationFactory {
 	
+	private interface Line {
+		int fromWord();
+		int toWord();
+	}
+	
+
+	
 	public MakeInitialConfiguration(final PositionFactory pf) {
 		this.pf = pf;
 	}
@@ -36,7 +43,7 @@ public class MakeInitialConfiguration implements ConfigurationFactory {
 	
 	private final Set<Set<Integer>> lines = new HashSet<Set<Integer>>();
 	
-	final List<Configuration.Line> linesAsList = new LinkedList<Configuration.Line>();
+	final List<Line> linesAsList = new LinkedList<Line>();
 
 	public void addWord(final String word) {
 		if (wordToId.containsKey(word)) {
@@ -77,7 +84,7 @@ public class MakeInitialConfiguration implements ConfigurationFactory {
 		if (!lines.contains(thisLine)) { 
 			lines.add(thisLine); 
 			linesAsList.add(
-					new Configuration.Line() {
+					new Line() {
 						
 						@Override
 						public int toWord() {
@@ -109,19 +116,10 @@ public class MakeInitialConfiguration implements ConfigurationFactory {
 				return connections.get(word);
 			}
 
-			@Override
-			public int getLineCount() {
-				return lines.size();
-			}
 
 			@Override
 			public Position getPosition(int word) {
 				return wordIdToPosition.get(word);
-			}
-
-			@Override
-			public Line getLine(int relation) {
-				return linesAsList.get(relation);
 			}
 
 			@Override

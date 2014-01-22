@@ -1,7 +1,6 @@
 package com.humaninference.tagcloud.rmi.worldofwords.runnables;
 
 import com.humaninference.tagcloud.worldofwords.WorldOfWords;
-import com.humaninference.tagcloud.worldofwords.implementations.ClaudiasAmazingRandomPositionFactory;
 import com.humaninference.tagcloud.worldofwords.implementations.RandomPositionFactory;
 
 public class DataForWorld {
@@ -48,17 +47,19 @@ public class DataForWorld {
 	private static final int NUM_LOGOS = 5;
 	
 	public static WorldOfWords makeRepoducablyRandomWorld() {
-		final WorldOfWords res = new WorldOfWords(new ClaudiasAmazingRandomPositionFactory(42L), 600.0, 300.0);
+		final WorldOfWords res = new WorldOfWords(new RandomPositionFactory(42L), 600.0, 300.0);
 		
 		for (final String word : WORDS) {
 			res.addWord(word);
 		}
+		
 		
 		for (int i = 0; i < CONNECTIONS_FROM_TO.length; i += 2) {
 			final String from = CONNECTIONS_FROM_TO[i];
 			final String to = CONNECTIONS_FROM_TO[i+1];
 			res.addConnection(from, to);
 		}
+		
 		
 		for (int i = 0; i < NUM_LOGOS; ++i) {
 			res.addLogo();

@@ -10,7 +10,6 @@ import com.humaninference.tagcloud.World;
 
 import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.nodes.PImage;
-import edu.umd.cs.piccolo.nodes.PPath;
 import edu.umd.cs.piccolo.nodes.PText;
 
 public class ImageWorld implements World {
@@ -37,9 +36,6 @@ public class ImageWorld implements World {
 		throw new RuntimeException("No labels in this world");
 	}
 
-	public PPath getEdge(int idx) {
-		throw new RuntimeException("No edges in this world");
-	}
 
 	public PImage getImage(int idx) {
 		if (idx != 0) {

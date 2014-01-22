@@ -8,10 +8,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+
 import com.humaninference.tagcloud.World;
+
 import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.nodes.PImage;
-import edu.umd.cs.piccolo.nodes.PPath;
 import edu.umd.cs.piccolo.nodes.PText;
 
 public class WordsWorld implements World{
@@ -39,10 +40,6 @@ public class WordsWorld implements World{
 							idx, textLabelList.size()));
 		}
 		return textLabelList.get(idx);
-	}
-
-	public PPath getEdge(int idx) {
-		throw new RuntimeException("No edges in this world");
 	}
 
 	public PImage getImage(int idx) {

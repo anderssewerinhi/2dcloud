@@ -1,8 +1,5 @@
 package com.humaninference.tagcloud.worldofwords.implementations;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,25 +17,18 @@ public class ConcreteConfiguration implements Configuration {
 	private List<Configuration.Position> wordIdToPosition;
 	
 	private  List<Configuration.Position> logoIdToPosition;
-
-	private final Set<Set<Integer>> lines;
 	
-	final List<Configuration.Line> linesAsList;
 	
 	public ConcreteConfiguration(final Map<String, Integer> wordToId,
 			final List<String> idToWord,
 			final Map<Integer, Set<Integer>> connections,
 			final List<Configuration.Position> wordIdToPosition,
-			final Set<Set<Integer>> lines,
-			final List<Configuration.Line> linesAsList,
 			final List<Configuration.Position> logoIdToPosition
 			) {
 		this.wordToId = wordToId;
 		this.idToWord = idToWord;
 		this.connections = connections;
 		this.wordIdToPosition = wordIdToPosition;
-		this.lines = lines;
-		this.linesAsList = linesAsList;
 		this.logoIdToPosition = logoIdToPosition;
 		
 	}
@@ -54,18 +44,8 @@ public class ConcreteConfiguration implements Configuration {
 	}
 
 	@Override
-	public int getLineCount() {
-		return lines.size();
-	}
-
-	@Override
 	public Position getPosition(int word) {
 		return wordIdToPosition.get(word);
-	}
-
-	@Override
-	public Line getLine(int relation) {
-		return linesAsList.get(relation);
 	}
 
 	@Override
@@ -80,14 +60,12 @@ public class ConcreteConfiguration implements Configuration {
 
 	@Override
 	public int getImageCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return logoIdToPosition.size();
 	}
 
 	@Override
 	public Position getImagePosition(int image) {
-		// TODO Auto-generated method stub
-		return null;
+		return logoIdToPosition.get(image);
 	}
 	
 }

@@ -8,7 +8,6 @@ import com.humaninference.tagcloud.implementations.LineAnimation;
 import com.humaninference.tagcloud.implementations.ParallelAnimationComposite;
 import com.humaninference.tagcloud.implementations.TextAnimation;
 import com.humaninference.tagcloud.worldofwords.Configuration;
-import com.humaninference.tagcloud.worldofwords.Configuration.Line;
 import com.humaninference.tagcloud.worldofwords.Configuration.Position;
 
 public class TransitionAnimationMaker {
