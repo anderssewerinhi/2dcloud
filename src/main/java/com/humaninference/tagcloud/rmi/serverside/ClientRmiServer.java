@@ -18,9 +18,13 @@ import com.humaninference.tagcloud.rmi.Constants;
 public class ClientRmiServer {
 	
 	private final Client implementation;
+	private final int rmiPort;
+	private final String rmiServiceName;
 	
-	public ClientRmiServer(final Client implementation) {
+	public ClientRmiServer(final Client implementation, final int rmiPort, final String rmiServiceName) {
 		this.implementation = implementation;
+		this.rmiPort = rmiPort;
+		this.rmiServiceName = rmiServiceName;
 	}
 
 	
