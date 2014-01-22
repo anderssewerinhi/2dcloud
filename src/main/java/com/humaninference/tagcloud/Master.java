@@ -25,7 +25,7 @@ public interface Master extends Remote {
 	 * 
 	 * @throws RemoteException The "usual" RMI reasons.
 	 */
-	void clientIsReady(final String addressOfClient) throws RemoteException ;
+	void clientIsReady(final String addressOfClient, final int portOfClient, final String clientServiceName) throws RemoteException ;
 	
 	/**
 	 * All clients notify the master when the current animation is done. This way we 

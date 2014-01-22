@@ -20,17 +20,17 @@ import com.humaninference.tagcloud.rmi.Constants;
  */
 public interface RemoteInstanceFactory {
 
-	public Client makeClient(final String locationOfRemoteClient) throws RemoteException, NotBoundException;
+	public Client makeClient(final String locationOfRemoteClient, final int portOfClient, final String nameOfClientService) throws RemoteException, NotBoundException;
 	
 	public Master makeMaster(final String locationOfRemoteMaster) throws RemoteException, NotBoundException;
 	
 	public static final RemoteInstanceFactory RMI_FACTORY = new RemoteInstanceFactory() {
 
 		@Override
-		public Client makeClient(String locationOfRemoteClient)
+		public Client makeClient(String locationOfRemoteClient, final int portOfClient, final String nameOfClientService)
 				throws RemoteException, NotBoundException {
-			final Registry registry = LocateRegistry.getRegistry(locationOfRemoteClient, Constants.RMI_PORT_CLIENT);
-			return (Client) registry.lookup(Constants.RMI_CLIENT_NAME);
+			final Registry registry = LocateRegistry.getRegistry(locationOfRemoteClient, portOfClient);
+			return (Client) registry.lookup(nameOfClientService);
 		}
 
 		@Override

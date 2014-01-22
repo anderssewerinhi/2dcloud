@@ -11,6 +11,7 @@ import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
 import com.humaninference.tagcloud.World;
 import com.humaninference.tagcloud.implementations.PFrameClient;
+import com.humaninference.tagcloud.rmi.Constants;
 
 public class RemotablePFrameClient extends UnicastRemoteObject implements PFrameClient.Observer, Client {
 
@@ -36,7 +37,7 @@ public class RemotablePFrameClient extends UnicastRemoteObject implements PFrame
 		System.out.println("Telling master that this client is ready");
 		try {
 			final String localIpAddress = InetAddress.getLocalHost().getHostAddress();
-			remoteMaster.clientIsReady(localIpAddress); 
+			remoteMaster.clientIsReady(localIpAddress, Constants.RMI_PORT_CLIENT, Constants.RMI_CLIENT_NAME); 
 			System.out.println("Master should now know that this client is ready");
 		} catch (UnknownHostException e) {
 			throw new RuntimeException(e);

@@ -31,7 +31,7 @@ public abstract class MasterNodeBase extends UnicastRemoteObject {
 	}
 
 
-	public synchronized void clientIsReady(final String clientAddress) throws RemoteException {
+	public synchronized void clientIsReady(final String clientAddress, final int clientPortNumber, final String clientServiceName) throws RemoteException {
 		System.out.println("Got the message that a client is ready (had " + numClientsReady + " ready clients before)");
 		clientLocations.add(clientAddress);
 		if (++numClientsReady >= numClientsToExpect) {
@@ -45,7 +45,7 @@ public abstract class MasterNodeBase extends UnicastRemoteObject {
 			for (final String address : clientLocations) {
 				try {
 					System.out.println("For " + address + "...");
-					final Client remoteClient = clientFactory.makeClient(address);
+					final Client remoteClient = clientFactory.makeClient(address, clientPortNumber, clientServiceName);
 					System.out.println("Done creating remote client for " + address);
 					clients.add(remoteClient);
 				} catch (RemoteException e) {
