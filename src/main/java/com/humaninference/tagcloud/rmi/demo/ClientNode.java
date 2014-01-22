@@ -28,7 +28,7 @@ public class ClientNode {
 		// Create a client node that can be exposed with RMI for the master to find
 		// Needs a reference to the master, so it can tell the master that it's ready to accept animation requests
 		// The client node will create a wrapped pFrame on itself. The coupling is a bit tight - sorry!
-		final RemotablePFrameClient client = new RemotablePFrameClient(rmiMaster, new ImageWorld());
+		final RemotablePFrameClient client = new RemotablePFrameClient(rmiMaster, new ImageWorld(), false);
 		
 		// Expose it over RMI by wrapping it in a ClientRmiServer
 		final ClientRmiServer server = new ClientRmiServer(client);

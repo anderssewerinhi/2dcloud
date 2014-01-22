@@ -52,12 +52,12 @@ public class PFrameClient extends PFrame implements Client, Animation.Observer {
     
     private final Observer obs;
     
-    public PFrameClient(final String title, Observer obs, final World world, final Master master) {
-        this(title, null, obs, world, master);
+    public PFrameClient(final String title, Observer obs, final World world, final Master master, final boolean runAsFullScreen) {
+        this(title, null, obs, world, master, runAsFullScreen);
     }
 
-    public PFrameClient(final String title, final PCanvas aCanvas, final Observer obs, final World world, final Master master) {
-        super(title, true, aCanvas);
+    public PFrameClient(final String title, final PCanvas aCanvas, final Observer obs, final World world, final Master master, final boolean runAsFullScreen) {
+        super(title, runAsFullScreen, aCanvas);
         this.world = world;
         this.master = master;
         this.obs = obs;

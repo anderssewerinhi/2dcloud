@@ -22,13 +22,13 @@ public class RemotablePFrameClient extends UnicastRemoteObject implements PFrame
 	private boolean imageClientIsReady = false;
 	int animationIdx = 0;
 
-	public RemotablePFrameClient(final Master remoteMaster, final World world) throws RemoteException, NotBoundException {
+	public RemotablePFrameClient(final Master remoteMaster, final World world, final boolean runAsFullScreen) throws RemoteException, NotBoundException {
 		super();
 		this.remoteMaster = remoteMaster;
 		System.out.println("Got a master reference");
 		// Create the wrapped client that will do the actual graphics 
 		// (needs a reference to the master...)...
-		wrapped = new PFrameClient("Image client", this, world, remoteMaster);
+		wrapped = new PFrameClient("Image client", this, world, remoteMaster, runAsFullScreen);
 		System.out.println("Created wrapped image client");
 
 	}

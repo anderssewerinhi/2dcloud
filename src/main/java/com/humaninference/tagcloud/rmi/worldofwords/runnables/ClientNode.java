@@ -29,7 +29,8 @@ public class ClientNode {
 		// The client node will create a wrapped pFrame on itself. The coupling is a bit tight - sorry!
 		
 		final World world = DataForWorld.makeRepoducablyRandomWorld().makeWorld();
-		final RemotablePFrameClient client = new RemotablePFrameClient(rmiMaster, world);
+		// TODO: Use an instance of CONFIG for client to set locaiton of master, run in full screen etc. etc. etc.
+		final RemotablePFrameClient client = new RemotablePFrameClient(rmiMaster, world, true);
 		
 		// Expose it over RMI by wrapping it in a ClientRmiServer
 		final ClientRmiServer server = new ClientRmiServer(client);
