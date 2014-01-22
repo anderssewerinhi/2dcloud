@@ -17,7 +17,7 @@ import edu.umd.cs.piccolo.nodes.PText;
 
 public class WordsWorld implements World{
 
-	private static final String DARK_BACKGROUND_LOGO = "dark-hilogo-transparent-background.PNG";
+	private static final String DARK_BACKGROUND_LOGO = "dark-hilogo-transparent-background.png";
 //	private static final String LIGHT_BAKGROUND_LOGO = "hilogo-transparent-background.gif";
 	private static final String LOGO_RESOURCE_NAME = DARK_BACKGROUND_LOGO;
 
@@ -62,7 +62,11 @@ public class WordsWorld implements World{
 	}
 
 	public void addImage(final String resourceName, double x, double y, double scale) {
-		final InputStream imgStream = this.getClass().getClassLoader().getResourceAsStream(resourceName);
+//		final InputStream imgStream = this.getClass().getClassLoader().getResourceAsStream(resourceName);
+		final InputStream imgStream = this.getClass().getResourceAsStream(resourceName);
+		if (null == imgStream) {
+			throw new RuntimeException(String.format("Can't load resource %s", resourceName));
+		}
         try {
 			final PImage img = new PImage(ImageIO.read(imgStream));
 			img.setOffset(x, y);
