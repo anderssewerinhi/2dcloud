@@ -1,5 +1,7 @@
 package com.humaninference.tagcloud.rmi.baseforrunnables;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -32,8 +34,13 @@ public class RemotablePFrameClient extends UnicastRemoteObject implements PFrame
 	
 	private void tellMasterClientIsReady() throws RemoteException {
 		System.out.println("Telling master that this client is ready");
-		remoteMaster.clientIsReady(); 
-		System.out.println("Master should now know that this client is ready");
+		try {
+			final String localIpAddress = InetAddress.getLocalHost().getHostAddress();
+			remoteMaster.clientIsReady(localIpAddress); 
+			System.out.println("Master should now know that this client is ready");
+		} catch (UnknownHostException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public void performAnimation(Animation animation) throws RemoteException {

@@ -30,7 +30,7 @@ public abstract class MasterNodeBase extends UnicastRemoteObject {
 	}
 
 
-	public synchronized void clientIsReady() throws RemoteException {
+	public synchronized void clientIsReady(final String clientAddress) throws RemoteException {
 		System.out.println("Got the message that a client is ready (had " + numClientsReady + " ready clients before)");
 	
 		if (++numClientsReady >= clientLocations.length) {

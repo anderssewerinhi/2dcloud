@@ -24,8 +24,8 @@ public class MasterRmiAdaptor extends UnicastRemoteObject implements Master {
 		this.wrapped = wrapped;
 	}
 	
-	public void clientIsReady() throws RemoteException  {
-		wrapped.clientIsReady();
+	public void clientIsReady(final String clientAddress) throws RemoteException  {
+		wrapped.clientIsReady(clientAddress);
 	}
 
 	public void animationIsFinished(int tag) throws RemoteException {

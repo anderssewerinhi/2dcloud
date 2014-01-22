@@ -31,13 +31,13 @@ public class ImageMaster implements Master, PFrameClient.Observer {
 	
 	public void pframeClientIsReady() {
 		try {
-			this.clientIsReady();
+			this.clientIsReady("dummy");
 		} catch (RemoteException e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
-	public synchronized void clientIsReady() throws RemoteException  {
+	public synchronized void clientIsReady(final String clientAddress) throws RemoteException  {
 		if (++numClientsReady >= NUM_CLIENTS) {
 			numClientsReady = 0;
 			final Client c1 = clients.get(1);
