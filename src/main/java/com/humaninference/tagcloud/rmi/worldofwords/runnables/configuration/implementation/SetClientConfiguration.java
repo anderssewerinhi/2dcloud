@@ -74,7 +74,8 @@ public class SetClientConfiguration implements ClientConfiguration {
 public static void main(String args[]) throws Exception {
 
 	
-	ApplicationContext context = new ClassPathXmlApplicationContext("file:src/main/resources/spring-config.xml");
+	ApplicationContext context = new ClassPathXmlApplicationContext(
+			"file:src/main/resources/com/humaninference/tagcloud/rmi/worldofwords/runnables/configuration/implementation/spring-config.xml");
 	
     ClientConfiguration setConfiguration = (ClientConfiguration) context.getBean("configuration");
 	
