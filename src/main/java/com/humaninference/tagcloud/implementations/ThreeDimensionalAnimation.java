@@ -2,6 +2,8 @@ package com.humaninference.tagcloud.implementations;
 
 import java.awt.Color;
 
+import javax.swing.SwingUtilities;
+
 import com.humaninference.tagcloud.World;
 
 import edu.umd.cs.piccolo.PNode;
@@ -39,21 +41,34 @@ public abstract class ThreeDimensionalAnimation extends TaggedAnimation {
 	}
 
 	protected void perform(final Observer obs, final PNode n) {
+		SwingUtilities.invokeLater(
+				new Runnable() {
+					public void run() {
 		final PActivity act = 
 				n.animateToPositionScaleRotation(targetX, targetY, targetZoom, 0.0, duration);
 		final PActivityDelegate del = new PActivityDelegate() {
-			
+
 			public void activityStepped(PActivity arg0) {
 			}
-			
+
 			public void activityStarted(PActivity arg0) {
 			}
-			
+
 			public void activityFinished(PActivity arg0) {
-				obs.onAnimationFinished(tag());
+				SwingUtilities.invokeLater(
+						new Runnable() {
+							public void run() {
+
+								obs.onAnimationFinished(tag());
+							}
+						}
+						);
 			}
 		};
 		act.setDelegate(del);
+					}
+				}
+				);
 	}
 
 	public long duration() {

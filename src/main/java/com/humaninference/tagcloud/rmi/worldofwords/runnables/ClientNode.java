@@ -4,6 +4,8 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import javax.swing.SwingUtilities;
+
 import com.humaninference.tagcloud.Master;
 import com.humaninference.tagcloud.World;
 import com.humaninference.tagcloud.rmi.Constants;
@@ -28,7 +30,7 @@ public class ClientNode {
 			
 			@Override
 			public boolean runAsFullScreen() {
-				return false;
+				return true;
 			}
 			
 			@Override
@@ -73,19 +75,40 @@ public class ClientNode {
 		
 		final World world = DataForWorld.makeRepoducablyRandomWorld().makeWorld();
 		
-		final RemotablePFrameClient client = 
-				new RemotablePFrameClient(
-						rmiMaster, world, config.runAsFullScreen(), config.getOurRmiPort(), 
-						config.getOurRmiServiceName(), config.getOurHumanReadableName());
-		
-		// Expose it over RMI by wrapping it in a ClientRmiServer
-		final ClientRmiServer server = new ClientRmiServer(client, config.getOurRmiPort(), config.getOurRmiServiceName());
-		
-		// ...then tell the RMI wrapper for my client to start up the RMI bits...
-		server.startServer(); 
-		
-		// Now the remote master can find us...
-		client.serverIsReady();
+		SwingUtilities.invokeLater(
+				new Runnable() {
+
+					@Override
+					public void run() {
+						RemotablePFrameClient client;
+						try {
+							client = new RemotablePFrameClient(
+									rmiMaster, world, config.runAsFullScreen(), config.getOurRmiPort(), 
+									config.getOurRmiServiceName(), config.getOurHumanReadableName());
+							// Expose it over RMI by wrapping it in a ClientRmiServer
+							final ClientRmiServer server = new ClientRmiServer(client, config.getOurRmiPort(), config.getOurRmiServiceName());
+							
+							// ...then tell the RMI wrapper for my client to start up the RMI bits...
+							server.startServer(); 
+							
+							// Now the remote master can find us...
+							client.serverIsReady();
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (NotBoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (AlreadyBoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						
+					}
+					
+				}
+				);
 		
 	}
 

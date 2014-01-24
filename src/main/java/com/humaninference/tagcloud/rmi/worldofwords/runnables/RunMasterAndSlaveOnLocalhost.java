@@ -5,6 +5,8 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import javax.swing.SwingUtilities;
+
 import org.apache.log4j.xml.DOMConfigurator;
 
 public class RunMasterAndSlaveOnLocalhost {
@@ -16,8 +18,25 @@ public class RunMasterAndSlaveOnLocalhost {
 			final String currentDir = new File(".").getAbsolutePath();
 			System.out.println("No log4j config file found in " + currentDir);
 		}
-		MasterNode.main("1");
-		ClientNode.main("localhost");
+        SwingUtilities.invokeLater(
+        		new Runnable() {
+        			public void run() {
+        				try {
+							MasterNode.main("1");
+	        				ClientNode.main("localhost");
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (AlreadyBoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (NotBoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+        			}
+        		}
+        		);
 	}
 
 }
