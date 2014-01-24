@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import org.apache.log4j.Logger;
+
 import com.humaninference.tagcloud.Master;
 import com.humaninference.tagcloud.rmi.Constants;
 
@@ -18,6 +20,8 @@ import com.humaninference.tagcloud.rmi.Constants;
  */
 public class MasterRmiServer {
 
+	static Logger logger = Logger.getLogger(MasterRmiServer.class);
+	
 	private Master implementation;
 	
 	public MasterRmiServer(final Master implementation) {
@@ -27,7 +31,7 @@ public class MasterRmiServer {
 	public void startServer() throws RemoteException, AlreadyBoundException {
 		final Registry registry = LocateRegistry.createRegistry(Constants.RMI_PORT_MASTER);
 		registry.bind(Constants.RMI_MASTER_NAME, implementation);
-		System.out.println("Master is started");
+		logger.trace("Master is started");
 	}
 	
 

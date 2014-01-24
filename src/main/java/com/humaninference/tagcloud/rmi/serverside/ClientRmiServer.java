@@ -5,8 +5,9 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import org.apache.log4j.Logger;
+
 import com.humaninference.tagcloud.Client;
-import com.humaninference.tagcloud.rmi.Constants;
 
 /**
  * 
@@ -16,6 +17,8 @@ import com.humaninference.tagcloud.rmi.Constants;
  * on the well-known port, with the well-known name.
  */
 public class ClientRmiServer {
+	
+	static Logger logger = Logger.getLogger(ClientRmiServer.class);
 	
 	private final Client implementation;
 	private final int rmiPort;
@@ -32,7 +35,7 @@ public class ClientRmiServer {
 		final Client impl = new ClientRmiAdaptor(implementation);
 		final Registry registry = LocateRegistry.createRegistry(rmiPort);
 		registry.bind(rmiServiceName, impl);
-		System.out.println("Start is started");
+		logger.trace("Start is started");
 	}
 	
 

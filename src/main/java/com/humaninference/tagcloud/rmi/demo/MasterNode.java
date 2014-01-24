@@ -6,6 +6,8 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
@@ -28,6 +30,8 @@ import com.humaninference.tagcloud.rmi.serverside.MasterRmiServer;
  */
 public class MasterNode extends MasterNodeBase implements Master {
 	
+	static Logger logger = Logger.getLogger(MasterNode.class);
+	
 	private static final long serialVersionUID = 1L;
 
 	public MasterNode(final int numClientsToExpect) throws RemoteException {
@@ -46,7 +50,7 @@ public class MasterNode extends MasterNodeBase implements Master {
 
 	@Override
 	protected void setViewports(List<Client> clients) throws RemoteException {
-		System.out.println("Shifting first clients viewport 100 pixels to the right");
+		logger.trace("Shifting first clients viewport 100 pixels to the right");
 		clients.get(0).setViewport(100.0, 0);
 	}
 

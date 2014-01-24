@@ -6,6 +6,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import org.apache.log4j.Logger;
+
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
@@ -14,6 +16,8 @@ import com.humaninference.tagcloud.implementations.PFrameClient;
 
 public class RemotablePFrameClient extends UnicastRemoteObject implements PFrameClient.Observer, Client {
 
+	static Logger logger = Logger.getLogger(RemotablePFrameClient.class);
+			
 	private static final long serialVersionUID = 1L;
 	protected final Client wrapped;
 	protected final Master remoteMaster;
@@ -31,27 +35,27 @@ public class RemotablePFrameClient extends UnicastRemoteObject implements PFrame
 		this.rmiPortClient = rmiPortClient;
 		this.rmiClientName = rmiClientName;
 		this.ourHumanReadableName = ourHumanReadableName;
-		System.out.println("Got a master reference");
+		logger.trace("Got a master reference");
 		// Create the wrapped client that will do the actual graphics 
 		// (needs a reference to the master...)...
 		wrapped = new PFrameClient("Image client", this, world, remoteMaster, runAsFullScreen);
-		System.out.println("Created wrapped image client");
+		logger.trace("Created wrapped image client");
 
 	}
 	
 	private void tellMasterClientIsReady() throws RemoteException {
-		System.out.println("Telling master that this client is ready");
+		logger.trace("Telling master that this client is ready");
 		try {
 			final String localIpAddress = InetAddress.getLocalHost().getHostAddress();
 			remoteMaster.clientIsReady(localIpAddress, rmiPortClient, rmiClientName, ourHumanReadableName); 
-			System.out.println("Master should now know that this client is ready");
+			logger.trace("Master should now know that this client is ready");
 		} catch (UnknownHostException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
 	public void performAnimation(Animation animation) throws RemoteException {
-		System.out.println(String.format("Got an animation request (#%d)", ++animationIdx));
+		logger.trace(String.format("Got an animation request (#%d)", ++animationIdx));
 		wrapped.performAnimation(animation);
 	}
 

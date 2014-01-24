@@ -6,11 +6,15 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.rmi.clientside.RemoteInstanceFactory;
 
 public abstract class MasterNodeBase extends UnicastRemoteObject {
+	
+	static Logger logger = Logger.getLogger(MasterNodeBase.class);
 
 	protected static final int FIRST_ANIMATION_TAG = -1;
 	private static final long serialVersionUID = 1L;
@@ -33,22 +37,22 @@ public abstract class MasterNodeBase extends UnicastRemoteObject {
 
 
 	public synchronized void clientIsReady(final String clientAddress, final int clientPortNumber, final String clientServiceName, final String humanReadableClientName) throws RemoteException {
-		System.out.println("Got the message that a client is ready (had " + numClientsReady + " ready clients before)");
+		logger.trace("Got the message that a client is ready (had " + numClientsReady + " ready clients before)");
 		clientLocations.add(clientAddress);
 		clientHumanReadableNames.add(humanReadableClientName);
 		if (++numClientsReady >= numClientsToExpect) {
-			System.out.println("Creating the remote client references now");
-			System.out.println("Locations for clients are: ");
+			logger.trace("Creating the remote client references now");
+			logger.trace("Locations for clients are: ");
 			for (final String loc : clientLocations) {
-				System.out.println(loc);;
+				logger.trace(loc);;
 			}
 			// OK, all the clients have a reference to us, and have checked in.
 			// Now we can create references to them using the well-known addresses.
 			for (final String address : clientLocations) {
 				try {
-					System.out.println("For " + address + "...");
+					logger.trace("For " + address + "...");
 					final Client remoteClient = clientFactory.makeClient(address, clientPortNumber, clientServiceName);
-					System.out.println("Done creating remote client for " + address);
+					logger.trace("Done creating remote client for " + address);
 					clients.add(remoteClient);
 				} catch (RemoteException e) {
 					throw new RuntimeException("Can't RMI to client on " + address, e);
@@ -61,9 +65,9 @@ public abstract class MasterNodeBase extends UnicastRemoteObject {
 			numClientsReady = 0;
 			
 			setViewports(clients);
-			System.out.println("Will start the first animation now");
+			logger.trace("Will start the first animation now");
 			startAnAnimation(FIRST_ANIMATION_TAG);
-			System.out.println("First animation started");
+			logger.trace("First animation started");
 		}
 	}
 
@@ -80,13 +84,13 @@ public abstract class MasterNodeBase extends UnicastRemoteObject {
 	private synchronized void startAnAnimation(final int tag)
 			throws RemoteException {
 				final Animation imgAnim = makeNextAnimation(tag);
-				System.out.println("Animation ready - about to send to " + clients.size() + " clients");
+				logger.trace("Animation ready - about to send to " + clients.size() + " clients");
 				for (final Client c : clients) {
-					System.out.println("Sending...");
+					logger.trace("Sending...");
 					c.performAnimation(imgAnim);
-					System.out.println("Sent");
+					logger.trace("Sent");
 				}
-				System.out.println("Done sending animation");
+				logger.trace("Done sending animation");
 			}
 
 }

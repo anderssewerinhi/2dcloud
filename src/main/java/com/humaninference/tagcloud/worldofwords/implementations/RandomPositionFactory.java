@@ -54,12 +54,6 @@ public class RandomPositionFactory implements PositionFactory {
 				 
 	}
 	
-	public static final void main(final String... strings) {
-		final RandomPositionFactory rf = new RandomPositionFactory(42);
-		for ( int i = 0; i < 10; ++i) {
-			System.out.println(rf.newPosition().toString());
-		}
-	}
-	
+
 
 }

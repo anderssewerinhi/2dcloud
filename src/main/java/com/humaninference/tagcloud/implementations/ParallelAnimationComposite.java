@@ -3,6 +3,8 @@ package com.humaninference.tagcloud.implementations;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.World;
 
@@ -13,6 +15,8 @@ import com.humaninference.tagcloud.World;
  * A simple composite that executes a list of animations in parallel
  */
 public class ParallelAnimationComposite extends TaggedAnimation implements Animation.Observer {
+	
+	static Logger logger = Logger.getLogger(ParallelAnimationComposite.class);
 		
 	private static final long serialVersionUID = 1L;
 
@@ -40,7 +44,7 @@ public class ParallelAnimationComposite extends TaggedAnimation implements Anima
 
 
 	public synchronized void onAnimationFinished(final int tag) {
-		System.out.println("Done " + numDone + " of " + animations.size());
+		logger.trace("Done " + numDone + " of " + animations.size());
 		if (++numDone >= animations.size()) {
 			obs.onAnimationFinished(tag()); // NB! We pass on the tag for the composite!
 		}
