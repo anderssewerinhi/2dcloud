@@ -11,7 +11,6 @@ import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
 import com.humaninference.tagcloud.World;
 import com.humaninference.tagcloud.implementations.PFrameClient;
-import com.humaninference.tagcloud.rmi.Constants;
 
 public class RemotablePFrameClient extends UnicastRemoteObject implements PFrameClient.Observer, Client {
 
@@ -20,11 +19,18 @@ public class RemotablePFrameClient extends UnicastRemoteObject implements PFrame
 	protected final Master remoteMaster;
 	private boolean serverIsReady = false;
 	private boolean imageClientIsReady = false;
+	private final int rmiPortClient;
+	private final String rmiClientName;
+	private final String ourHumanReadableName;
 	int animationIdx = 0;
 
-	public RemotablePFrameClient(final Master remoteMaster, final World world, final boolean runAsFullScreen) throws RemoteException, NotBoundException {
+	public RemotablePFrameClient(final Master remoteMaster, final World world, 
+			final boolean runAsFullScreen, final int rmiPortClient, final String rmiClientName, final String ourHumanReadableName) throws RemoteException, NotBoundException {
 		super();
 		this.remoteMaster = remoteMaster;
+		this.rmiPortClient = rmiPortClient;
+		this.rmiClientName = rmiClientName;
+		this.ourHumanReadableName = ourHumanReadableName;
 		System.out.println("Got a master reference");
 		// Create the wrapped client that will do the actual graphics 
 		// (needs a reference to the master...)...
@@ -37,7 +43,7 @@ public class RemotablePFrameClient extends UnicastRemoteObject implements PFrame
 		System.out.println("Telling master that this client is ready");
 		try {
 			final String localIpAddress = InetAddress.getLocalHost().getHostAddress();
-			remoteMaster.clientIsReady(localIpAddress, Constants.RMI_PORT_CLIENT, Constants.RMI_CLIENT_NAME); 
+			remoteMaster.clientIsReady(localIpAddress, rmiPortClient, rmiClientName, ourHumanReadableName); 
 			System.out.println("Master should now know that this client is ready");
 		} catch (UnknownHostException e) {
 			throw new RuntimeException(e);

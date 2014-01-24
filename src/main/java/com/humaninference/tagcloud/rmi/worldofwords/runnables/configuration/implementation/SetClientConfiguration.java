@@ -1,8 +1,5 @@
 package com.humaninference.tagcloud.rmi.worldofwords.runnables.configuration.implementation;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -15,6 +12,7 @@ public class SetClientConfiguration implements ClientConfiguration {
 	private int masterRMIPort; 
 	private int ourRMIPort; 
 	private String ourRmiServiceName;
+	private String ourHumanReadableName;
 	private boolean fullScreen;
 	    
 	public SetClientConfiguration() {
@@ -71,16 +69,27 @@ public class SetClientConfiguration implements ClientConfiguration {
 	  this.fullScreen = screen;
 	}
 
+	@Override
+	public String getOurHumanReadableName() {
+		return ourHumanReadableName;
+	}
+	
+	public void setOurHumanReadableName(final String ourHumanReadableName) {
+		this.ourHumanReadableName = ourHumanReadableName;
+	}
+
 public static void main(String args[]) throws Exception {
 
 	
-	ApplicationContext context = new ClassPathXmlApplicationContext(
+	final ApplicationContext context = new ClassPathXmlApplicationContext(
 			"file:src/main/resources/com/humaninference/tagcloud/rmi/worldofwords/runnables/configuration/implementation/spring-config.xml");
 	
     ClientConfiguration setConfiguration = (ClientConfiguration) context.getBean("configuration");
+    
 	
  
 	
 }
+
 
 }

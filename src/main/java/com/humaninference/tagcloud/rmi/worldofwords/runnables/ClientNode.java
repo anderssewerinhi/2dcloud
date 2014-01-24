@@ -46,9 +46,16 @@ public class ClientNode {
 				return Constants.RMI_PORT_MASTER;
 			}
 			
+			
+			
 			@Override
 			public String getMasterHostname() {
 				return args[0];
+			}
+
+			@Override
+			public String getOurHumanReadableName() {
+				return "PLEASE USE A REAL CONFIGURATION FILE";
 			}
 		};
 		
@@ -66,7 +73,10 @@ public class ClientNode {
 		
 		final World world = DataForWorld.makeRepoducablyRandomWorld().makeWorld();
 		
-		final RemotablePFrameClient client = new RemotablePFrameClient(rmiMaster, world, config.runAsFullScreen());
+		final RemotablePFrameClient client = 
+				new RemotablePFrameClient(
+						rmiMaster, world, config.runAsFullScreen(), config.getOurRmiPort(), 
+						config.getOurRmiServiceName(), config.getOurHumanReadableName());
 		
 		// Expose it over RMI by wrapping it in a ClientRmiServer
 		final ClientRmiServer server = new ClientRmiServer(client, config.getOurRmiPort(), config.getOurRmiServiceName());

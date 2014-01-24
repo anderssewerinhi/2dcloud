@@ -20,6 +20,7 @@ public abstract class MasterNodeBase extends UnicastRemoteObject {
 
 	private int numClientsReady = 0;
 	protected final List<String> clientLocations = new LinkedList<String>();
+	protected final List<String> clientHumanReadableNames = new LinkedList<String>();
 	
 	private final RemoteInstanceFactory clientFactory;
 	protected final int numClientsToExpect;
@@ -31,9 +32,10 @@ public abstract class MasterNodeBase extends UnicastRemoteObject {
 	}
 
 
-	public synchronized void clientIsReady(final String clientAddress, final int clientPortNumber, final String clientServiceName) throws RemoteException {
+	public synchronized void clientIsReady(final String clientAddress, final int clientPortNumber, final String clientServiceName, final String humanReadableClientName) throws RemoteException {
 		System.out.println("Got the message that a client is ready (had " + numClientsReady + " ready clients before)");
 		clientLocations.add(clientAddress);
+		clientHumanReadableNames.add(humanReadableClientName);
 		if (++numClientsReady >= numClientsToExpect) {
 			System.out.println("Creating the remote client references now");
 			System.out.println("Locations for clients are: ");
