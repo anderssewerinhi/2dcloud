@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
+
+	<context:annotation-config />
+
+	<context:component-scan
+		base-package="com.humaninference.tagcloud.rmi.worldofwords.runnables" />
+	<bean id="wordsandconnections"
+		class="com.humaninference.tagcloud.rmi.worldofwords.runnables.SettableWordsAndConnections">
+		
+		<property name="numLogos"     value="5" />
+		
+		<property name="words">
+			<list>
+				<value>this</value>
+				<value>is</value>
+				<value>a</value>
+				<value>small</value>
+				<value>exciting</value>
+				<value>test</value>
+				<value>was</value>
+
+				<value>As</value>
+				<value>long</value>
+				<value>as</value>
+				<value>my</value>
+				<value>repo</value>
+				<value>had</value>
+				<value>nothing</value>
+				<value>to</value>
+				<value>do</value>
+				<value>with</value>
+				<value>the</value>
+				<value>public</value>
+				<value>version,</value>
+				<value>this</value>
+				<value>was</value>
+				<value>all</value>
+				<value>fine,</value>
+				<value>but</value>
+				<value>since</value>
+				<value>now</value>
+				<value>I'd</value>
+				<value>want</value>
+				<value>the</value>
+				<value>ability</value>
+				<value>to</value>
+				<value>collorate</value>
+				<value>on</value>
+				<value>WIP</value>
+				<value>with</value>
+				<value>other</value>
+				<value>team</value>
+				<value>members</value>
+				<value>and</value>
+				<value>outside</value>
+				<value>contributors,</value>
+				<value>I</value>
+				<value>want</value>
+				<value>to</value>
+				<value>make</value>
+				<value>sure</value>
+				<value>that</value>
+				<value>my</value>
+				<value>public</value>
+				<value>branches</value>
+				<value>are</value>
+				<value>reliable</value>
+				<value>for</value>
+				<value>others</value>
+				<value>to</value>
+				<value>branch</value>
+				<value>off</value>
+				<value>and</value>
+				<value>pull</value>
+				<value>from,</value>
+				<value>i.e.</value>
+				<value>no</value>
+				<value>more</value>
+				<value>rebase</value>
+				<value>and</value>
+				<value>reset</value>
+				<value>on</value>
+				<value>things</value>
+				<value>I've</value>
+				<value>pushed</value>
+				<value>to</value>
+				<value>the</value>
+				<value>remote</value>
+				<value>backup,</value>
+				<value>since</value>
+				<value>it's</value>
+				<value>now</value>
+				<value>on</value>
+				<value>GitHub</value>
+				<value>and</value>
+				<value>public.</value>
+
+			</list>
+		</property>
+		<property name="connectionsFromTo">
+			<list>
+				<value>this</value>
+				<value>is</value>
+				
+				<value>this</value>
+				<value>was</value>
+				
+				<value>this</value>
+				<value>small</value>
+				
+				<value>this</value>
+				<value>exciting</value>
+
+				<value>is</value>
+				<value>this</value>
+				
+				<value>is</value>
+				<value>small</value>
+				
+				<value>is</value>
+				<value>exciting</value>
+				
+				<value>is</value>
+				<value>a</value>
+
+				<value>a</value>
+				<value>small</value>
+				
+				<value>a</value>
+				<value>test</value>
+
+				<value>exciting</value>
+				<value>test</value>
+			</list>
+		</property>
+
+	</bean>
+</beans>

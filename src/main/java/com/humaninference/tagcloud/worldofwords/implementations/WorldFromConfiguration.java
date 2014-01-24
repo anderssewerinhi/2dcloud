@@ -7,8 +7,6 @@ import com.humaninference.tagcloud.World;
 import com.humaninference.tagcloud.worldofwords.Configuration;
 import com.humaninference.tagcloud.worldofwords.Configuration.Position;
 
-import demo.simpleapplication.WordsWorld;
-
 public class WorldFromConfiguration {
 
 	private static final double MIN_SIZE_LOGO = 0.1;
@@ -18,7 +16,7 @@ public class WorldFromConfiguration {
 		
 	public static World makeWorld(final double width, final double height, final Configuration configuration) {
 				
-	    final WordsWorld textWorld =  new WordsWorld(); 
+	    final GraphicsWorldOfWords textWorld =  new GraphicsWorldOfWords(); 
 		final double halfHeight = height/2.0;
 		final double halfWidth = width/2.0;
 	    

@@ -9,6 +9,9 @@ import javax.swing.SwingUtilities;
 
 import org.apache.log4j.xml.DOMConfigurator;
 
+import com.humaninference.tagcloud.rmi.worldofwords.runnables.configuration.ClientConfiguration;
+import com.humaninference.tagcloud.rmi.worldofwords.runnables.configuration.implementation.SetClientConfiguration;
+
 public class RunMasterAndSlaveOnLocalhost {
 
 	public static void main(String[] args) throws RemoteException, AlreadyBoundException, NotBoundException {
@@ -23,7 +26,11 @@ public class RunMasterAndSlaveOnLocalhost {
         			public void run() {
         				try {
 							MasterNode.main("1");
-	        				ClientNode.main("localhost");
+							
+							final ClientConfiguration cfg = SetClientConfiguration.configFromDefaultConfig();
+							final SetClientConfiguration overridable = new SetClientConfiguration(cfg);
+							overridable.setMasterHostname("localhost");
+	        				ClientNode.createClientFromConfig(overridable);
 						} catch (RemoteException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

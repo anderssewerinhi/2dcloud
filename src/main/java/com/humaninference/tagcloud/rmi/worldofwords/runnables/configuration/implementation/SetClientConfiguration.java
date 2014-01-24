@@ -14,82 +14,94 @@ public class SetClientConfiguration implements ClientConfiguration {
 	private String ourRmiServiceName;
 	private String ourHumanReadableName;
 	private boolean fullScreen;
-	    
+
 	public SetClientConfiguration() {
-	 	    
+
+	}
+	
+	public SetClientConfiguration(final ClientConfiguration from) {
+		this.masterHostname = from.getMasterHostname();
+		this.masterRMIPort = from.getMasterRmiPort();
+		this.ourRMIPort = from.getOurRmiPort();
+		this.ourRmiServiceName = from.getOurRmiServiceName();
+		this.ourHumanReadableName = from.getOurHumanReadableName();
+		this.fullScreen = from.runAsFullScreen();
 	}
 
 	@Override
 	public String getMasterHostname() {
-		
+
 		return masterHostname;
 	}
 
 	@Override
 	public int getMasterRmiPort() {
-		
+
 		return masterRMIPort; 
 	}
 
 	@Override
 	public int getOurRmiPort() {
-		
+
 		return ourRMIPort;
 	}
 
 	@Override
 	public String getOurRmiServiceName() {
-	
+
 		return ourRmiServiceName; 
 	}
 
 	@Override
 	public boolean runAsFullScreen() {
-		
+
 		return fullScreen;
 	}
-	
+
 	public void setMasterHostname(String name){
-		
+
 		this.masterHostname= name;  
 	}
-    
+
 	public void setMasterRMIPort(int port) {
 		this.masterRMIPort= port;
 	}
- 
+
 	public void setOurRMIPort(int port){
-		
+
 		this.ourRMIPort = port;
 	} 
 	public void setourRmiServiceName(String name){
 		this.ourRmiServiceName= name;
 	}
 	public void setfullScreen(boolean screen){
-	  this.fullScreen = screen;
+		this.fullScreen = screen;
 	}
 
 	@Override
 	public String getOurHumanReadableName() {
 		return ourHumanReadableName;
 	}
-	
+
 	public void setOurHumanReadableName(final String ourHumanReadableName) {
 		this.ourHumanReadableName = ourHumanReadableName;
 	}
 
-public static void main(String args[]) throws Exception {
+	public static void main(String args[]) throws Exception {
+		String configFromJar = "file:src/main/resources/com/humaninference/tagcloud/rmi/worldofwords/runnables/configuration/implementation/spring-config.xml";
+		configFromUrl(configFromJar);
+	}
 
-	
-	final ApplicationContext context = new ClassPathXmlApplicationContext(
-			"file:src/main/resources/com/humaninference/tagcloud/rmi/worldofwords/runnables/configuration/implementation/spring-config.xml");
-	
-    ClientConfiguration setConfiguration = (ClientConfiguration) context.getBean("configuration");
-    
-	
- 
-	
-}
+	public static ClientConfiguration configFromDefaultConfig() {
+		String configFromJar = "file:src/main/resources/com/humaninference/tagcloud/rmi/worldofwords/runnables/configuration/implementation/spring-config.xml";
+		return configFromUrl(configFromJar);
+	}
+	public static ClientConfiguration configFromUrl(String configFromJar) {
+		final ApplicationContext context = new ClassPathXmlApplicationContext(
+				configFromJar);
+
+		return (ClientConfiguration) context.getBean("configuration");
+	}
 
 
 }

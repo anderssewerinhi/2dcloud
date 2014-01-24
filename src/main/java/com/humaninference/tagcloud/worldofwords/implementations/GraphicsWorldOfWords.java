@@ -1,4 +1,4 @@
-package demo.simpleapplication;
+package com.humaninference.tagcloud.worldofwords.implementations;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -15,7 +15,7 @@ import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.nodes.PImage;
 import edu.umd.cs.piccolo.nodes.PText;
 
-public class WordsWorld implements World{
+public class GraphicsWorldOfWords implements World{
 
 	private static final String DARK_BACKGROUND_LOGO = "dark-hilogo-transparent-background.png";
 //	private static final String LIGHT_BAKGROUND_LOGO = "hilogo-transparent-background.gif";
@@ -27,7 +27,7 @@ public class WordsWorld implements World{
 	
 	private final List<PImage> imgList = new LinkedList<PImage>();
 	
-	public WordsWorld() {
+	public GraphicsWorldOfWords() {
 //		layer.getCamera(0).setPaint(Color.BLACK);
 	}
 	

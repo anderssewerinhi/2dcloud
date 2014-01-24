@@ -6,66 +6,35 @@ import java.rmi.RemoteException;
 
 import javax.swing.SwingUtilities;
 
+import org.apache.log4j.Logger;
+
 import com.humaninference.tagcloud.Master;
 import com.humaninference.tagcloud.World;
-import com.humaninference.tagcloud.rmi.Constants;
 import com.humaninference.tagcloud.rmi.baseforrunnables.RemotablePFrameClient;
 import com.humaninference.tagcloud.rmi.clientside.RemoteInstanceFactory;
 import com.humaninference.tagcloud.rmi.serverside.ClientRmiServer;
 import com.humaninference.tagcloud.rmi.worldofwords.runnables.configuration.ClientConfiguration;
+import com.humaninference.tagcloud.rmi.worldofwords.runnables.configuration.implementation.SetClientConfiguration;
 
 
 public class ClientNode {
 	
+	private static final Logger logger = Logger.getLogger(ClientNode.class);
 
 	public static final void main(final String... args) throws RemoteException, NotBoundException, AlreadyBoundException {
 		
-		if (args.length < 1) {
-			throw new RuntimeException(
-					"You need to supply the IP address of the master as an argument");
+		final ClientConfiguration config;
+		if (args.length == 0) {
+			logger.trace("Using default location for the config file");
+			config = SetClientConfiguration.configFromDefaultConfig();
+		} else {
+			logger.trace("Loading config from " + args[0]);
+			config = SetClientConfiguration.configFromUrl(args[0]);
 		}
-		
-		
-		final ClientConfiguration config = new ClientConfiguration() {
-			
-			@Override
-			public boolean runAsFullScreen() {
-				return true;
-			}
-			
-			@Override
-			public String getOurRmiServiceName() {
-				return Constants.RMI_CLIENT_NAME;
-			}
-			
-			@Override
-			public int getOurRmiPort() {
-				return Constants.RMI_PORT_CLIENT;
-			}
-			
-			@Override
-			public int getMasterRmiPort() {
-				return Constants.RMI_PORT_MASTER;
-			}
-			
-			
-			
-			@Override
-			public String getMasterHostname() {
-				return args[0];
-			}
-
-			@Override
-			public String getOurHumanReadableName() {
-				return "PLEASE USE A REAL CONFIGURATION FILE";
-			}
-		};
-		
 		createClientFromConfig(config);
-
 	}
 
-	private static void createClientFromConfig(final ClientConfiguration config) throws RemoteException, AlreadyBoundException, NotBoundException {
+	public static void createClientFromConfig(final ClientConfiguration config) throws RemoteException, AlreadyBoundException, NotBoundException {
 		// The remote Master who will kick off the animations
 		final Master rmiMaster = RemoteInstanceFactory.RMI_FACTORY.makeMaster(config.getMasterHostname());
 		
