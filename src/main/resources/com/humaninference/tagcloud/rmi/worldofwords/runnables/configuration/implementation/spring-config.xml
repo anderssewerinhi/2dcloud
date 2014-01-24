@@ -14,7 +14,8 @@
   <property name="masterRMIPort"  value="50129"/>
   <property name="ourRMIPort"     value="50139"/>
   <property name="ourRmiServiceName" value="RMICloud" />
-  <property name="fullScreen"     value="true" />
+  <property name="fullScreen"     value="false" />
+  <property name="ourHumanReadableName" value="PLEASE MAKE A CONFIG FOR EACH PI" />
  
   </bean>   
 </beans>

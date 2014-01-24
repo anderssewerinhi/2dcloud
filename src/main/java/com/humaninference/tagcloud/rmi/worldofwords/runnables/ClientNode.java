@@ -28,7 +28,7 @@ public class ClientNode {
 			
 			@Override
 			public boolean runAsFullScreen() {
-				return true;
+				return false;
 			}
 			
 			@Override
