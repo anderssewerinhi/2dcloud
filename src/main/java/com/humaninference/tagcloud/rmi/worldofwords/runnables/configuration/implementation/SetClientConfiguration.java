@@ -88,8 +88,7 @@ public class SetClientConfiguration implements ClientConfiguration {
 	}
 
 	public static void main(String args[]) throws Exception {
-		String configFromJar = "file:src/main/resources/com/humaninference/tagcloud/rmi/worldofwords/runnables/configuration/implementation/spring-config.xml";
-		configFromUrl(configFromJar);
+		configFromDefaultConfig();
 	}
 
 	public static ClientConfiguration configFromDefaultConfig() {
