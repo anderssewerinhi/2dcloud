@@ -74,41 +74,19 @@ public class WorldOfWords implements WorldFactory {
     			TransitionAnimationMaker.animateTransition(width, height,rotateColor,currentNode, popInColor,   
     					initialConfiguration, rotated);
     	
-    	//final Animation pop = PopAndUnpopWordAnimationMaker.makeAnimation(currentNode, rotated, width, height, popInColor, popOutColor);
-    	//final SequentialAnimationComposite sequence = new SequentialAnimationComposite(999);
     	final ParallelAnimationComposite parallel1 = new ParallelAnimationComposite(1000); 
     	
 		final Animation zoom = PopAndUnpopWordAnimationMaker.makePopAnimation(currentNode,initialConfiguration, width, height, popInColor);
     	parallel1.addAnimation(zoom);
     	parallel1.addAnimation(rotate);
     	
-    
-    
     	final ParallelAnimationComposite parallel2 = new ParallelAnimationComposite(1000); 
     	
     	final Animation keepZoom =  PopAndUnpopWordAnimationMaker.diplayPopAnimation(currentNode, initialConfiguration, width, height, popInColor);
-    	
     	parallel2.addAnimation(keepZoom);
     	parallel2.addAnimation(rotate);
-    	
-    	
-    	
-    	
-       /* final Animation unPopAnimation = PopAndUnpopWordAnimationMaker.makeUnPopAnimation(currentNode, initialConfiguration, width, height, popOutColor);
-    	
-    	final ParallelAnimationComposite parallel3 = new ParallelAnimationComposite(1000); 
-    	
-    	parallel3.addAnimation(unPopAnimation); 
-    	parallel3.addAnimation(rotate);
-    	
-        */	
-    		
-    	
-    	sequentialAnimations.addAnimation(parallel1);
-       
+       	sequentialAnimations.addAnimation(parallel1);
     	sequentialAnimations.addAnimation(parallel2); 
-    	//sequentialAnimations.addAnimation(parallel3);
-    	
     	initialConfiguration = rotated;
     	return sequentialAnimations;
     }

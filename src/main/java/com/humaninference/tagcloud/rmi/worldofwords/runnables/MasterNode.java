@@ -3,7 +3,6 @@ package com.humaninference.tagcloud.rmi.worldofwords.runnables;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
-import java.util.Random;
 
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
@@ -33,9 +32,6 @@ public class MasterNode extends MasterNodeBase implements Master {
 	
 	private int currentNode = 0; 
 	
-	// We like repoducable randomness while testing
-	private final Random rnd = new Random(667); 
-
 	public MasterNode(final int numClientsToExpect) throws RemoteException {
 		super(numClientsToExpect, RemoteInstanceFactory.RMI_FACTORY);
 		worldOfWords = DataForWorld.makeRepoducablyRandomWorld();

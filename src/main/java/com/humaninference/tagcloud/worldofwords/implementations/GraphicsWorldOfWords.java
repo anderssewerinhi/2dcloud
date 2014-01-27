@@ -17,8 +17,7 @@ import edu.umd.cs.piccolo.nodes.PText;
 
 public class GraphicsWorldOfWords implements World{
 
-	private static final String DARK_BACKGROUND_LOGO = "dark-hilogo-transparent-background.png";
-//	private static final String LIGHT_BAKGROUND_LOGO = "hilogo-transparent-background.gif";
+	private static final String DARK_BACKGROUND_LOGO = "dark-hilogo-transparent-background-scaled-down.png";
 	private static final String LOGO_RESOURCE_NAME = DARK_BACKGROUND_LOGO;
 
 	private final PLayer layer = new PLayer();
@@ -27,11 +26,6 @@ public class GraphicsWorldOfWords implements World{
 	
 	private final List<PImage> imgList = new LinkedList<PImage>();
 	
-	public GraphicsWorldOfWords() {
-//		layer.getCamera(0).setPaint(Color.BLACK);
-	}
-	
-
 	public PText getTextLabel(int idx) {
 		if (idx < 0 || idx > textLabelList.size() || textLabelList.isEmpty()  ) {
 			throw new RuntimeException(
@@ -43,7 +37,6 @@ public class GraphicsWorldOfWords implements World{
 	}
 
 	public PImage getImage(int idx) {
-		//throw new RuntimeException("No img in this world");
 		if (idx < 0 || idx > imgList.size() || imgList.isEmpty()  ) {
 			throw new RuntimeException(
 					String.format(
@@ -61,8 +54,7 @@ public class GraphicsWorldOfWords implements World{
 		addImage(LOGO_RESOURCE_NAME, x, y, scale);
 	}
 
-	public void addImage(final String resourceName, double x, double y, double scale) {
-//		final InputStream imgStream = this.getClass().getClassLoader().getResourceAsStream(resourceName);
+	private void addImage(final String resourceName, double x, double y, double scale) {
 		final InputStream imgStream = this.getClass().getResourceAsStream(resourceName);
 		if (null == imgStream) {
 			throw new RuntimeException(String.format("Can't load resource %s", resourceName));

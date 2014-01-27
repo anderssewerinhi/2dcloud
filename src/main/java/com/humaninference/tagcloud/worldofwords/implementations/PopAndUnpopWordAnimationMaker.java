@@ -32,7 +32,6 @@ public class PopAndUnpopWordAnimationMaker {
 		final double newX = 200.0 * rnd.nextDouble();
 		final double newY = 200.0 * rnd.nextDouble();
 		final long duration = rnd.nextInt(500) + 1; // No animations with duration 0
-		final Animation imgAnim = new ImageAnimation(0, newX, newY, 1.0, duration, 0);
 		final double halfWidth = width /2.0; 
 			
 		final double halfHeight = height /2.0;
@@ -54,17 +53,8 @@ public class PopAndUnpopWordAnimationMaker {
 	
 	public static Animation makePopAnimation(final int currentNode, 
 			final Configuration initialConfiguration, final double width, final double height, Color popInColor){
-		
-
-		final Random rnd = new Random();
-		final double newX = 200.0 * rnd.nextDouble();
-		final double newY = 200.0 * rnd.nextDouble();
-		final long duration = rnd.nextInt(500) + 1; // No animations with duration 0
-	
 		final double halfWidth = width /2.0; 	
 		final double halfHeight = height /2.0;
-		
-		
 		final Animation popTextAnim = new TextAnimation(currentNode,halfWidth, halfHeight, 2.0,1000, 0, popInColor); 
 		
 		
@@ -76,23 +66,12 @@ public class PopAndUnpopWordAnimationMaker {
 	
 	public static Animation diplayPopAnimation(final int currentNode, 
 			final Configuration initialConfiguration, final double width, final double height, Color popInColor){
-		
-
-		final Random rnd = new Random();
-		final double newX = 200.0 * rnd.nextDouble();
-		final double newY = 200.0 * rnd.nextDouble();
-		final long duration = rnd.nextInt(500) + 1; // No animations with duration 0
-	
 		final double halfWidth = width /2.0; 	
 		final double halfHeight = height /2.0;
-		
-		final Position pos = initialConfiguration.getPosition(currentNode);
-		
 		final Animation displayPopTextAnim = new TextAnimation(currentNode,halfWidth, halfHeight, 2.0,1000, 0, popInColor); 
-		
-		
 		return displayPopTextAnim; 
 	}
+	
 	public static Animation makeUnPopAnimation(final int currentNode, 
 			final Configuration initialConfiguration, final double width, final double height, Color popOutColor){
 		

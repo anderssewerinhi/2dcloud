@@ -9,11 +9,24 @@ import com.humaninference.tagcloud.worldofwords.Configuration.Position;
 
 public class WorldFromConfiguration {
 
-	private static final double MIN_SIZE_LOGO = 0.1;
-	private static final double SCALE_FACTOR_LOGO = 0.3;
+	private static final double MIN_SIZE_LOGO = 0.25;
+	private static final double SCALE_FACTOR_LOGO = 0.75;
 	
 	private static Random myPredictableRandom = new Random(667);
 		
+	
+	public static double scaleText(final Position textPosition) {
+		return 1.0 + textPosition.z(); 
+	}
+	
+	public static double scaleImage(final Position imagePosition) {
+		return scaleImage(imagePosition.z());
+	}
+	
+	public static double scaleImage(final double zPos) {
+		return zPos + MIN_SIZE_LOGO;
+	}
+	
 	public static World makeWorld(final double width, final double height, final Configuration configuration) {
 				
 	    final GraphicsWorldOfWords textWorld =  new GraphicsWorldOfWords(); 
@@ -27,7 +40,7 @@ public class WorldFromConfiguration {
 	    }
 	    for (int i = 0; i < configuration.getImageCount(); ++i) {
 			 final Position pos = configuration.getImagePosition(i);  
-			 double scale = myPredictableRandom.nextDouble() * SCALE_FACTOR_LOGO + MIN_SIZE_LOGO;
+			 double scale = myPredictableRandom.nextDouble() + MIN_SIZE_LOGO;
 			 textWorld.addLogo(pos.x()* halfWidth+halfWidth, pos.y()*halfHeight +halfHeight, scale);
 	    }
 		return textWorld;

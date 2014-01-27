@@ -1,7 +1,5 @@
 package com.humaninference.tagcloud.implementations;
 
-import java.awt.Color;
-
 import com.humaninference.tagcloud.World;
 
 import edu.umd.cs.piccolo.PNode;
