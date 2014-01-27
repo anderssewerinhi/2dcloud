@@ -15,8 +15,8 @@ public class DataForWorld {
 	
     private static final double EXPECTED_NUMBER_OF_CLIENTS = 4.0; 
     
-	public static WorldOfWords makeRepoducablyRandomWorld() {
-		final WordsAndConnections data = SettableWordsAndConnections.fromDefaultConfig();
+	public static WorldOfWords makeRepoducablyRandomWorld(String configFromJar) {
+		final WordsAndConnections data = SettableWordsAndConnections.fromDefaultConfig(configFromJar);
 		return makeRepoducablyRandomWorld(data);
 	}
 	

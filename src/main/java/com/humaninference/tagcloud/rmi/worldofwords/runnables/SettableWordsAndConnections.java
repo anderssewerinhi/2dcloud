@@ -34,8 +34,8 @@ public class SettableWordsAndConnections implements WordsAndConnections {
 		return connectionsFromTo;
 	}
 	
-	public static WordsAndConnections fromDefaultConfig() {
-		final String configFromJar = "file:src/main/resources/com/humaninference/tagcloud/rmi/worldofwords/runnables/spring-config.xml";
+	public static WordsAndConnections fromDefaultConfig(String configFromJar) {
+		//final String configFromJar = "file:src/main/resources/com/humaninference/tagcloud/rmi/worldofwords/runnables/spring-config.xml";
 		return fromUrl(configFromJar);
 	}
 

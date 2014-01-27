@@ -14,7 +14,15 @@ import com.humaninference.tagcloud.rmi.worldofwords.runnables.configuration.impl
 
 public class RunMasterAndSlaveOnLocalhost {
 
+	 
 	public static void main(String[] args) throws RemoteException, AlreadyBoundException, NotBoundException {
+		
+		final String filePath = "file:".concat(args[0]);
+		
+		final String configFromJar = "file:".concat(args[1]);
+		
+		System.out.println("file is" + filePath );
+		
 		if (new File("log4j-configure.xml").exists()) {
 			DOMConfigurator.configure("log4j-configure.xml");
 		} else {
@@ -25,12 +33,12 @@ public class RunMasterAndSlaveOnLocalhost {
         		new Runnable() {
         			public void run() {
         				try {
-							MasterNode.main("1");
+							MasterNode.main("1",configFromJar);
 							
-							final ClientConfiguration cfg = SetClientConfiguration.configFromDefaultConfig();
+							final ClientConfiguration cfg = SetClientConfiguration.configFromDefaultConfig(filePath);
 							final SetClientConfiguration overridable = new SetClientConfiguration(cfg);
 							overridable.setMasterHostname("localhost");
-	        				ClientNode.createClientFromConfig(overridable);
+	        				ClientNode.createClientFromConfig(overridable, configFromJar);
 						} catch (RemoteException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();

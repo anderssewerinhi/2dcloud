@@ -32,9 +32,9 @@ public class MasterNode extends MasterNodeBase implements Master {
 	
 	private int currentNode = 0; 
 	
-	public MasterNode(final int numClientsToExpect) throws RemoteException {
+	public MasterNode(final int numClientsToExpect, String filePath ) throws RemoteException {
 		super(numClientsToExpect, RemoteInstanceFactory.RMI_FACTORY);
-		worldOfWords = DataForWorld.makeRepoducablyRandomWorld();
+		worldOfWords = DataForWorld.makeRepoducablyRandomWorld(filePath);
 	 
 	}
 	
@@ -58,12 +58,14 @@ public class MasterNode extends MasterNodeBase implements Master {
 			throws RemoteException, AlreadyBoundException {
 		final MasterNode node;
 		if (args.length ==0) {
-			node = new MasterNode(1);
+			node = new MasterNode(1, "file:spring-config-world.xml");
 		} else {
-			if (args.length > 1) {
+			/*if (args.length > 1) {
 				throw new RuntimeException("Too many arguments - only need one, the number of clients to expect");
-			}
-			node = new MasterNode(Integer.parseInt(args[0]));
+			} */
+			
+			System.out.println("Lenght of agsr:"+ args.length );
+			node = new MasterNode(Integer.parseInt(args[0]), args[1] );
 		}
 		
 		
