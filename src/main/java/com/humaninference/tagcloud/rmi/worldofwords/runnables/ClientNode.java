@@ -47,7 +47,7 @@ public class ClientNode {
 			System.out.println("Use arguments <spring file for client configuration> <spring file for world model> to override defaults");
 			logger.trace("Using default location for the config file");
 			clientConfigurationSpringFile = "file:spring-config-client.xml";
-			worldModelSpringFile = "file:spring-config.world.xml";
+			worldModelSpringFile = "file:spring-config-world.xml";
 		}
 		final ClientConfiguration config = SetClientConfiguration.configFromUrl(clientConfigurationSpringFile);
 		System.out.println("Loading from " + clientConfigurationSpringFile);
