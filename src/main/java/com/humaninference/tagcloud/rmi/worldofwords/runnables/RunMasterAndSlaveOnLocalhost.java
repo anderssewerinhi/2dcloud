@@ -45,7 +45,7 @@ public class RunMasterAndSlaveOnLocalhost {
         		new Runnable() {
         			public void run() {
         				try {
-							MasterNode.main("1",worldModelSpringFile);
+							MasterNode.startMasterWithParameters("1",worldModelSpringFile);
 							
 							final ClientConfiguration cfg = SetClientConfiguration.configFromUrl(clientConfigurationSpringFile);
 							final SetClientConfiguration overridable = new SetClientConfiguration(cfg);

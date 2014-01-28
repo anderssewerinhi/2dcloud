@@ -1,5 +1,6 @@
 package com.humaninference.tagcloud.rmi.worldofwords.runnables;
 
+import java.io.File;
 import java.rmi.AlreadyBoundException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -7,6 +8,7 @@ import java.rmi.RemoteException;
 import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 
 import com.humaninference.tagcloud.Master;
 import com.humaninference.tagcloud.World;
@@ -24,6 +26,17 @@ public class ClientNode {
 
 
 	public static final void main(final String... args) throws RemoteException, NotBoundException, AlreadyBoundException {
+		if (new File("log4j-configure.xml").exists()) {
+			DOMConfigurator.configure("log4j-configure.xml");
+		} else {
+			final String currentDir = new File(".").getAbsolutePath();
+			System.out.println("No log4j config file found in " + currentDir);
+		}
+		startClientWithParameters(args);
+	}
+
+	public static void startClientWithParameters(final String... args)
+			throws RemoteException, AlreadyBoundException, NotBoundException {
 		final String worldModelSpringFile; 
 	    final String clientConfigurationSpringFile; 
 		if (args.length == 2) {

@@ -13,6 +13,7 @@
   <property name="masterHostname" value="HI-Animation-Master" /> 
   <property name="masterRMIPort"  value="50129"/>
   <property name="ourRMIPort"     value="50139"/>
+  <property name="ourRMIIP"       value="192.168.1.100"/>
   <property name="ourRmiServiceName" value="RMICloud" />
   <property name="fullScreen"     value="false" />
   <property name="ourHumanReadableName" value="PLEASE MAKE A CONFIG FOR EACH PI" />
