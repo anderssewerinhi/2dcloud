@@ -72,7 +72,7 @@ public class ClientNode {
 						RemotablePFrameClient client;
 						try {
 							client = new RemotablePFrameClient(
-									rmiMaster, world, config.runAsFullScreen(), config.getOurRmiPort(), 
+									rmiMaster, world, config.runAsFullScreen(), config.getOurRmiPort(), config.getOurRMIIP(),
 									config.getOurRmiServiceName(), config.getOurHumanReadableName());
 							// Expose it over RMI by wrapping it in a ClientRmiServer
 							final ClientRmiServer server = new ClientRmiServer(client, config.getOurRmiPort(), config.getOurRmiServiceName());

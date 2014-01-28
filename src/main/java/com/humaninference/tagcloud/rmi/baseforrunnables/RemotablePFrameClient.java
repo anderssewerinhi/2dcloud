@@ -1,7 +1,5 @@
 package com.humaninference.tagcloud.rmi.baseforrunnables;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -28,13 +26,16 @@ public class RemotablePFrameClient extends UnicastRemoteObject implements PFrame
 	private final String ourHumanReadableName;
 	int animationIdx = 0;
 
+	private final String rmiIpAddress;
+
 	public RemotablePFrameClient(final Master remoteMaster, final World world, 
-			final boolean runAsFullScreen, final int rmiPortClient, final String rmiClientName, final String ourHumanReadableName) throws RemoteException, NotBoundException {
+			final boolean runAsFullScreen, final int rmiPortClient, final String rmiIpAddress, final String rmiClientName, final String ourHumanReadableName) throws RemoteException, NotBoundException {
 		super();
 		this.remoteMaster = remoteMaster;
 		this.rmiPortClient = rmiPortClient;
 		this.rmiClientName = rmiClientName;
 		this.ourHumanReadableName = ourHumanReadableName;
+		this.rmiIpAddress = rmiIpAddress;
 		logger.trace("Got a master reference");
 		// Create the wrapped client that will do the actual graphics 
 		// (needs a reference to the master...)...
@@ -45,13 +46,8 @@ public class RemotablePFrameClient extends UnicastRemoteObject implements PFrame
 	
 	private void tellMasterClientIsReady() throws RemoteException {
 		logger.trace("Telling master that this client is ready");
-		try {
-			final String localIpAddress = InetAddress.getLocalHost().getHostAddress();
-			remoteMaster.clientIsReady(localIpAddress, rmiPortClient, rmiClientName, ourHumanReadableName); 
-			logger.trace("Master should now know that this client is ready");
-		} catch (UnknownHostException e) {
-			throw new RuntimeException(e);
-		}
+		remoteMaster.clientIsReady(rmiIpAddress, rmiPortClient, rmiClientName, ourHumanReadableName); 
+		logger.trace("Master should now know that this client is ready");
 	}
 
 	public void performAnimation(Animation animation) throws RemoteException {
