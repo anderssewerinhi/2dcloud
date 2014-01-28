@@ -24,30 +24,24 @@ public class ClientNode {
 
 
 	public static final void main(final String... args) throws RemoteException, NotBoundException, AlreadyBoundException {
-		
-		
-		String filePath = null; 
-	    String configFromJar = null; 
-		final ClientConfiguration config;
-		
-		if (args.length == 0) {
-			logger.trace("Using default location for the config file");
-			config = SetClientConfiguration.configFromDefaultConfig("spring-config-client.xml");
-		} else {
-			
+		final String worldModelSpringFile; 
+	    final String clientConfigurationSpringFile; 
+		if (args.length == 2) {
 			logger.trace("Loading config from " + args[0]);
-			
-			filePath = "file:".concat(args[0]);
-			configFromJar = "file:".concat(args[1]);
-			
-			config = SetClientConfiguration.configFromUrl(filePath);
+			clientConfigurationSpringFile = "file:".concat(args[0]);
+			worldModelSpringFile = "file:".concat(args[1]);
+		} else {
+			System.out.println("Use arguments <spring file for client configuration> <spring file for world model> to override defaults");
+			logger.trace("Using default location for the config file");
+			clientConfigurationSpringFile = "file:spring-config-client.xml";
+			worldModelSpringFile = "file:spring-config.world.xml";
 		}
-		
-		System.out.println("Loadding fomr " + configFromJar);
-		createClientFromConfig(config, configFromJar);
+		final ClientConfiguration config = SetClientConfiguration.configFromUrl(clientConfigurationSpringFile);
+		System.out.println("Loading from " + clientConfigurationSpringFile);
+		createClientFromConfig(config, worldModelSpringFile);
 	}
 
-	public static void createClientFromConfig(final ClientConfiguration config, final String configFromJar ) throws RemoteException, AlreadyBoundException, NotBoundException {
+	public static void createClientFromConfig(final ClientConfiguration config, final String worldModelSpringFile ) throws RemoteException, AlreadyBoundException, NotBoundException {
 		// The remote Master who will kick off the animations
 		final Master rmiMaster = RemoteInstanceFactory.RMI_FACTORY.makeMaster(config.getMasterHostname());
 		
@@ -55,7 +49,7 @@ public class ClientNode {
 		// Needs a reference to the master, so it can tell the master that it's ready to accept animation requests
 		// The client node will create a wrapped pFrame on itself. The coupling is a bit tight - sorry!
 		
-		final World world = DataForWorld.makeRepoducablyRandomWorld(configFromJar).makeWorld();
+		final World world = DataForWorld.makeRepoducablyRandomWorld(worldModelSpringFile).makeWorld();
 		
 		SwingUtilities.invokeLater(
 				new Runnable() {

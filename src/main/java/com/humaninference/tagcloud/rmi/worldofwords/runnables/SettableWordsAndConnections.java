@@ -6,8 +6,6 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.humaninference.tagcloud.rmi.worldofwords.runnables.configuration.ClientConfiguration;
-
 public class SettableWordsAndConnections implements WordsAndConnections {
 
 	private List<String> words;
@@ -34,11 +32,6 @@ public class SettableWordsAndConnections implements WordsAndConnections {
 		return connectionsFromTo;
 	}
 	
-	public static WordsAndConnections fromDefaultConfig(String configFromJar) {
-		//final String configFromJar = "file:src/main/resources/com/humaninference/tagcloud/rmi/worldofwords/runnables/spring-config.xml";
-		return fromUrl(configFromJar);
-	}
-
 	public static WordsAndConnections fromUrl(String configFromJar) {
 		final ApplicationContext context = new ClassPathXmlApplicationContext(
 				configFromJar);

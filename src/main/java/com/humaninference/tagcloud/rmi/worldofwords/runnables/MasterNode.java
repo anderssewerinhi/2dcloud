@@ -4,6 +4,8 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.humaninference.tagcloud.Animation;
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
@@ -32,6 +34,8 @@ public class MasterNode extends MasterNodeBase implements Master {
 	
 	private int currentNode = 0; 
 	
+	private final static Logger logger = Logger.getLogger(MasterNode.class);
+	
 	public MasterNode(final int numClientsToExpect, String filePath ) throws RemoteException {
 		super(numClientsToExpect, RemoteInstanceFactory.RMI_FACTORY);
 		worldOfWords = DataForWorld.makeRepoducablyRandomWorld(filePath);
@@ -50,25 +54,27 @@ public class MasterNode extends MasterNodeBase implements Master {
 	@Override
 	protected void setViewports(List<Client> clients) throws RemoteException {
 //		final double totalWidth = numClientsToExpect * BEAMER_WIDTH_PIXELS + (numClientsToExpect - 1) * BEAMER_SPACING_PIXELS;
-//		System.out.println("Shifting first clients viewport 3000 pixels to the right");
+		System.err.println("***** REMOVE THIS ONCE DEBUGGING IS OVER ***** Shifting first clients viewport 3000 pixels to the right");
 		clients.get(0).setViewport(1920.0 * 2.0, 0);
 	}
 
 	public static void main(final String... args)
 			throws RemoteException, AlreadyBoundException {
-		final MasterNode node;
-		if (args.length ==0) {
-			node = new MasterNode(1, "file:spring-config-world.xml");
+		final int numberOfClients;
+		final String fileNameOfWorldModel;
+		if (args.length == 0) {
+			numberOfClients = 1;
+			fileNameOfWorldModel = "file:spring-config-world.xml";
 		} else {
-			/*if (args.length > 1) {
-				throw new RuntimeException("Too many arguments - only need one, the number of clients to expect");
-			} */
-			
-			System.out.println("Lenght of agsr:"+ args.length );
-			node = new MasterNode(Integer.parseInt(args[0]), args[1] );
+			if (args.length != 2) {
+				throw new RuntimeException("Usage: <number of clients to expect> <file name for world definition>");
+			}
+			numberOfClients = Integer.parseInt(args[0]);
+			fileNameOfWorldModel = args[1];
 		}
-		
-		
+		logger.trace("Expecting " + numberOfClients + " clients");
+		logger.trace("Loading world definition from file '" + fileNameOfWorldModel + "'");
+		final MasterNode node = new MasterNode(numberOfClients, fileNameOfWorldModel);
 		final MasterRmiServer server = new MasterRmiServer(node);
 		server.startServer();
 	}

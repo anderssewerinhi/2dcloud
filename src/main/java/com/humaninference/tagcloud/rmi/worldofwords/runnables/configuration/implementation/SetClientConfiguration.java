@@ -88,14 +88,9 @@ public class SetClientConfiguration implements ClientConfiguration {
 	}
 
 	public static void main(String args[]) throws Exception { 
-		configFromDefaultConfig("file:".concat(args[0]));
+		configFromUrl("file:".concat(args[0]));
 	}
 
-	public static ClientConfiguration configFromDefaultConfig(String filePath) {
-		//String configFromJar = "file:src/main/resources/com/humaninference/tagcloud/rmi/worldofwords/runnables/configuration/implementation/spring-config.xml"
-				
-		return configFromUrl(filePath);
-	}
 	public static ClientConfiguration configFromUrl(String configFromJar) {
 		final ApplicationContext context = new ClassPathXmlApplicationContext(
 				configFromJar);
