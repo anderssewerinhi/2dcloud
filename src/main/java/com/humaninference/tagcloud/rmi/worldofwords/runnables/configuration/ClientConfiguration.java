@@ -8,5 +8,6 @@ public interface ClientConfiguration {
 	String getOurRmiServiceName();
 	String getOurHumanReadableName();
 	boolean runAsFullScreen();
+	String getOurRMIIP();
 
 }

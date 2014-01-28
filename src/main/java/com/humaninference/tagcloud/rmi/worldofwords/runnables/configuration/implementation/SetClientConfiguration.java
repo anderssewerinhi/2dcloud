@@ -14,6 +14,7 @@ public class SetClientConfiguration implements ClientConfiguration {
 	private String ourRmiServiceName;
 	private String ourHumanReadableName;
 	private boolean fullScreen;
+	private String ourRMIIP;
 
 	public SetClientConfiguration() {
 
@@ -26,6 +27,7 @@ public class SetClientConfiguration implements ClientConfiguration {
 		this.ourRmiServiceName = from.getOurRmiServiceName();
 		this.ourHumanReadableName = from.getOurHumanReadableName();
 		this.fullScreen = from.runAsFullScreen();
+		this.ourRMIIP = from.getOurRMIIP(); 
 	}
 
 	@Override
@@ -57,7 +59,12 @@ public class SetClientConfiguration implements ClientConfiguration {
 
 		return fullScreen;
 	}
-
+     @Override
+	public String getOurRMIIP() {
+		
+    	 return ourRMIIP; 
+    	 
+	}
 	public void setMasterHostname(String name){
 
 		this.masterHostname= name;  
@@ -86,7 +93,10 @@ public class SetClientConfiguration implements ClientConfiguration {
 	public void setOurHumanReadableName(final String ourHumanReadableName) {
 		this.ourHumanReadableName = ourHumanReadableName;
 	}
-
+   
+	public void setOurRMIIP(String Ip) {
+		this.ourRMIIP = Ip ;
+	}
 	public static void main(String args[]) throws Exception { 
 		configFromUrl("file:".concat(args[0]));
 	}
