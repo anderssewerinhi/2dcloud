@@ -45,7 +45,7 @@ public class RemotablePFrameClient extends UnicastRemoteObject implements PFrame
 	}
 	
 	private void tellMasterClientIsReady() throws RemoteException {
-		logger.trace("Telling master that this client is ready");
+		logger.trace("Telling master on " + remoteMaster + " that this client is ready");
 		remoteMaster.clientIsReady(rmiIpAddress, rmiPortClient, rmiClientName, ourHumanReadableName); 
 		logger.trace("Master should now know that this client is ready");
 	}

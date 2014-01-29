@@ -5,6 +5,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import org.apache.log4j.Logger;
+
 import com.humaninference.tagcloud.Client;
 import com.humaninference.tagcloud.Master;
 import com.humaninference.tagcloud.rmi.Constants;
@@ -19,6 +21,8 @@ import com.humaninference.tagcloud.rmi.Constants;
  * In actual use it will usually be the RMI factory that is used...
  */
 public interface RemoteInstanceFactory {
+	
+	final static Logger logger = Logger.getLogger(RemoteInstanceFactory.class);
 
 	public Client makeClient(final String locationOfRemoteClient, final int portOfClient, final String nameOfClientService) throws RemoteException, NotBoundException;
 	
@@ -37,6 +41,7 @@ public interface RemoteInstanceFactory {
 		public Master makeMaster(String locationOfRemoteMaster)
 				throws RemoteException, NotBoundException {
 			final Registry registry = LocateRegistry.getRegistry(locationOfRemoteMaster, Constants.RMI_PORT_MASTER);
+			logger.trace("Connecting to a Master on " + locationOfRemoteMaster + ", port " + Constants.RMI_PORT_MASTER);
 			return (Master) registry.lookup(Constants.RMI_MASTER_NAME);
 		}
 		

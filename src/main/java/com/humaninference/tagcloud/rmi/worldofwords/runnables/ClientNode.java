@@ -57,6 +57,7 @@ public class ClientNode {
 	public static void createClientFromConfig(final ClientConfiguration config, final String worldModelSpringFile ) throws RemoteException, AlreadyBoundException, NotBoundException {
 		// The remote Master who will kick off the animations
 		final Master rmiMaster = RemoteInstanceFactory.RMI_FACTORY.makeMaster(config.getMasterHostname());
+		logger.trace("Master is on host " + config.getMasterHostname());
 		
 		// Create a client node that can be exposed with RMI for the master to find
 		// Needs a reference to the master, so it can tell the master that it's ready to accept animation requests
