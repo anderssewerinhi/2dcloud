@@ -10,12 +10,12 @@
  
   <context:component-scan base-package="com.humaninference.tagcloud.rmi.worldofwords.runnables.configuration.implementation"/>
   <bean id="configuration" class="com.humaninference.tagcloud.rmi.worldofwords.runnables.configuration.implementation.SetClientConfiguration">
-  <property name="masterHostname" value="HI-Animation-Master" /> 
+  <property name="masterHostname" value="192.168.1.35" /> 
   <property name="masterRMIPort"  value="50129"/>
   <property name="ourRMIPort"     value="50139"/>
-  <property name="ourRMIIP"       value="192.168.1.37"/>
+  <property name="ourRMIIP"       value="192.168.1.35"/>
   <property name="ourRmiServiceName" value="RMICloud" />
-  <property name="fullScreen"     value="false" />
+  <property name="fullScreen"     value="true" />
   <property name="ourHumanReadableName" value="PLEASE MAKE A CONFIG FOR EACH PI" />
  
   </bean>   

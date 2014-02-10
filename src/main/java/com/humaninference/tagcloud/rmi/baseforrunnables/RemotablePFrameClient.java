@@ -1,5 +1,9 @@
 package com.humaninference.tagcloud.rmi.baseforrunnables;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -12,7 +16,7 @@ import com.humaninference.tagcloud.Master;
 import com.humaninference.tagcloud.World;
 import com.humaninference.tagcloud.implementations.PFrameClient;
 
-public class RemotablePFrameClient extends UnicastRemoteObject implements PFrameClient.Observer, Client {
+public class RemotablePFrameClient extends UnicastRemoteObject implements PFrameClient.Observer, Client{
 
 	static Logger logger = Logger.getLogger(RemotablePFrameClient.class);
 			
@@ -41,6 +45,7 @@ public class RemotablePFrameClient extends UnicastRemoteObject implements PFrame
 		// (needs a reference to the master...)...
 		wrapped = new PFrameClient("Image client", this, world, remoteMaster, runAsFullScreen);
 		logger.trace("Created wrapped image client");
+		
 
 	}
 	
@@ -84,4 +89,5 @@ public class RemotablePFrameClient extends UnicastRemoteObject implements PFrame
 		}		
 	}
 
+    
 }
