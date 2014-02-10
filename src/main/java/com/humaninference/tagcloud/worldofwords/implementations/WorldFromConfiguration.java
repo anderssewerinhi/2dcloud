@@ -32,7 +32,8 @@ public class WorldFromConfiguration {
 	    final GraphicsWorldOfWords textWorld =  new GraphicsWorldOfWords(); 
 		final double halfHeight = height/2.0;
 		final double halfWidth = width/2.0;
-	    
+	  
+		
 	    for (int i = 0; i < configuration.getWordCount(); ++i) {
 			 final Position pos = configuration.getPosition(i);  
 			 double scale = 1.0 +pos.z();

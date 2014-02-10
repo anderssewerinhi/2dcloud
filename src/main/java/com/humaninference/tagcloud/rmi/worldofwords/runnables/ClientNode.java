@@ -20,20 +20,20 @@ import com.humaninference.tagcloud.rmi.worldofwords.runnables.configuration.impl
 
 
 public class ClientNode {
-	
-	private static final Logger logger = Logger.getLogger(ClientNode.class);
-	
+    
+    private static final Logger logger = Logger.getLogger(ClientNode.class);
+    
 
 
-	public static final void main(final String... args) throws RemoteException, NotBoundException, AlreadyBoundException {
-		if (new File("log4j-configure.xml").exists()) {
-			DOMConfigurator.configure("log4j-configure.xml");
-		} else {
-			final String currentDir = new File(".").getAbsolutePath();
-			System.out.println("No log4j config file found in " + currentDir);
-		}
-		startClientWithParameters(args);
-	}
+    public static final void main(final String... args) throws RemoteException, NotBoundException, AlreadyBoundException {
+        if (new File("log4j-configure.xml").exists()) {
+            DOMConfigurator.configure("log4j-configure.xml");
+        } else {
+            final String currentDir = new File(".").getAbsolutePath();
+            System.out.println("No log4j config file found in " + currentDir);
+        }
+        startClientWithParameters(args);
+    }
 
 	public static void startClientWithParameters(final String... args)
 			throws RemoteException, AlreadyBoundException, NotBoundException {
@@ -47,7 +47,7 @@ public class ClientNode {
 			System.out.println("Use arguments <spring file for client configuration> <spring file for world model> to override defaults");
 			logger.trace("Using default location for the config file");
 			clientConfigurationSpringFile = "file:spring-config-client.xml";
-			worldModelSpringFile = "file:spring-config.world.xml";
+			worldModelSpringFile = "file:spring-config-world.xml";
 		}
 		final ClientConfiguration config = SetClientConfiguration.configFromUrl(clientConfigurationSpringFile);
 		System.out.println("Loading from " + clientConfigurationSpringFile);
@@ -57,6 +57,7 @@ public class ClientNode {
 	public static void createClientFromConfig(final ClientConfiguration config, final String worldModelSpringFile ) throws RemoteException, AlreadyBoundException, NotBoundException {
 		// The remote Master who will kick off the animations
 		final Master rmiMaster = RemoteInstanceFactory.RMI_FACTORY.makeMaster(config.getMasterHostname());
+		logger.trace("Master is on host " + config.getMasterHostname());
 		
 		// Create a client node that can be exposed with RMI for the master to find
 		// Needs a reference to the master, so it can tell the master that it's ready to accept animation requests

@@ -50,9 +50,9 @@ public abstract class MasterNodeBase extends UnicastRemoteObject {
 			// Now we can create references to them using the well-known addresses.
 			for (final String address : clientLocations) {
 				try {
-					logger.trace("For " + address + "...");
+					logger.trace("Trying to create RMI client for " + address + " on port " + clientPortNumber + "...");
 					final Client remoteClient = clientFactory.makeClient(address, clientPortNumber, clientServiceName);
-					logger.trace("Done creating remote client for " + address);
+					logger.trace("Done creating remote client for " + address + " on port " + clientPortNumber + "...");
 					clients.add(remoteClient);
 				} catch (RemoteException e) {
 					throw new RuntimeException("Can't RMI to client on " + address, e);
