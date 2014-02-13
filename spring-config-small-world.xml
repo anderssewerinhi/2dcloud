@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:integration="http://www.springframework.org/schema/integration"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
+
+	<context:annotation-config />
+
+	<context:component-scan
+		base-package="com.humaninference.tagcloud.rmi.worldofwords.runnables" />
+	<bean id="wordsandconnections"
+		class="com.humaninference.tagcloud.rmi.worldofwords.runnables.SettableWordsAndConnections">
+		
+		<property name="numLogos"     value="1" />
+		
+		<property name="words">
+			<list>
+				<value>this</value>
+				<value>is</value>
+				<value>a</value>
+				<value>small</value>
+				<value>exciting</value>
+				<value>test</value>
+				<value>was</value>
+			</list>
+		</property>
+		<property name="connectionsFromTo">
+			<list>
+				<value>this</value>
+				<value>is</value>
+				
+				<value>this</value>
+				<value>was</value>
+				
+				<value>this</value>
+				<value>small</value>
+				
+				<value>this</value>
+				<value>exciting</value>
+
+				<value>is</value>
+				<value>this</value>
+				
+				<value>is</value>
+				<value>small</value>
+				
+				<value>is</value>
+				<value>exciting</value>
+				
+				<value>is</value>
+				<value>a</value>
+
+				<value>a</value>
+				<value>small</value>
+				
+				<value>a</value>
+				<value>test</value>
+
+				<value>exciting</value>
+				<value>test</value>
+			</list>
+		</property>
+
+	</bean>
+</beans>

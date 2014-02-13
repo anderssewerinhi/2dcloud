@@ -56,10 +56,9 @@ public class WorldOfWords implements WorldFactory {
 	public void addConnection(final String fromWord, final String toWord) {
     	mic.addConnection(fromWord, toWord);
     }
-    	
+    
+	
 	public Animation popWord(final int currentNode) {
-    	
-						
 		final Color popInColor = Color.red; 
 		final Color popOutColor = Color.white; 
 		final Color rotateColor = Color.white;

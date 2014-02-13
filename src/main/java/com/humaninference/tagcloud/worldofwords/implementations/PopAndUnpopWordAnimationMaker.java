@@ -56,10 +56,6 @@ public class PopAndUnpopWordAnimationMaker {
 		final double halfWidth = width /2.0; 	
 		final double halfHeight = height /2.0;
 		final Animation popTextAnim = new TextAnimation(currentNode,halfWidth, halfHeight, 2.0,1000, 0, popInColor); 
-		
-		
-		
-		
 		return popTextAnim; 
 		
 	}
@@ -74,19 +70,14 @@ public class PopAndUnpopWordAnimationMaker {
 	
 	public static Animation makeUnPopAnimation(final int currentNode, 
 			final Configuration initialConfiguration, final double width, final double height, Color popOutColor){
-		
-		
 		 final double halfWidth = width /2.0; 
-		
 		 final double halfHeight = height /2.0;
-		
 		 final Position pos = initialConfiguration.getPosition(currentNode);
-		 
 		 final Animation unPopTextAnim = new TextAnimation(currentNode,pos.x()* halfWidth +halfWidth, pos.y()*halfHeight  +halfHeight, 1+pos.z(),1000, 0, popOutColor);
-		 
 		 return unPopTextAnim;
-		
 	}
+	
+	
 	@SuppressWarnings("unused")
 	private static Animation makePopAnimation(final String word,
 			final Configuration initialConfiguration, final double width, final double height) {

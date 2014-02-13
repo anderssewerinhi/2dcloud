@@ -42,7 +42,10 @@ public class TransitionAnimationMaker {
 		 
 		 // First animate moving the logos
 		 for (int i = 0; i < to.getImageCount(); ++i) {
-			 final Position p = to.getImagePosition(i); 
+			 final Position p = to.getImagePosition(i);
+			 if (from.getImagePosition(i).equals(p)) {
+//				 continue;
+			 }
 			 final double targetX = p.x() * xOffset + xOffset;
 			 final double targetY = p.y() * yOffset + yOffset;
 			 final double targetZoom = WorldFromConfiguration.scaleImage(p); // No text too small to read
@@ -55,6 +58,9 @@ public class TransitionAnimationMaker {
 		 // Then animate moving the words
 		 for (int i = 0; i < to.getWordCount(); ++i) {
 			 final Position p = to.getPosition(i); 
+			 if (from.getPosition(i).equals(p)) {
+//				 continue;
+			 }
 			 final double targetX = p.x() * xOffset + xOffset;
 			 final double targetY = p.y() * yOffset + yOffset;
 			 final double targetZoom = WorldFromConfiguration.scaleText(p);
@@ -71,23 +77,6 @@ public class TransitionAnimationMaker {
 			 pac.addAnimation(ta);
 		 }
 		 
-		 
-		 /*
-		 // Then animate the lines moving
-		 for (int i = 0; i < to.getLineCount(); ++i) {
-			 final Line l =  to.getLine(i);
-			 final Position leftP = to.getPosition(l.fromWord()); 
-			 final double toLeftX = leftP.x() * xOffset + xOffset;
-			 final double toLeftY = leftP.y() * yOffset + yOffset;
-			 final Position rightP = to.getPosition(l.fromWord()); 
-			 final double toRightX = rightP.x() * xOffset + xOffset;
-			 final double toRightY = rightP.y() * yOffset + yOffset;
-
-			 final LineAnimation la = 
-					 new LineAnimation(42, toLeftX, toLeftY, toRightX, toRightY);
-			 pac.addAnimation(la);
-		 }
-		 */
 		return pac;
 	}
 	
